@@ -1,6 +1,5 @@
 var config     = require( './lib/config' ),
     logger     = require( './lib/logger' ),
-    io         = require( 'socket.io' ),
     fs         = require( 'fs' ),
     net        = require( 'net' ),
     path       = require( 'path' ),	
@@ -19,7 +18,7 @@ var config     = require( './lib/config' ),
 
 
 var server  = http.createServer( app );
-var httpMgr = io.listen( server, function() {
+var httpMgr = require( 'socket.io' )( server, function() {
   logger.info("socket.io listening to http");
 } );
 
@@ -35,7 +34,7 @@ if ( config.ssl ) {
   }
 
   var sslServer = https.createServer( sslOptions, app );
-  var httpsMgr  = io.listen( sslServer, sslOptions, function() {
+  var httpsMgr  = require( 'socket.io' )( sslServer, sslOptions, function() {
     logger.info("socket.io listening to https");
   } );
 }
@@ -47,12 +46,6 @@ app.configure(function () {
   
   app.set( 'views', __dirname + '/views' );        // where to find the templates for pages
   app.set( 'view engine', 'ejs');                  // ormat the templates are in
-  
-  // 3 is debug, 2 is info
-  httpMgr.set('log level', ( config.node.mode == 'production' ? 1 : 3 ) );
-  if ( config.ssl ) {
-      httpsMgr.set('log level', ( config.node.mode == 'production' ? 1 : 3 ) );
-  }
 
   var versionHash = process.argv[process.argv.length-1];
   app.set( 'cachingHash', versionHash );
