@@ -17,8 +17,17 @@ var config     = require( './lib/config' ),
     app        = express();
 
 
+var corsPolicy = {
+  origin: config.moo.host,
+  methods: ["GET", "POST"]
+}
+
+var httpOptions = {
+  cors: corsPolicy
+}
+
 var server  = http.createServer( app );
-var httpMgr = require( 'socket.io' )( server, function() {
+var httpMgr = require( 'socket.io' )( server, httpOptions, function() {
   logger.info("socket.io listening to http");
 } );
 
@@ -26,7 +35,8 @@ var httpMgr = require( 'socket.io' )( server, function() {
 if ( config.ssl ) {
   var sslOptions = {
     key  : fs.readFileSync(config.ssl.key),
-    cert : fs.readFileSync(config.ssl.cert)
+    cert : fs.readFileSync(config.ssl.cert),
+    cors: corsPolicy
   };
   
   if ( config.ssl.ca ) {
