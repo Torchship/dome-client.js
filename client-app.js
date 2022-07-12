@@ -18,7 +18,7 @@ var config     = require( './lib/config' ),
 
 
 var corsPolicy = {
-  origin: config.moo.host,
+  origin: "*",
   methods: ["GET", "POST"]
 }
 
