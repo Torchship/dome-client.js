@@ -42,20 +42,23 @@ exports.connection = function ( socket ) {
   }
 
   // open a network connection to the moo
-  socket.set( 'is-active', true );
-  socket.set( 'game-address', { host: gameHost, port: gamePort } );
+  socket.is_active = true;
+  socket.game_address = { host: gameHost, port: gamePort };
 
   var moo = net.connect( { 'port' : gamePort, 'host' : gameHost }, function(err) {
     // tell the other end of the connection that it connected successfully
     if (err) {
       logger.error( err );
-      socket.set( 'is-active', false );
+      socket.is_active = false;
     } else {
-      socket.get( 'game-address', function( err, address ) {
-        whenConnected(address);
-        socket.set( 'is-active', true );
-        socket.emit( 'connected', ( new Date() ).toString() );
-      });
+      whenConnected(socket.game_address);
+      socket.is_active = true;
+      socket.emit( 'connected', ( new Date() ).toString() );
+      //socket.get( 'game-address', function( err, address ) {
+      //  whenConnected(address);
+      //  socket.is_active = true;
+      //  socket.emit( 'connected', ( new Date() ).toString() );
+      //});
     }
   });
   
@@ -76,11 +79,11 @@ exports.connection = function ( socket ) {
         // server wants to know the current remote address
         moo.write( "@dome-client-user " + socket.handshake.address.address + "\r\n", "utf8" );
       } else {
-        socket.get( 'is-active', function( err, active ) {
-            if ( active ) {
+        //socket.get( 'is-active', function( err, active ) {
+            if ( socket.is_active ) {
                 socket.emit( 'data', data );
             }
-        });
+        //});
       }
     } catch (e) {
       logger.error('exception caught when receiving data from the moo', e);
@@ -89,25 +92,25 @@ exports.connection = function ( socket ) {
   
   moo.on( 'end', function( ) {
     logger.debug('moo connect sent end');
-    socket.get( 'is-active', function( err, active ) {
-      if ( active ) {
+    //socket.get( 'is-active', function( err, active ) {
+      if ( socket.is_active ) {
         logger.debug('socket is active, sending disconnect and marking inactive');
-        socket.set( 'is-active', false );
+        socket.is_active = false;
         socket.emit( 'disconnect' );
       } else {
         logger.debug('socket is no longer active');
       }
-    });
+    //});
   });
   
   moo.on( 'error', function(e) {
     logger.error( 'moo error event occurred' );
     logger.error( e );
-      socket.get( 'is-active', function( err, active ) {
-        if ( active ) {
+      //socket.get( 'is-active', function( err, active ) {
+        if ( socket.is_active ) {
           socket.emit( 'error', e );
         }
-      });
+      //});
   });
   
   socket.on( 'error', function(e) {
@@ -117,7 +120,7 @@ exports.connection = function ( socket ) {
   });
   
   socket.on( 'disconnect', function( data ) {
-    socket.set( 'is-active', false );
+    socket.is_active = false;
     logger.debug( 'disconnected from client with data:' );
     logger.debug( data );
     moo.write( '@quit' + "\r\n", "utf8", function() {
@@ -138,7 +141,7 @@ exports.connection = function ( socket ) {
           socket.emit( 'status', 'sent ' + command.length + ' characters' );
           if ( command == '@quit' ) {
             moo.end();
-            socket.set( 'is-active', false );
+            socket.is_active = false;
             socket.emit( 'disconnect' );
           }
         });
@@ -146,11 +149,11 @@ exports.connection = function ( socket ) {
       } catch ( exception ) {
         logger.error( 'exception while writing to moo' );
         logger.error( exception );
-        socket.get( 'is-active', function( err, active ) {
-          if ( active ) {
+        //socket.get( 'is-active', function( err, active ) {
+          if ( socket.is_active ) {
             socket.emit( 'error', exception ); 
           }
-        });
+        //});
       }
     }
   });
