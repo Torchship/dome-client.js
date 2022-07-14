@@ -27,6 +27,17 @@ exports.connected = function() {
   };
 };
 
+function make_key(length) {
+  var result           = '';
+  var characters       = '0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * 
+charactersLength));
+ }
+ return result;
+}
+
 // browser connecting via websocket
 exports.connection = function ( socket ) {
 
@@ -45,7 +56,7 @@ exports.connection = function ( socket ) {
   socket.is_active = true;
   socket.game_address = { host: gameHost, port: gamePort };
 
-  var moo = net.connect( { 'port' : gamePort, 'host' : gameHost }, function(err) {
+  const moo = net.connect( { 'port' : gamePort, 'host' : gameHost }, function(err) {
     // tell the other end of the connection that it connected successfully
     if (err) {
       logger.error( err );
@@ -53,37 +64,63 @@ exports.connection = function ( socket ) {
     } else {
       whenConnected(socket.game_address);
       socket.is_active = true;
+      moo.mcp = {
+        'version': "?",
+        'handshake': false,
+        'packages': {},
+        'key': make_key(8)
+      };
       socket.emit( 'connected', ( new Date() ).toString() );
-      //socket.get( 'game-address', function( err, address ) {
-      //  whenConnected(address);
-      //  socket.is_active = true;
-      //  socket.emit( 'connected', ( new Date() ).toString() );
-      //});
     }
   });
-  
-  /*moo.on( 'connect', function( data ) {
-    socket.get( 'game-address', function( err, address ) {
-      whenConnected(address);
-      socket.set( 'is-active', true );
-      socket.emit( 'connected', ( new Date() ).toString() );
-    });
-  });*/
   
   // ** when receiving data from the moo
   moo.on( 'data', function( data ) {
     try {
       data = data.toString();
-      if ( ( marker = data.indexOf( '#$# dome-client-user' ) ) != -1 ) {
-        var end = data.indexOf( "\r\n", marker );
-        // server wants to know the current remote address
-        moo.write( "@dome-client-user " + socket.handshake.address.address + "\r\n", "utf8" );
-      } else {
-        //socket.get( 'is-active', function( err, active ) {
-            if ( socket.is_active ) {
-                socket.emit( 'data', data );
+      if (!moo.mcp.handshake) {
+        lines = data.split("\r\n");
+        data = "";
+        for( var i = 0; i < lines.length; i++ ) {
+          const mcpRegex = /#\$#mcp-?(?<protocol>[a-zA-Z\-]+)?(?: (?<key>[\d]+))?(?: (?<oob>[a-zA-Z]+):)?(?: (?<args>.+))?/;
+          const mcpMatch = lines[i].match(mcpRegex);
+          if (!mcpMatch) {
+            // only pass non-MCP details on to client.
+            if (lines[i]) {
+              data += lines[i] + "\r\n";
             }
-        //});
+            continue;
+          }
+
+          const mcpArgs = mcpMatch.groups.args !== undefined ? mcpMatch.groups.args.split(' ') : {};
+          if (mcpMatch.groups.oob == "version") {
+            moo.mcp.version = mcpArgs[mcpArgs.length];
+            moo.write( `#$#mcp authentication-key: ${moo.mcp.key} version: 1.0 to: 2.1\r\n` , "utf8");
+            continue;
+          } 
+
+          if (!mcpMatch.groups.oob && mcpMatch.groups.key != moo.mcp.key) {
+            console.error(`possible spoof detected; expected key ${moo.mcp.key} but got ${mcpMatch.groups.key} instead. Discarding '${lines[i]}'`);
+            continue;
+          }
+          
+          switch(mcpMatch.groups.protocol) {
+            case 'negotiate-can':
+              moo.mcp.packages[mcpArgs[0]] = mcpArgs[mcpArgs.length - 1];
+              break;
+            case 'negotiate-end':
+              // we've completed our handshake.
+              moo.mcp.handshake = true;
+              moo.write (`#$#mcp-negotiate-can ${moo.mcp.key} package: mcp-forward min-version: 1.0 max-version: 1.0\r\n`, "utf8");
+              moo.write (`#$#mcp-negotiate-end ${moo.mcp.key}\r\n`, "utf8");
+              moo.write( `#$#mcp-forward-host ${moo.mcp.key} address: ${socket.handshake.address}\r\n`, "utf8");
+              break;
+          }
+        }
+      }
+
+      if ( data && socket.is_active ) {
+        socket.emit( 'data', data );
       }
     } catch (e) {
       logger.error('exception caught when receiving data from the moo', e);
@@ -92,25 +129,21 @@ exports.connection = function ( socket ) {
   
   moo.on( 'end', function( ) {
     logger.debug('moo connect sent end');
-    //socket.get( 'is-active', function( err, active ) {
-      if ( socket.is_active ) {
-        logger.debug('socket is active, sending disconnect and marking inactive');
-        socket.is_active = false;
-        socket.emit( 'disconnect' );
-      } else {
-        logger.debug('socket is no longer active');
-      }
-    //});
+    if ( socket.is_active ) {
+      logger.debug('socket is active, sending disconnect and marking inactive');
+      socket.is_active = false;
+      socket.disconnect();
+    } else {
+      logger.debug('socket is no longer active');
+    }
   });
   
   moo.on( 'error', function(e) {
     logger.error( 'moo error event occurred' );
     logger.error( e );
-      //socket.get( 'is-active', function( err, active ) {
-        if ( socket.is_active ) {
-          socket.emit( 'error', e );
-        }
-      //});
+    if ( socket.is_active ) {
+      socket.emit( 'error', e );
+    }
   });
   
   socket.on( 'error', function(e) {
@@ -119,13 +152,10 @@ exports.connection = function ( socket ) {
     // can't send this to the user 
   });
   
-  socket.on( 'disconnect', function( data ) {
+  socket.on( 'disconnected', function( data ) {
     socket.is_active = false;
     logger.debug( 'disconnected from client with data:' );
     logger.debug( data );
-    moo.write( '@quit' + "\r\n", "utf8", function() {
-      moo.end();
-    });
   });
   
   // ** when receiving input from the websocket connected browser
@@ -142,18 +172,16 @@ exports.connection = function ( socket ) {
           if ( command == '@quit' ) {
             moo.end();
             socket.is_active = false;
-            socket.emit( 'disconnect' );
+            socket.disconnect();
           }
         });
         if (inputCallback) inputCallback( { 'status' : 'command sent from ' + config.node.poweredBy + ' to moo at ' + (new Date()).toString() } );
       } catch ( exception ) {
         logger.error( 'exception while writing to moo' );
         logger.error( exception );
-        //socket.get( 'is-active', function( err, active ) {
-          if ( socket.is_active ) {
-            socket.emit( 'error', exception ); 
-          }
-        //});
+        if ( socket.is_active ) {
+          socket.emit( 'error', exception ); 
+        }
       }
     }
   });
