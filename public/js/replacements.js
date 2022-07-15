@@ -1,4 +1,6 @@
 // basic regex for any url
+let ansiDepth = 0;
+
 var urlRegex =
   /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\(\)\/%?=~_|!:,.;]*[-A-Z0-9+&\(\)@#\/%=~_|])/gi;
 
@@ -269,190 +271,291 @@ var subs = [
   {
     type: "ansi",
     pattern: /\u001b\[1\;30m/g,
-    replacement: '<span class="ansi-brblack">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-brblack">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[0\;30m/g,
-    replacement: '<span class="ansi-black">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-black">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[1\;31m/g,
-    replacement: '<span class="ansi-brred">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-brred">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[0\;31m/g,
-    replacement: '<span class="ansi-red">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-red">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[1\;32m/g,
-    replacement: '<span class="ansi-brgreen">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-brgreen">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[0\;32m/g,
-    replacement: '<span class="ansi-green">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-green">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[1\;33m/g,
-    replacement: '<span class="ansi-bryellow">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bryellow">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[0\;33m/g,
-    replacement: '<span class="ansi-yellow">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-yellow">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[1\;34m/g,
-    replacement: '<span class="ansi-brblue">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-brblue">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[0\;34m/g,
-    replacement: '<span class="ansi-blue">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-blue">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[1\;35m/g,
-    replacement: '<span class="ansi-brmagenta">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-brmagenta">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[0\;35m/g,
-    replacement: '<span class="ansi-magenta">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-magenta">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[1\;36m/g,
-    replacement: '<span class="ansi-brcyan">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-brcyan">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[0\;36m/g,
-    replacement: '<span class="ansi-cyan">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-cyan">';
+    },
   },
   {
     type: "ansi",
-    pattern: /\u001b\[1\;37m/g,
-    replacement: '<span class="ansi-bright">',
-  },
-  {
-    type: "ansi",
-    pattern: /\u001b\[0\;37m/g,
-    replacement: '<span class="ansi-bright">',
+    pattern: /\u001b\[(0|1)\;37m/g,
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bright">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[4m/g,
-    replacement: '<span class="ansi-underline">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-underline">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[5m/g,
-    replacement: '<span class="ansi-slow-blink">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-slow-blink">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[1m/g,
-    replacement: '<span class="ansi-bold">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bold">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[2m/g,
-    replacement: '<span class="ansi-faint">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-faint">';
+    },
   },
-  { type: "ansi", pattern: /\u001b\[0m/g, replacement: "</span>" },
   { type: "ansi", pattern: /\u001b\[40m/g, replacement: "</span>" },
   {
     type: "ansi",
     pattern: /\u001b\[41m/g,
-    replacement: '<span class="ansi-bgred">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bgred">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[42m/g,
-    replacement: '<span class="ansi-bggreen">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bggreen">'
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[43m/g,
-    replacement: '<span class="ansi-bgyellow">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bgyellow">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[44m/g,
-    replacement: '<span class="ansi-bgblue">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bgblue">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[45m/g,
-    replacement: '<span class="ansi-bgmagenta">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bgmagenta">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[46m/g,
-    replacement: '<span class="ansi-bgcyan">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bgcyan">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[47m/g,
-    replacement: '<span class="ansi-bgwhite">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bgwhite">';
+    },
   },
   { type: "ansi", pattern: /\u001b\[49m/g, replacement: "</span>" },
   {
     type: "ansi",
-    pattern: /\u001b\[00m/g,
-    replacement: "</span></span></span></span>",
+    pattern: /\u001b\[(00|0)m/g,
+    replacement: function (m, p1) {
+      let result = "</span>".repeat(ansiDepth);
+      ansiDepth = 0;
+      return result;
+    }
   },
   {
     type: "ansi",
     pattern: /\u001b\[01m/g,
-    replacement: '<span class="ansi-underline">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-underline">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[31m/g,
-    replacement: '<span class="ansi-red">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-red">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[32m/g,
-    replacement: '<span class="ansi-green">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-green">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[33m/g,
-    replacement: '<span class="ansi-yellow">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-yellow">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[34m/g,
-    replacement: '<span class="ansi-blue">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-blue">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[35m/g,
-    replacement: '<span class="ansi-magenta">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-magenta">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[36m/g,
-    replacement: '<span class="ansi-cyan">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-cyan">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[37m/g,
-    replacement: '<span class="ansi-bright">',
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-bright">';
+    },
   },
   {
     type: "ansi",
     pattern: /\u001b\[38;5;(\d+)m/g,
     replacement: function (m, p1) {
+      ansiDepth++;
       return '<span class="xterm256-' + xterm256_colors[p1] + '">';
     },
   },
@@ -460,6 +563,7 @@ var subs = [
     type: "ansi",
     pattern: /\u001b\[48;5;(\d+)m/g,
     replacement: function (m, p1) {
+      ansiDepth++;
       return '<span class="xterm256-bg-' + xterm256_colors[p1] + '">';
     },
   },
