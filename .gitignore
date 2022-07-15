@@ -12,7 +12,6 @@ logs
 results
 
 node_modules
-public/css
 
 npm-debug.log
 .metadata
