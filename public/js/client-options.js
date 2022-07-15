@@ -36,25 +36,14 @@ var store = {
 };
 
 var EDIT_THEMES = ['ambience', 'chaos', 'chrome', 'clouds', 'clouds_midnight', 'cobalt', 'crimson_editor', 'dawn', 'dreamweaver', 'eclipse', 'github', 'idle_fingers', 'kr_theme', 'merbivore', 'merbivore_soft', 'mono_industrial', 'monokai', 'pastel_on_dark', 'solarized_dark', 'solarized_light', 'terminal', 'textmate', 'tomorrow_night', 'tomorrow_night_blue', 'tomorrow_night_bright', 'tomorrow_night_eighties', 'twilight', 'vibrant_ink', 'xcode'];
-var FONT_CHOICES = ['standard', 'lucida', 'courier', 'roboto'];
-var COLORSET_CHOICES = [ 'normal', 'dim', 'slither', 'acid', 'corpie', 'snow'];
+var FONT_CHOICES = ['standard', 'lucida', 'courier'];
 
 var clientOptions = { 
   'options' : {
-    'commands'    : {'param' : 'cs', 'def': true, 'ok' : [true, false]},
-    'shorten'     : {'param' : 'su', 'def': true, 'ok' : [true, false]},
-    'scroll'      : {'param' : 'as', 'def': 'dbl', 'ok' : ['dbl', 'long', 'none']},
-    'channels'    : {'param' : 'cw', 'def': false, 'ok' : [true, false]},
-    'godmode'     : {'param' : 'gm', 'def': false, 'ok' : [true, false]},
-    'edittheme'   : {'param' : 'et', 'def': 'twilight', 'ok' : EDIT_THEMES},
-    'colorset'    : {'param' : 'cl', 'def': 'normal', 'ok' : COLORSET_CHOICES},
-    'outfont'     : {'param' : 'of', 'def': 'standard', 'ok' : FONT_CHOICES},
-    'playding'    : {'param' : 'pd', 'def': true, 'ok' : [true, false]},
-    'localecho'   : {'param' : 'le', 'def': false, 'ok' : [true, false]},
-    'imageview'   : {'param' : 'iv', 'def': false, 'ok' : [true, false]},
-    'transparent' : {'param' : 'to', 'def': false, 'ok': [true,false]},
-    'broadly'     : {'param' : 'bs', 'def': true, 'ok': [true,false]},
-    'buffer'      : {'param' : 'pb', 'def': 0}
+    'commands'  : {'param' : 'cs', 'def': true, 'ok' : [true, false]}, 
+    'scroll'    : {'param' : 'as', 'def': 'dbl', 'ok' : ['dbl', 'long']},
+    'edittheme' : {'param' : 'et', 'def': 'twilight', 'ok' : EDIT_THEMES},
+    'outfont'   : {'param' : 'of', 'def': 'standard', 'ok' : FONT_CHOICES}
   },
   'prefix' : 'dc-toggle-', // namespacing options in localStorage
   'get' : function(name) {
@@ -99,7 +88,7 @@ $(document).ready(function() {
     var name = id.replace('-option', '');
     var option = clientOptions.get(name);
     var active = 'disabled-state';
-    if (!option.ok || option.state == option.ok[0]) {
+    if (option.state == option.ok[0]) {
       active = 'enabled-state';
     }
     // give the active button the primary color
@@ -123,9 +112,8 @@ $(document).ready(function() {
   });
   
   $('DIV.client-options-page DIV.option-row BUTTON').each(function(i) {
-    var self = $(this);
-    self.on('click', function() {
-      var btn = self;
+    $(this).on('click', function() {
+      var btn = $(this);
       
       var val = btn.data('val');
       if (val == 'true') {
@@ -134,7 +122,8 @@ $(document).ready(function() {
         val = false;
       }
       
-      var row = btn.parents("DIV.option-row");
+      var row = btn.parents("option-row");
+      console.log(row);
       var name = row.attr('id').replace('-option', '');
       
       // find the other button matching this button
@@ -149,27 +138,5 @@ $(document).ready(function() {
       }
       clientOptions.save(name, val);
     });
-  });
-  
-  $('DIV.client-options-page DIV.option-row INPUT').each(function(i) {
-    var self = $(this);
-
-    var row = self.parents("DIV.option-row");
-    var name = row.attr('id').replace('-option', '');
-
-    var pref = clientOptions.get(name);
-    if (pref && pref.state) {
-      self.val(pref.state);
-    }
-
-    self.on('change', function() {
-      var input = self;
-      var fieldValue = input.val();
-      if (input.attr('type') == 'number') fieldValue = fieldValue.indexOf('.') != -1 ? parseFloat(fieldValue) : parseInt(fieldValue);
-      console.log('' + typeof(fieldValue) + ': ' + fieldValue);
-
-      
-      clientOptions.save(name, fieldValue);
-    });
-  });
+  });  
 });
