@@ -2,6 +2,11 @@
   "name": "dome-client.js",
   "version": "1.0.0",
   "private": false,
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "scripts": {
     "start": "node client-app"
   },
@@ -16,5 +21,10 @@
     "socket.io": "~4.5.1",
     "underscore": "~1.13.4",
     "version-git": "0.0.2"
-  }
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "prettier": "2.7.1",
+    "pretty-quick": "^3.1.3"
+  },
 }

@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
  *     * Neither the name of Ajax.org B.V. nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,32 +28,44 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/keyboard/emacs', ['require', 'exports', 'module' , 'ace/lib/dom', 'ace/keyboard/hash_handler', 'ace/lib/keys'], function(require, exports, module) {
+define("ace/keyboard/emacs", [
+  "require",
+  "exports",
+  "module",
+  "ace/lib/dom",
+  "ace/keyboard/hash_handler",
+  "ace/lib/keys",
+], function (require, exports, module) {
+  var dom = require("../lib/dom");
 
-
-var dom = require("../lib/dom");
-
-var screenToTextBlockCoordinates = function(pageX, pageY) {
+  var screenToTextBlockCoordinates = function (pageX, pageY) {
     var canvasPos = this.scroller.getBoundingClientRect();
 
     var col = Math.floor(
-        (pageX + this.scrollLeft - canvasPos.left - this.$padding - dom.getPageScrollLeft()) / this.characterWidth
+      (pageX +
+        this.scrollLeft -
+        canvasPos.left -
+        this.$padding -
+        dom.getPageScrollLeft()) /
+        this.characterWidth
     );
     var row = Math.floor(
-        (pageY + this.scrollTop - canvasPos.top - dom.getPageScrollTop()) / this.lineHeight
+      (pageY + this.scrollTop - canvasPos.top - dom.getPageScrollTop()) /
+        this.lineHeight
     );
 
     return this.session.screenToDocumentPosition(row, col);
-};
+  };
 
-var HashHandler = require("./hash_handler").HashHandler;
-exports.handler = new HashHandler();
+  var HashHandler = require("./hash_handler").HashHandler;
+  exports.handler = new HashHandler();
 
-var initialized = false;
-exports.handler.attach = function(editor) {
+  var initialized = false;
+  exports.handler.attach = function (editor) {
     if (!initialized) {
-        initialized = true;
-        dom.importCssString('\
+      initialized = true;
+      dom.importCssString(
+        "\
             .emacs-mode .ace_cursor{\
                 border: 2px rgba(50,250,50,0.8) solid!important;\
                 -moz-box-sizing: border-box!important;\
@@ -76,142 +88,135 @@ exports.handler.attach = function(editor) {
             }\
             .emacs-mode .ace_cursor-layer {\
                 z-index: 2\
-            }', 'emacsMode'
-        );
+            }",
+        "emacsMode"
+      );
     }
 
     editor.renderer.screenToTextCoordinates = screenToTextBlockCoordinates;
     editor.setStyle("emacs-mode");
-};
+  };
 
-exports.handler.detach = function(editor) {
+  exports.handler.detach = function (editor) {
     delete editor.renderer.screenToTextCoordinates;
     editor.unsetStyle("emacs-mode");
-};
+  };
 
-
-var keys = require("../lib/keys").KEY_MODS;
-var eMods = {
-    C: "ctrl", S: "shift", M: "alt"
-};
-["S-C-M", "S-C", "S-M", "C-M", "S", "C", "M"].forEach(function(c) {
+  var keys = require("../lib/keys").KEY_MODS;
+  var eMods = {
+    C: "ctrl",
+    S: "shift",
+    M: "alt",
+  };
+  ["S-C-M", "S-C", "S-M", "C-M", "S", "C", "M"].forEach(function (c) {
     var hashId = 0;
-    c.split("-").forEach(function(c){
-        hashId = hashId | keys[eMods[c]];
+    c.split("-").forEach(function (c) {
+      hashId = hashId | keys[eMods[c]];
     });
     eMods[hashId] = c.toLowerCase() + "-";
-});
+  });
 
-exports.handler.bindKey = function(key, command) {
-    if (!key)
-        return;
+  exports.handler.bindKey = function (key, command) {
+    if (!key) return;
 
     var ckb = this.commmandKeyBinding;
-    key.split("|").forEach(function(keyPart) {
-        keyPart = keyPart.toLowerCase();
-        ckb[keyPart] = command;
-        keyPart = keyPart.split(" ")[0];
-        if (!ckb[keyPart])
-            ckb[keyPart] = "null";
+    key.split("|").forEach(function (keyPart) {
+      keyPart = keyPart.toLowerCase();
+      ckb[keyPart] = command;
+      keyPart = keyPart.split(" ")[0];
+      if (!ckb[keyPart]) ckb[keyPart] = "null";
     }, this);
-};
+  };
 
-
-exports.handler.handleKeyboard = function(data, hashId, key, keyCode) {
+  exports.handler.handleKeyboard = function (data, hashId, key, keyCode) {
     if (hashId == -1) {
-        if (data.count) {
-            var str = Array(data.count + 1).join(key);
-            data.count = null;
-            return {command: "insertstring", args: str};
-        }
+      if (data.count) {
+        var str = Array(data.count + 1).join(key);
+        data.count = null;
+        return { command: "insertstring", args: str };
+      }
     }
 
-    if (key == "\x00")
-        return;
+    if (key == "\x00") return;
 
     var modifier = eMods[hashId];
     if (modifier == "c-" || data.universalArgument) {
-        var count = parseInt(key[key.length - 1]);
-        if (count) {
-            data.count = count;
-            return {command: "null"};
-        }
+      var count = parseInt(key[key.length - 1]);
+      if (count) {
+        data.count = count;
+        return { command: "null" };
+      }
     }
     data.universalArgument = false;
 
-    if (modifier)
-        key = modifier + key;
+    if (modifier) key = modifier + key;
 
-    if (data.keyChain)
-        key = data.keyChain += " " + key;
+    if (data.keyChain) key = data.keyChain += " " + key;
 
     var command = this.commmandKeyBinding[key];
     data.keyChain = command == "null" ? key : "";
 
-    if (!command)
-        return;
+    if (!command) return;
 
-    if (command == "null")
-        return {command: "null"};
+    if (command == "null") return { command: "null" };
 
     if (command == "universalArgument") {
-        data.universalArgument = true;
-        return {command: "null"};
+      data.universalArgument = true;
+      return { command: "null" };
     }
 
     if (typeof command != "string") {
-        var args = command.args;
-        command = command.command;
+      var args = command.args;
+      command = command.command;
     }
 
     if (typeof command == "string") {
-        command = this.commands[command] || data.editor.commands.commands[command];
+      command =
+        this.commands[command] || data.editor.commands.commands[command];
     }
 
-    if (!command.readonly && !command.isYank)
-        data.lastCommand = null;
+    if (!command.readonly && !command.isYank) data.lastCommand = null;
 
     if (data.count) {
-        var count = data.count;
-        data.count = 0;
-        return {
-            args: args,
-            command: {
-                exec: function(editor, args) {
-                    for (var i = 0; i < count; i++)
-                        command.exec(editor, args);
-                }
-            }
-        };
+      var count = data.count;
+      data.count = 0;
+      return {
+        args: args,
+        command: {
+          exec: function (editor, args) {
+            for (var i = 0; i < count; i++) command.exec(editor, args);
+          },
+        },
+      };
     }
 
-    return {command: command, args: args};
-};
+    return { command: command, args: args };
+  };
 
-exports.emacsKeys = {
-    "Up|C-p"      : "golineup",
-    "Down|C-n"    : "golinedown",
-    "Left|C-b"    : "gotoleft",
-    "Right|C-f"   : "gotoright",
-    "C-Left|M-b"  : "gotowordleft",
-    "C-Right|M-f" : "gotowordright",
-    "Home|C-a"    : "gotolinestart",
-    "End|C-e"     : "gotolineend",
+  exports.emacsKeys = {
+    "Up|C-p": "golineup",
+    "Down|C-n": "golinedown",
+    "Left|C-b": "gotoleft",
+    "Right|C-f": "gotoright",
+    "C-Left|M-b": "gotowordleft",
+    "C-Right|M-f": "gotowordright",
+    "Home|C-a": "gotolinestart",
+    "End|C-e": "gotolineend",
     "C-Home|S-M-,": "gotostart",
-    "C-End|S-M-." : "gotoend",
-    "S-Up|S-C-p"      : "selectup",
-    "S-Down|S-C-n"    : "selectdown",
-    "S-Left|S-C-b"    : "selectleft",
-    "S-Right|S-C-f"   : "selectright",
-    "S-C-Left|S-M-b"  : "selectwordleft",
-    "S-C-Right|S-M-f" : "selectwordright",
-    "S-Home|S-C-a"    : "selecttolinestart",
-    "S-End|S-C-e"     : "selecttolineend",
-    "S-C-Home"        : "selecttostart",
-    "S-C-End"         : "selecttoend",
+    "C-End|S-M-.": "gotoend",
+    "S-Up|S-C-p": "selectup",
+    "S-Down|S-C-n": "selectdown",
+    "S-Left|S-C-b": "selectleft",
+    "S-Right|S-C-f": "selectright",
+    "S-C-Left|S-M-b": "selectwordleft",
+    "S-C-Right|S-M-f": "selectwordright",
+    "S-Home|S-C-a": "selecttolinestart",
+    "S-End|S-C-e": "selecttolineend",
+    "S-C-Home": "selecttostart",
+    "S-C-End": "selecttoend",
 
-    "C-l" : "recenterTopBottom",
-    "M-s" : "centerselection",
+    "C-l": "recenterTopBottom",
+    "M-s": "centerselection",
     "M-g": "gotoline",
     "C-x C-p": "selectall",
     "C-Down": "gotopagedown",
@@ -225,13 +230,13 @@ exports.emacsKeys = {
     "M-C-s": "findnext",
     "M-C-r": "findprevious",
     "S-M-5": "replace",
-    "Backspace": "backspace",
+    Backspace: "backspace",
     "Delete|C-d": "del",
-    "Return|C-m": {command: "insertstring", args: "\n"}, // "newline"
+    "Return|C-m": { command: "insertstring", args: "\n" }, // "newline"
     "C-o": "splitline",
 
-    "M-d|C-Delete": {command: "killWord", args: "right"},
-    "C-Backspace|M-Backspace|M-Delete": {command: "killWord", args: "left"},
+    "M-d|C-Delete": { command: "killWord", args: "right" },
+    "C-Backspace|M-Backspace|M-Delete": { command: "killWord", args: "left" },
     "C-k": "killLine",
 
     "C-y|S-Delete": "yank",
@@ -254,111 +259,105 @@ exports.emacsKeys = {
 
     "C-/|C-x u|S-C--|C-z": "undo",
     "S-C-/|S-C-x u|C--|S-C-z": "redo", //infinite undo?
-    "C-x r":  "selectRectangularRegion"
-};
+    "C-x r": "selectRectangularRegion",
+  };
 
+  exports.handler.bindKeys(exports.emacsKeys);
 
-exports.handler.bindKeys(exports.emacsKeys);
-
-exports.handler.addCommands({
-    recenterTopBottom: function(editor) {
-        var renderer = editor.renderer;
-        var pos = renderer.$cursorLayer.getPixelPosition();
-        var h = renderer.$size.scrollerHeight - renderer.lineHeight;       
-        var scrollTop = renderer.scrollTop;
-        if (Math.abs(pos.top - scrollTop) < 2) {
-            scrollTop = pos.top - h;
-        } else if (Math.abs(pos.top - scrollTop - h * 0.5) < 2) {
-            scrollTop = pos.top;
-        } else {
-            scrollTop = pos.top - h * 0.5;
-        }
-        editor.session.setScrollTop(scrollTop);
+  exports.handler.addCommands({
+    recenterTopBottom: function (editor) {
+      var renderer = editor.renderer;
+      var pos = renderer.$cursorLayer.getPixelPosition();
+      var h = renderer.$size.scrollerHeight - renderer.lineHeight;
+      var scrollTop = renderer.scrollTop;
+      if (Math.abs(pos.top - scrollTop) < 2) {
+        scrollTop = pos.top - h;
+      } else if (Math.abs(pos.top - scrollTop - h * 0.5) < 2) {
+        scrollTop = pos.top;
+      } else {
+        scrollTop = pos.top - h * 0.5;
+      }
+      editor.session.setScrollTop(scrollTop);
     },
-    selectRectangularRegion:  function(editor) {
-        editor.multiSelect.toggleBlockSelection();
+    selectRectangularRegion: function (editor) {
+      editor.multiSelect.toggleBlockSelection();
     },
-    setMark:  function() {
-    },
+    setMark: function () {},
     exchangePointAndMark: {
-        exec: function(editor) {
-            var range = editor.selection.getRange();
-            editor.selection.setSelectionRange(range, !editor.selection.isBackwards());
-        },
-        readonly: true,
-        multiselectAction: "forEach"
+      exec: function (editor) {
+        var range = editor.selection.getRange();
+        editor.selection.setSelectionRange(
+          range,
+          !editor.selection.isBackwards()
+        );
+      },
+      readonly: true,
+      multiselectAction: "forEach",
     },
     killWord: {
-        exec: function(editor, dir) {
-            editor.clearSelection();
-            if (dir == "left")
-                editor.selection.selectWordLeft();
-            else
-                editor.selection.selectWordRight();
+      exec: function (editor, dir) {
+        editor.clearSelection();
+        if (dir == "left") editor.selection.selectWordLeft();
+        else editor.selection.selectWordRight();
 
-            var range = editor.getSelectionRange();
-            var text = editor.session.getTextRange(range);
-            exports.killRing.add(text);
-
-            editor.session.remove(range);
-            editor.clearSelection();
-        },
-        multiselectAction: "forEach"
-    },
-    killLine: function(editor) {
-        editor.selection.selectLine();
         var range = editor.getSelectionRange();
         var text = editor.session.getTextRange(range);
         exports.killRing.add(text);
 
         editor.session.remove(range);
         editor.clearSelection();
+      },
+      multiselectAction: "forEach",
     },
-    yank: function(editor) {
-        editor.onPaste(exports.killRing.get());
-        editor.keyBinding.$data.lastCommand = "yank";
-    },
-    yankRotate: function(editor) {
-        if (editor.keyBinding.$data.lastCommand != "yank")
-            return;
+    killLine: function (editor) {
+      editor.selection.selectLine();
+      var range = editor.getSelectionRange();
+      var text = editor.session.getTextRange(range);
+      exports.killRing.add(text);
 
-        editor.undo();
-        editor.onPaste(exports.killRing.rotate());
-        editor.keyBinding.$data.lastCommand = "yank";
+      editor.session.remove(range);
+      editor.clearSelection();
     },
-    killRegion: function(editor) {
-        exports.killRing.add(editor.getCopyText());
-        editor.commands.byName.cut.exec(editor);
+    yank: function (editor) {
+      editor.onPaste(exports.killRing.get());
+      editor.keyBinding.$data.lastCommand = "yank";
     },
-    killRingSave: function(editor) {
-        exports.killRing.add(editor.getCopyText());
-    }
-});
+    yankRotate: function (editor) {
+      if (editor.keyBinding.$data.lastCommand != "yank") return;
 
-var commands = exports.handler.commands;
-commands.yank.isYank = true;
-commands.yankRotate.isYank = true;
+      editor.undo();
+      editor.onPaste(exports.killRing.rotate());
+      editor.keyBinding.$data.lastCommand = "yank";
+    },
+    killRegion: function (editor) {
+      exports.killRing.add(editor.getCopyText());
+      editor.commands.byName.cut.exec(editor);
+    },
+    killRingSave: function (editor) {
+      exports.killRing.add(editor.getCopyText());
+    },
+  });
 
-exports.killRing = {
+  var commands = exports.handler.commands;
+  commands.yank.isYank = true;
+  commands.yankRotate.isYank = true;
+
+  exports.killRing = {
     $data: [],
-    add: function(str) {
-        str && this.$data.push(str);
-        if (this.$data.length > 30)
-            this.$data.shift();
+    add: function (str) {
+      str && this.$data.push(str);
+      if (this.$data.length > 30) this.$data.shift();
     },
-    get: function() {
-        return this.$data[this.$data.length - 1] || "";
+    get: function () {
+      return this.$data[this.$data.length - 1] || "";
     },
-    pop: function() {
-        if (this.$data.length > 1)
-            this.$data.pop();
-        return this.get();
+    pop: function () {
+      if (this.$data.length > 1) this.$data.pop();
+      return this.get();
     },
-    rotate: function() {
-        this.$data.unshift(this.$data.pop());
-        return this.get();
-    }
-};
-
-
+    rotate: function () {
+      this.$data.unshift(this.$data.pop());
+      return this.get();
+    },
+  };
 });

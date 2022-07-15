@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
  *     * Neither the name of Ajax.org B.V. nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,11 +28,16 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/theme/tomorrow_night_bright', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
-
-exports.isDark = true;
-exports.cssClass = "ace-tomorrow-night-bright";
-exports.cssText = ".ace-tomorrow-night-bright .ace_gutter {\
+define("ace/theme/tomorrow_night_bright", [
+  "require",
+  "exports",
+  "module",
+  "ace/lib/dom",
+], function (require, exports, module) {
+  exports.isDark = true;
+  exports.cssClass = "ace-tomorrow-night-bright";
+  exports.cssText =
+    ".ace-tomorrow-night-bright .ace_gutter {\
 background: #1a1a1a;\
 color: #DEDEDE\
 }\
@@ -142,6 +147,6 @@ text-decoration: underline\
 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWNgYGD4z7Bq1ar/AAz9A/2naJQKAAAAAElFTkSuQmCC) right repeat-y\
 }";
 
-var dom = require("../lib/dom");
-dom.importCssString(exports.cssText, exports.cssClass);
+  var dom = require("../lib/dom");
+  dom.importCssString(exports.cssText, exports.cssClass);
 });

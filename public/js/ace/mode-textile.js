@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
  *     * Neither the name of Ajax.org B.V. nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,148 +28,156 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/mode/textile', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/text', 'ace/tokenizer', 'ace/mode/textile_highlight_rules', 'ace/mode/matching_brace_outdent'], function(require, exports, module) {
+define("ace/mode/textile", [
+  "require",
+  "exports",
+  "module",
+  "ace/lib/oop",
+  "ace/mode/text",
+  "ace/tokenizer",
+  "ace/mode/textile_highlight_rules",
+  "ace/mode/matching_brace_outdent",
+], function (require, exports, module) {
+  var oop = require("../lib/oop");
+  var TextMode = require("./text").Mode;
+  var Tokenizer = require("../tokenizer").Tokenizer;
+  var TextileHighlightRules =
+    require("./textile_highlight_rules").TextileHighlightRules;
+  var MatchingBraceOutdent =
+    require("./matching_brace_outdent").MatchingBraceOutdent;
 
-
-var oop = require("../lib/oop");
-var TextMode = require("./text").Mode;
-var Tokenizer = require("../tokenizer").Tokenizer;
-var TextileHighlightRules = require("./textile_highlight_rules").TextileHighlightRules;
-var MatchingBraceOutdent = require("./matching_brace_outdent").MatchingBraceOutdent;
-
-var Mode = function() {
+  var Mode = function () {
     this.$tokenizer = new Tokenizer(new TextileHighlightRules().getRules());
     this.$outdent = new MatchingBraceOutdent();
-};
-oop.inherits(Mode, TextMode);
+  };
+  oop.inherits(Mode, TextMode);
 
-(function() {
-    this.getNextLineIndent = function(state, line, tab) {
-        if (state == "intag")
-            return tab;
-        
-        return "";
+  (function () {
+    this.getNextLineIndent = function (state, line, tab) {
+      if (state == "intag") return tab;
+
+      return "";
     };
 
-    this.checkOutdent = function(state, line, input) {
-        return this.$outdent.checkOutdent(line, input);
+    this.checkOutdent = function (state, line, input) {
+      return this.$outdent.checkOutdent(line, input);
     };
 
-    this.autoOutdent = function(state, doc, row) {
-        this.$outdent.autoOutdent(doc, row);
+    this.autoOutdent = function (state, doc, row) {
+      this.$outdent.autoOutdent(doc, row);
     };
-    
-}).call(Mode.prototype);
+  }.call(Mode.prototype));
 
-exports.Mode = Mode;
-
+  exports.Mode = Mode;
 });
 
-define('ace/mode/textile_highlight_rules', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/text_highlight_rules'], function(require, exports, module) {
+define("ace/mode/textile_highlight_rules", [
+  "require",
+  "exports",
+  "module",
+  "ace/lib/oop",
+  "ace/mode/text_highlight_rules",
+], function (require, exports, module) {
+  var oop = require("../lib/oop");
+  var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
-
-var oop = require("../lib/oop");
-var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
-
-var TextileHighlightRules = function() {
+  var TextileHighlightRules = function () {
     this.$rules = {
-        "start" : [
-            {
-                token : function(value) {
-                    if (value.charAt(0) == "h")
-                        return "markup.heading." + value.charAt(1);
-                    else
-                        return "markup.heading";
-                },
-                regex : "h1|h2|h3|h4|h5|h6|bq|p|bc|pre",
-                next  : "blocktag"
-            },
-            {
-                token : "keyword",
-                regex : "[\\*]+|[#]+"
-            },
-            {
-                token : "text",
-                regex : ".+"
-            }
-        ],
-        "blocktag" : [
-            {
-                token : "keyword",
-                regex : "\\. ",
-                next  : "start"
-            },
-            {
-                token : "keyword",
-                regex : "\\(",
-                next  : "blocktagproperties"
-            }
-        ],
-        "blocktagproperties" : [
-            {
-                token : "keyword",
-                regex : "\\)",
-                next  : "blocktag"
-            },
-            {
-                token : "string",
-                regex : "[a-zA-Z0-9\\-_]+"
-            },
-            {
-                token : "keyword",
-                regex : "#"
-            }
-        ]
+      start: [
+        {
+          token: function (value) {
+            if (value.charAt(0) == "h")
+              return "markup.heading." + value.charAt(1);
+            else return "markup.heading";
+          },
+          regex: "h1|h2|h3|h4|h5|h6|bq|p|bc|pre",
+          next: "blocktag",
+        },
+        {
+          token: "keyword",
+          regex: "[\\*]+|[#]+",
+        },
+        {
+          token: "text",
+          regex: ".+",
+        },
+      ],
+      blocktag: [
+        {
+          token: "keyword",
+          regex: "\\. ",
+          next: "start",
+        },
+        {
+          token: "keyword",
+          regex: "\\(",
+          next: "blocktagproperties",
+        },
+      ],
+      blocktagproperties: [
+        {
+          token: "keyword",
+          regex: "\\)",
+          next: "blocktag",
+        },
+        {
+          token: "string",
+          regex: "[a-zA-Z0-9\\-_]+",
+        },
+        {
+          token: "keyword",
+          regex: "#",
+        },
+      ],
     };
-};
+  };
 
-oop.inherits(TextileHighlightRules, TextHighlightRules);
+  oop.inherits(TextileHighlightRules, TextHighlightRules);
 
-exports.TextileHighlightRules = TextileHighlightRules;
-
+  exports.TextileHighlightRules = TextileHighlightRules;
 });
 
-define('ace/mode/matching_brace_outdent', ['require', 'exports', 'module' , 'ace/range'], function(require, exports, module) {
+define("ace/mode/matching_brace_outdent", [
+  "require",
+  "exports",
+  "module",
+  "ace/range",
+], function (require, exports, module) {
+  var Range = require("../range").Range;
 
+  var MatchingBraceOutdent = function () {};
 
-var Range = require("../range").Range;
+  (function () {
+    this.checkOutdent = function (line, input) {
+      if (!/^\s+$/.test(line)) return false;
 
-var MatchingBraceOutdent = function() {};
-
-(function() {
-
-    this.checkOutdent = function(line, input) {
-        if (! /^\s+$/.test(line))
-            return false;
-
-        return /^\s*\}/.test(input);
+      return /^\s*\}/.test(input);
     };
 
-    this.autoOutdent = function(doc, row) {
-        var line = doc.getLine(row);
-        var match = line.match(/^(\s*\})/);
+    this.autoOutdent = function (doc, row) {
+      var line = doc.getLine(row);
+      var match = line.match(/^(\s*\})/);
 
-        if (!match) return 0;
+      if (!match) return 0;
 
-        var column = match[1].length;
-        var openBracePos = doc.findMatchingBracket({row: row, column: column});
+      var column = match[1].length;
+      var openBracePos = doc.findMatchingBracket({ row: row, column: column });
 
-        if (!openBracePos || openBracePos.row == row) return 0;
+      if (!openBracePos || openBracePos.row == row) return 0;
 
-        var indent = this.$getIndent(doc.getLine(openBracePos.row));
-        doc.replace(new Range(row, 0, row, column-1), indent);
+      var indent = this.$getIndent(doc.getLine(openBracePos.row));
+      doc.replace(new Range(row, 0, row, column - 1), indent);
     };
 
-    this.$getIndent = function(line) {
-        var match = line.match(/^(\s+)/);
-        if (match) {
-            return match[1];
-        }
+    this.$getIndent = function (line) {
+      var match = line.match(/^(\s+)/);
+      if (match) {
+        return match[1];
+      }
 
-        return "";
+      return "";
     };
+  }.call(MatchingBraceOutdent.prototype));
 
-}).call(MatchingBraceOutdent.prototype);
-
-exports.MatchingBraceOutdent = MatchingBraceOutdent;
+  exports.MatchingBraceOutdent = MatchingBraceOutdent;
 });

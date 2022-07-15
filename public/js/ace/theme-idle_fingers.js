@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
  *     * Neither the name of Ajax.org B.V. nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,11 +28,16 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/theme/idle_fingers', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
-
-exports.isDark = true;
-exports.cssClass = "ace-idle-fingers";
-exports.cssText = ".ace-idle-fingers .ace_gutter {\
+define("ace/theme/idle_fingers", [
+  "require",
+  "exports",
+  "module",
+  "ace/lib/dom",
+], function (require, exports, module) {
+  exports.isDark = true;
+  exports.cssClass = "ace-idle-fingers";
+  exports.cssText =
+    ".ace-idle-fingers .ace_gutter {\
 background: #3b3b3b;\
 color: #fff\
 }\
@@ -131,6 +136,6 @@ background-color: #FFF980\
 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWMwMjL6zzBz5sz/ABEUBGCqhK6UAAAAAElFTkSuQmCC) right repeat-y\
 }";
 
-var dom = require("../lib/dom");
-dom.importCssString(exports.cssText, exports.cssClass);
+  var dom = require("../lib/dom");
+  dom.importCssString(exports.cssText, exports.cssClass);
 });

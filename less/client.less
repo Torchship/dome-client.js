@@ -3,14 +3,14 @@
 
 @import "xterm256.less";
 
-@domeOrange:						#f89406;
+@domeOrange: #f89406;
 
 .ansi-bgred {
   background-color: #900;
 }
 
 .ansi-bgblue {
-  background-color: #00C;
+  background-color: #00c;
 }
 
 .ansi-bggreen {
@@ -30,7 +30,7 @@
 }
 
 .ansi-bgwhite {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .ansi-underline {
@@ -50,14 +50,18 @@
 }
 
 @-webkit-keyframes blinker {
-  from { opacity: 1.0; }
-  to { opacity: 0.0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .ansi-slow-blink {
   -webkit-animation-name: blinker;
   -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+  -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1);
   -webkit-animation-duration: 1400ms;
 }
 
@@ -65,22 +69,21 @@ BODY {
   height: 100%;
   overflow: hidden;
   background-color: #111;
-  background: url('/img/fuller_street1_sq.jpg');
+  background: url("/img/fuller_street1_sq.jpg");
   .background-size(100% 300%);
 }
 &.client {
-  border-bottom: 2px solid #EEE;
+  border-bottom: 2px solid #eee;
   background: none;
   background-color: #222;
 }
 
 INPUT.ui-autocomplete-input {
-  
 }
 
 UL.ui-autocomplete {
   width: 150px !important;
-  background-color:rgba(0, 0, 0, 0.5) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   background-image: none !important;
   margin-bottom: 75px;
 }
@@ -111,7 +114,6 @@ BODY.ide-window {
     width: 500px;
   }
 }
-  
 
 .editor {
   width: 100%;
@@ -119,29 +121,29 @@ BODY.ide-window {
   .menu {
     height: 40px;
     background-color: #666;
-    width:100%;
+    width: 100%;
     .btn {
-      margin: 5px 10px 5px 0; 
+      margin: 5px 10px 5px 0;
       &:first-child {
-       margin-left: 10px; 
+        margin-left: 10px;
       }
     }
   }
   .verb-editor {
     position: absolute;
-       top: 40px;
-       right: 0;
-       bottom: 0;
-       left: 0;
+    top: 40px;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
   textarea {
     background-color: #222;
     border-radius: 0;
     width: 100%;
     height: 100%;
-    color: #EEE;
+    color: #eee;
     margin: 0;
-    font-family: 'Source Code Pro';
+    font-family: "Source Code Pro";
     font-size: 13px;
     line-height: 15px;
     padding: 8px;
@@ -155,7 +157,7 @@ BODY.ide-window {
   bottom: 0;
   left: 0;
   z-index: 10000;
-  background-color: #000;  
+  background-color: #000;
   .opacity(80);
 }
 .disconnect-buttons {
@@ -182,14 +184,15 @@ BODY.ide-window {
   position: relative;
   height: 100%;
 
-  #lineBuffer, #channel {
+  #lineBuffer,
+  #channel {
     /* width: 100%; */
     padding: 10px 10px 5px;
     border: 2px solid black;
     background-color: black;
-    color: #AAA;
+    color: #aaa;
     height: 100%;
-    font-family: 'Source Code Pro';
+    font-family: "Source Code Pro";
     white-space: pre-wrap;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -201,7 +204,7 @@ BODY.ide-window {
       }
     }
     &.standardText {
-      font-family: 'Source Code Pro';
+      font-family: "Source Code Pro";
       font-size: 13px;
       line-height: 15px;
     }
@@ -209,7 +212,27 @@ BODY.ide-window {
       font-family: "Courier New";
       font-size: 13px;
       line-height: 15px;
-      .ansi-brcyan, .ansi-brgreen, .ansi-brred, .ansi-bryellow, .ansi-brblue, .ansi-brmagenta, .ansi-brred, .ansi-red, .ansi-cyan, .ansi-blue, .ansi-green, .ansi-magenta, .ansi-yellow, .ansi-bright, .ansi-bgred, .ansi-bggreen, .ansi-bgyellow, .ansi-bgblue, .ansi-bgcyan, .ansi-bgmagenta, .ansi-bgwhite {
+      .ansi-brcyan,
+      .ansi-brgreen,
+      .ansi-brred,
+      .ansi-bryellow,
+      .ansi-brblue,
+      .ansi-brmagenta,
+      .ansi-brred,
+      .ansi-red,
+      .ansi-cyan,
+      .ansi-blue,
+      .ansi-green,
+      .ansi-magenta,
+      .ansi-yellow,
+      .ansi-bright,
+      .ansi-bgred,
+      .ansi-bggreen,
+      .ansi-bgyellow,
+      .ansi-bgblue,
+      .ansi-bgcyan,
+      .ansi-bgmagenta,
+      .ansi-bgwhite {
         font-family: "Courier New";
       }
     }
@@ -217,7 +240,27 @@ BODY.ide-window {
       font-family: "Lucida Console";
       font-size: 13px;
       line-height: 15px;
-      .ansi-brcyan, .ansi-brgreen, .ansi-brred, .ansi-bryellow, .ansi-brblue, .ansi-brmagenta, .ansi-brred, .ansi-red, .ansi-cyan, .ansi-blue, .ansi-green, .ansi-magenta, .ansi-yellow, .ansi-bright, .ansi-bgred, .ansi-bggreen, .ansi-bgyellow, .ansi-bgblue, .ansi-bgcyan, .ansi-bgmagenta, .ansi-bgwhite {
+      .ansi-brcyan,
+      .ansi-brgreen,
+      .ansi-brred,
+      .ansi-bryellow,
+      .ansi-brblue,
+      .ansi-brmagenta,
+      .ansi-brred,
+      .ansi-red,
+      .ansi-cyan,
+      .ansi-blue,
+      .ansi-green,
+      .ansi-magenta,
+      .ansi-yellow,
+      .ansi-bright,
+      .ansi-bgred,
+      .ansi-bggreen,
+      .ansi-bgyellow,
+      .ansi-bgblue,
+      .ansi-bgcyan,
+      .ansi-bgmagenta,
+      .ansi-bgwhite {
         font-family: "Lucida Console";
       }
     }
@@ -229,13 +272,13 @@ BODY.ide-window {
       -webkit-user-select: none;
     }
   }
-  
+
   #inputBuffer {
     height: 50px;
     line-height: 16px;
     width: 100%;
     background-color: #333;
-    color: #EEE;
+    color: #eee;
     font-weight: normal;
     font-size: 14px;
     position: fixed;
@@ -244,19 +287,19 @@ BODY.ide-window {
     margin-bottom: 0;
     padding-left: 5px;
     border: 0;
-    border: 2px solid #EEE;
+    border: 2px solid #eee;
     &:focus {
       box-shadow: none;
     }
   }
-  
+
   #status {
     height: 20px;
-    color: #EEE;
+    color: #eee;
     width: 100%;
     font-size: smaller;
-    background-color: RGBA(0,0,0,0.5);
-    text-shadow: 1px 1px 1px RGBA(0,0,0,0.5);
+    background-color: RGBA(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px RGBA(0, 0, 0, 0.5);
     width: auto;
     position: fixed;
     top: 0;
@@ -266,9 +309,8 @@ BODY.ide-window {
   }
 }
 
-
 .mini-controls {
-  background-color: RGBA(0, 0, 0, 0.0);
+  background-color: RGBA(0, 0, 0, 0);
   border: 0;
   .border-bottom-right-radius(4px);
   .border-bottom-left-radius(4px);
@@ -278,41 +320,43 @@ BODY.ide-window {
   right: 50px;
   width: 345px;
   height: 26px;
-  button, A.btn {
+  button,
+  A.btn {
     margin-top: 2px;
-    font-family: 'Source Code Pro';
+    font-family: "Source Code Pro";
     font-weight: bold;
     opacity: 0.8;
     &:hover {
-      opacity: 1.0; 
+      opacity: 1;
     }
   }
   ul.dropdown-menu {
-    background-color: #0044CC;
+    background-color: #0044cc;
     li {
-      background-color: #0044CC;
+      background-color: #0044cc;
       padding: 3px;
       margin: 0;
-      color: #EEE;
+      color: #eee;
       A {
-        font-family: 'Source Code Pro';
-        color: #EEE;
+        font-family: "Source Code Pro";
+        color: #eee;
         font-size: 11px;
         font-weight: bold;
         padding: 0;
         padding-left: 3px;
         &:hover {
-          background-color: darken(#0044CC, 20%); 
+          background-color: darken(#0044cc, 20%);
         }
       }
     }
   }
 }
- 
-.moo-login-page, .client-options-page {
+
+.moo-login-page,
+.client-options-page {
   margin-top: 50px;
   .version {
-    position:absolute;
+    position: absolute;
     width: auto;
     height: 20px;
     right: 20px;
@@ -324,7 +368,7 @@ BODY.ide-window {
     .border-radius(8px);
     padding: 15px 20px;
     white-space: nowrap;
-    font-family: 'Source Code Pro';
+    font-family: "Source Code Pro";
     color: darken(@domeOrange, 10%);
   }
   .connection-stats {
@@ -337,7 +381,7 @@ BODY.ide-window {
     .border-radius(8px);
     padding: 15px 20px;
     white-space: nowrap;
-    font-family: 'Source Code Pro';
+    font-family: "Source Code Pro";
     color: darken(@domeOrange, 10%);
     max-height: 60%;
     overflow-x: scroll;
@@ -382,7 +426,8 @@ BODY.ide-window {
         clear: both;
         margin-top: 5px;
 
-        .btn-primary, .btn-success {
+        .btn-primary,
+        .btn-success {
           margin-left: 10px;
         }
       }
@@ -401,7 +446,7 @@ BODY.ide-window {
         text-shadow: 1px 1px 0 #000;
       }
     }
-    
+
     .btn-xlarge {
       padding: 11px 14px;
       font-size: 24px;
@@ -425,7 +470,9 @@ BODY.ide-window {
       }
       .relative-group {
         position: relative;
-        #secure-toggle, .glyph-unlocked, .glyph-locked {
+        #secure-toggle,
+        .glyph-unlocked,
+        .glyph-locked {
           position: absolute;
           right: -40px;
           top: 1px;
@@ -436,27 +483,28 @@ BODY.ide-window {
       DIV#user-picker {
         margin-bottom: 10px;
         UL.dropdown-menu {
-  		    background-color: #171717;
-  		    border: 1px solid #000;
-  		    padding: 0;
-  		    .box-shadow(5px 5px 5px rgba(0,0,0,0.5));
-  		    .divider {
-  		      background-color: #000;
-  		      border-bottom: 1px solid #666;
-  		      margin: 0;
-  		      padding: 0;
-  		    }
-  		    LI {
-  		      margin-right: 0;
-  		      padding: 4px;
-  		      color: #08c;
-  		      cursor: pointer;
-  		      &:hover, &:focus {
-  		        color: lighten(#066, 10%);
-  		        /* background-color: RGBA(0,0,0,0.6); */
-  		        #gradient > .vertical(#000, darken(#111, 5%));
-  		      }
-  		    }
+          background-color: #171717;
+          border: 1px solid #000;
+          padding: 0;
+          .box-shadow(5px 5px 5px rgba(0,0,0,0.5));
+          .divider {
+            background-color: #000;
+            border-bottom: 1px solid #666;
+            margin: 0;
+            padding: 0;
+          }
+          LI {
+            margin-right: 0;
+            padding: 4px;
+            color: #08c;
+            cursor: pointer;
+            &:hover,
+            &:focus {
+              color: lighten(#066, 10%);
+              /* background-color: RGBA(0,0,0,0.6); */
+              #gradient > .vertical(#000, darken(#111, 5%));;
+            }
+          }
         }
       }
     }
@@ -468,7 +516,7 @@ BODY.ide-window {
     margin-bottom: 20px;
   }
   .left-seam {
-    border-left: 2px dashed #CCC;
+    border-left: 2px dashed #ccc;
   }
 }
 
@@ -478,7 +526,7 @@ BODY.ide-window {
     height: 348px;
   }
   .well {
-    background-color: RGBA(0,0,0,0.6);
+    background-color: RGBA(0, 0, 0, 0.6);
     border: 1px solid black;
     color: white;
     overflow: scroll;
@@ -488,15 +536,15 @@ BODY.ide-window {
       font-size: 14px;
       white-space: no-wrap;
       min-height: 30px;
-      clear:both;
+      clear: both;
       SPAN.option-label {
         font-weight: bolder;
         width: 190px;
         display: inline-block;
-      } 
+      }
       DIV.option-choices {
         display: inline;
-      } 
+      }
       btn {
         margin: 0 5px;
         float: right;
@@ -516,5 +564,5 @@ BODY.ide-window {
 
 ::-webkit-scrollbar-thumb {
   .opacity(0.1);
-  .buttonBackground(#08C, #04C);
+  .buttonBackground(#08c, #04c);
 }
