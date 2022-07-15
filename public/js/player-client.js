@@ -1,206 +1,3 @@
-function onClientSocketData(segment, editor, whoBox) {
-  var ts = new Date();
-  if (editor.readingContent) {
-    var terminalMarker = segment.lastIndexOf("\n.\r");
-    if (
-      -1 != terminalMarker ||
-      0 == (terminalMarker = segment.indexOf(".\r\n"))
-    ) {
-      editor.buffer += segment.substr(0, terminalMarker);
-      var spawned = dome.makeEditor(editor);
-      spawned &&
-        ((dome.spawned[editor.editorName] = spawned),
-        dome.updateEditorListView()),
-        editorInit(),
-        (segment = segment.substr(terminalMarker + 4));
-    } else (editor.buffer += segment), (segment = "");
-    dome.setFadeText &&
-      dome.statusDisplay &&
-      dome.setFadeText(
-        dome.statusDisplay,
-        '<span class="warn">BUFFERING POPUP ...</span>'
-      );
-  }
-  var meta = -1;
-  if (
-    0 == (meta = segment.indexOf("#$#")) ||
-    (meta = segment.indexOf("\n#$#")) > 0
-  ) {
-    var end = segment.indexOf("\r\n", meta),
-      metaCommand = segment.substr(meta, end - meta),
-      a = metaCommand.split(" upload: "),
-      uploadCommand = a[a.length - 1];
-    a = a[0].split(" name: ");
-    var editorName = a[a.length - 1];
-    if ("edit" == (metaCommand = a[0].substr(0 == meta ? 4 : 5))) {
-      editorInit();
-      var terminalMarker = segment.indexOf("\n.\r", end);
-      -1 != terminalMarker
-        ? ((dome.spawned[editorName] = dome.makeEditor({
-            editorName: editorName,
-            uploadCommand: uploadCommand,
-            buffer: segment.substr(end + 1, terminalMarker - end),
-          })),
-          dome.updateEditorListView(),
-          (segment = segment.substr(0, meta) + segment.substr(terminalMarker)))
-        : ((editor.readingContent = !0),
-          (editor.buffer += segment.substr(end + 1)),
-          (editor.editorName = editorName),
-          (editor.uploadCommand = uploadCommand),
-          (segment = segment.substr(0, meta)));
-    } else
-      metaCommand && 0 == metaCommand.indexOf("user")
-        ? ((dome.userType = a[0]
-            .substr(a[0].indexOf("user-type"), 12)
-            .split(" ")[1]),
-          (segment =
-            segment.substr(0, meta) + segment.substr(meta + a[0].length)),
-          dome.setupAutoComplete &&
-            dome.inputReader &&
-            dome.setupAutoComplete(dome.inputReader, dome.userType))
-        : "- PING!" == metaCommand
-        ? ((segment = segment.substr(0, meta) + segment.substr(meta + 13)),
-          dome.setFadeText &&
-            dome.statusDisplay &&
-            dome.setFadeText(dome.statusDisplay, "pinged"))
-        : console &&
-          dome.setFadeText &&
-          dome.statusDisplay &&
-          dome.setFadeText(statusDisplay, metaCommand);
-  }
-  if (
-    dome.channel &&
-    (channelMatches = dome.channel.pattern.exec(segment)) &&
-    null != (channel = dome.channel.getChannel(channelMatches[2]))
-  )
-    return void (channel.window
-      ? channel.window.onChannelData(segment)
-      : ((channel = dome.channel.spawnChannel(channelMatches[2])),
-        window.setTimeout(function () {
-          channel.window.onChannelData(segment);
-        }, 1e3)));
-  if (
-    (_.each(subs, function (sub) {
-      segment = segment.replace(sub.pattern, sub.replacement);
-    }),
-    (segment = segment.replace(urlRegex, function (url) {
-      0 != url.indexOf("http") && (url = "http://" + url);
-      var out = '<a href="' + url + '" target="_blank">' + url + "</a>",
-        lowerURL = url.toLowerCase(),
-        isImage = lowerURL.match(dome.urlPatterns.images);
-      if (isImage) {
-        var imageId =
-          "i" +
-          new Date().getTime() +
-          "x" +
-          Math.floor(1e6 * Math.random() + 1);
-        if (
-          ((out +=
-            '<i id="b' +
-            imageId +
-            '" class="icon-white icon-chevron-' +
-            (dome.preferences.imagePreview ? "down" : "up") +
-            '" aria-hidden="true" style="cursor: pointer" onclick="dome.toggleImage(this, \'' +
-            imageId +
-            "', '" +
-            url +
-            "');\"></i>"),
-          (out += '<span id="s' + imageId + '">'),
-          dome.preferences.imagePreview)
-        ) {
-          out += "</a><br>";
-        }
-        out += "</span>";
-      }
-      return out;
-    })),
-    (segment = segment.replace(
-      ip_regex,
-      '<a href="https://whatismyipaddress.com/ip/$&" target="_new">$&</a>'
-    )),
-    void 0 === whoBox && (whoBox = $("#who-table")),
-    whoBox.length &&
-      (matches = segment.match(
-        /\[\* SYS\-MSG \*\] ([\w]+)\/([\w]+) \((#[\d]+)\) has (connected|disconnected) [^(]+\(([\d]+)\)/i
-      )))
-  ) {
-    if (
-      (dome.setFadeText &&
-        dome.statusDisplay &&
-        dome.setFadeText(
-          dome.statusDisplay,
-          matches[1] + "/" + matches[2] + " " + matches[4]
-        ),
-      "disconnected" == matches[4])
-    )
-      $("#" + matches[2] + "-who").remove(),
-        $("#how-many-connected").html("There are " + matches[5] + " connected");
-    else if ("connected" == matches[4]) {
-      var tempHtml =
-        '<tr id="' +
-        matches[2] +
-        '-who"><td><a href="https://www.sindome.org/profile/' +
-        matches[1] +
-        '/" target="_blank"><img border="0" src="///www.sindome.org/bgbb/icon/' +
-        matches[1] +
-        '/pinky/image.png" title="' +
-        matches[1] +
-        '"></a></td><td><a data-who="' +
-        matches[5] +
-        '" href="javascript:void(0);">' +
-        matches[3] +
-        '</a></td><td class="who-name" title="' +
-        matches[1] +
-        " played by " +
-        matches[2] +
-        '"><a href="javascript:void(0);">' +
-        matches[2] +
-        "</a></td><td>0s</td></tr>";
-      $(tempHtml).insertAfter(".who-header"),
-        $("#how-many-connected").html("There are " + matches[5] + " connected");
-    }
-    if (dome.preferences.godMode) return;
-  }
-  (segment = segment.replace(/(\#\d+\b)/g, '<span class="all-copy">$1</span>')),
-    (segment = segment.replace(/(\$\w*)/g, '<span class="all-copy">$1</span>')),
-    dome.alert &&
-      dome.alert.active &&
-      null != dome.alert.pattern &&
-      segment.match(dome.alert.pattern, "i") &&
-      (dome.alert.tone.play(), dome.windowAlert()),
-    (segment = segment.replace(/\r\n/g, "</div><br/><div>")),
-    dome.buffer.append(segment);
-  var kidCount = dome.buffer.contents().length,
-    execDuration = new Date().getTime() - ts.getTime();
-  if (
-    (execDuration > 1 &&
-      console.log(
-        "slow buffer ... buffer length: " +
-          kidCount +
-          "  | duration: " +
-          execDuration
-      ),
-    dome.preferences.performanceBuffer > 0)
-  )
-    for (; kidCount > dome.preferences.performanceBuffer; )
-      dome.buffer.contents().first().remove(),
-        (kidCount = dome.buffer.contents().length);
-  dome.pauseBuffer
-    ? (dome.pausedLines++,
-      dome.setFadeText &&
-        dome.statusDisplay &&
-        dome.setFadeText(
-          dome.statusDisplay,
-          dome.pausedLines + " UNREAD LINES"
-        ))
-    : dome.buffer.animate(
-        {
-          scrollTop: dome.buffer[0].scrollHeight,
-        },
-        50
-      );
-}
-
 function BarGraph(ctx) {
   var startArr,
     endArr,
@@ -820,8 +617,252 @@ var CLIENT_OPTION_NAME_ERROR =
       };
     editorInit();
     var whoBox;
-    dome.parseSocketData = (segment) =>
-      onClientSocketData(segment, editor, whoBox);
+    dome.parseSocketData = function (segment) {
+      var ts = new Date();
+      if (editor.readingContent) {
+        var terminalMarker = segment.lastIndexOf("\n.\r");
+        if (
+          -1 != terminalMarker ||
+          0 == (terminalMarker = segment.indexOf(".\r\n"))
+        ) {
+          editor.buffer += segment.substr(0, terminalMarker);
+          var spawned = dome.makeEditor(editor);
+          spawned &&
+            ((dome.spawned[editor.editorName] = spawned),
+            dome.updateEditorListView()),
+            editorInit(),
+            (segment = segment.substr(terminalMarker + 4));
+        } else (editor.buffer += segment), (segment = "");
+        dome.setFadeText &&
+          dome.statusDisplay &&
+          dome.setFadeText(
+            dome.statusDisplay,
+            '<span class="warn">BUFFERING POPUP ...</span>'
+          );
+      }
+      var meta = -1;
+      if (
+        0 == (meta = segment.indexOf("#$#")) ||
+        (meta = segment.indexOf("\n#$#")) > 0
+      ) {
+        var end = segment.indexOf("\r\n", meta),
+          metaCommand = segment.substr(meta, end - meta),
+          a = metaCommand.split(" upload: "),
+          uploadCommand = a[a.length - 1];
+        a = a[0].split(" name: ");
+        var editorName = a[a.length - 1];
+        if ("edit" == (metaCommand = a[0].substr(0 == meta ? 4 : 5))) {
+          editorInit();
+          var terminalMarker = segment.indexOf("\n.\r", end);
+          -1 != terminalMarker
+            ? ((dome.spawned[editorName] = dome.makeEditor({
+                editorName: editorName,
+                uploadCommand: uploadCommand,
+                buffer: segment.substr(end + 1, terminalMarker - end),
+              })),
+              dome.updateEditorListView(),
+              (segment =
+                segment.substr(0, meta) + segment.substr(terminalMarker)))
+            : ((editor.readingContent = !0),
+              (editor.buffer += segment.substr(end + 1)),
+              (editor.editorName = editorName),
+              (editor.uploadCommand = uploadCommand),
+              (segment = segment.substr(0, meta)));
+        } else
+          metaCommand && 0 == metaCommand.indexOf("user")
+            ? ((dome.userType = a[0]
+                .substr(a[0].indexOf("user-type"), 12)
+                .split(" ")[1]),
+              (segment =
+                segment.substr(0, meta) + segment.substr(meta + a[0].length)),
+              dome.setupAutoComplete &&
+                dome.inputReader &&
+                dome.setupAutoComplete(dome.inputReader, dome.userType))
+            : "- PING!" == metaCommand
+            ? ((segment = segment.substr(0, meta) + segment.substr(meta + 13)),
+              dome.setFadeText &&
+                dome.statusDisplay &&
+                dome.setFadeText(dome.statusDisplay, "pinged"))
+            : console &&
+              dome.setFadeText &&
+              dome.statusDisplay &&
+              dome.setFadeText(statusDisplay, metaCommand);
+      }
+      if (
+        dome.channel &&
+        (channelMatches = dome.channel.pattern.exec(segment)) &&
+        null != (channel = dome.channel.getChannel(channelMatches[2]))
+      )
+        return void (channel.window
+          ? channel.window.onChannelData(segment)
+          : ((channel = dome.channel.spawnChannel(channelMatches[2])),
+            window.setTimeout(function () {
+              channel.window.onChannelData(segment);
+            }, 1e3)));
+      if (
+        (_.each(subs, function (sub) {
+          segment = segment.replace(sub.pattern, sub.replacement);
+        }),
+        (segment = segment.replace(urlRegex, function (url) {
+          0 != url.indexOf("http") && (url = "http://" + url);
+          var out = '<a href="' + url + '" target="_blank">' + url + "</a>",
+            lowerURL = url.toLowerCase(),
+            isImage = lowerURL.match(dome.urlPatterns.images),
+            isVideo = lowerURL.match(dome.urlPatterns.videos),
+            isYouTube = dome.parseYouTubeID(url);
+          if (isImage || isVideo || isYouTube) {
+            var imageId =
+              "i" +
+              new Date().getTime() +
+              "x" +
+              Math.floor(1e6 * Math.random() + 1);
+            if (
+              ((out +=
+                '<i id="b' +
+                imageId +
+                '" class="icon-white icon-chevron-' +
+                (dome.preferences.imagePreview ? "down" : "up") +
+                '" aria-hidden="true" style="cursor: pointer" onclick="dome.toggleImage(this, \'' +
+                imageId +
+                "', '" +
+                url +
+                "');\"></i>"),
+              (out += '<span id="s' + imageId + '">'),
+              dome.preferences.imagePreview)
+            ) {
+              if (
+                ((out += '<br><a href="' + url + '" target="_blank">'), isVideo)
+              )
+                (out +=
+                  '<video class="shown-image" loop muted autoplay id="' +
+                  imageId +
+                  '" style="max-width: 75%">'),
+                  (out +=
+                    '<source type="video/mp4" src="' +
+                    url.replace(/gifv$/, "mp4") +
+                    '">'),
+                  (out += "</video>");
+              else if (isYouTube) {
+                var width = Math.min(dome.buffer.width() - 20, 560),
+                  height = Math.floor(0.5652 * width);
+                (out += '<iframe id="'),
+                  (out += imageId),
+                  (out += '" class="shown-image" width="'),
+                  (out += width),
+                  (out += '" height="'),
+                  (out += height),
+                  (out += '" src="https://www.youtube.com/embed/'),
+                  (out += isYouTube),
+                  (out += '" frameborder="0" allowfullscreen></iframe>');
+              } else
+                out +=
+                  '<img class="shown-image" id="' +
+                  imageId +
+                  '" src="' +
+                  url +
+                  '" style="max-width: 75%">';
+              out += "</a><br>";
+            }
+            out += "</span>";
+          }
+          return out;
+        })),
+        (segment = segment.replace(
+          ip_regex,
+          '<a href="https://whatismyipaddress.com/ip/$&" target="_new">$&</a>'
+        )),
+        void 0 === whoBox && (whoBox = $("#who-table")),
+        whoBox.length &&
+          (matches = segment.match(
+            /\[\* SYS\-MSG \*\] ([\w]+)\/([\w]+) \((#[\d]+)\) has (connected|disconnected) [^(]+\(([\d]+)\)/i
+          )))
+      ) {
+        if (
+          (dome.setFadeText &&
+            dome.statusDisplay &&
+            dome.setFadeText(
+              dome.statusDisplay,
+              matches[1] + "/" + matches[2] + " " + matches[4]
+            ),
+          "disconnected" == matches[4])
+        )
+          $("#" + matches[2] + "-who").remove(),
+            $("#how-many-connected").html(
+              "There are " + matches[5] + " connected"
+            );
+        else if ("connected" == matches[4]) {
+          var tempHtml =
+            '<tr id="' +
+            matches[2] +
+            '-who"><td><a href="https://www.sindome.org/profile/' +
+            matches[1] +
+            '/" target="_blank"><img border="0" src="///www.sindome.org/bgbb/icon/' +
+            matches[1] +
+            '/pinky/image.png" title="' +
+            matches[1] +
+            '"></a></td><td><a data-who="' +
+            matches[5] +
+            '" href="javascript:void(0);">' +
+            matches[3] +
+            '</a></td><td class="who-name" title="' +
+            matches[1] +
+            " played by " +
+            matches[2] +
+            '"><a href="javascript:void(0);">' +
+            matches[2] +
+            "</a></td><td>0s</td></tr>";
+          $(tempHtml).insertAfter(".who-header"),
+            $("#how-many-connected").html(
+              "There are " + matches[5] + " connected"
+            );
+        }
+        if (dome.preferences.godMode) return;
+      }
+      (segment = segment.replace(
+        /(\#\d+\b)/g,
+        '<span class="all-copy">$1</span>'
+      )),
+        (segment = segment.replace(
+          /(\$\w*)/g,
+          '<span class="all-copy">$1</span>'
+        )),
+        dome.alert &&
+          dome.alert.active &&
+          null != dome.alert.pattern &&
+          segment.match(dome.alert.pattern, "i") &&
+          (dome.alert.tone.play(), dome.windowAlert()),
+        (segment = segment.replace(/\r\n/g, "</div><br/><div>")),
+        dome.buffer.append(segment);
+      var kidCount = dome.buffer.contents().length,
+        execDuration = new Date().getTime() - ts.getTime();
+      if (
+        (execDuration > 1 &&
+          console.log(
+            "slow buffer ... buffer length: " +
+              kidCount +
+              "  | duration: " +
+              execDuration
+          ),
+        dome.preferences.performanceBuffer > 0)
+      )
+        for (; kidCount > dome.preferences.performanceBuffer; )
+          dome.buffer.contents().first().remove(),
+            (kidCount = dome.buffer.contents().length);
+      dome.pauseBuffer
+        ? (dome.pausedLines++,
+          dome.setFadeText &&
+            dome.statusDisplay &&
+            dome.setFadeText(
+              dome.statusDisplay,
+              dome.pausedLines + " UNREAD LINES"
+            ))
+        : dome.buffer.animate(
+            {
+              scrollTop: dome.buffer[0].scrollHeight,
+            },
+            50
+          );
+    };
   }),
   (dome.setupSocket = function () {
     var onDisconnectedHandler = function () {

@@ -173,7 +173,7 @@ define("ace/mode/moo_highlight_rules", [
           "endif|elseif|endfor|endwhile|endtry|break|except|catch|continue|else|finally|for|" +
           "if|in|return|raise|try|while",
         "storage.type": "const|let|var|function",
-        "constant.language": "INT|FLOAT|OBJ|STR|LIST|ERR|NUM",
+        "constant.language": "INT|FLOAT|OBJ|STR|LIST|ERR|MAP|WAIF|BOOL",
         "support.function":
           "abs|file_remove|recycle|acos|file_rename|renumber|add_property|file_rmdir|reset_max_object|" +
           "add_verb|file_seek|resume|asin|file_size|rindex|atan|file_stat|rmatch|binary_hash|" +
@@ -193,7 +193,8 @@ define("ace/mode/moo_highlight_rules", [
           "file_last_modify|pass|valid|file_list|pfileinfo|value_bytes|file_mkdir|players|" +
           "value_hash|file_mode|properties|verb_args|file_name|property_info|verb_code|file_open|" +
           "queue_info|verb_info|file_openmode|queued_tasks|verbs|file_read|raise|xml_parse_document|" +
-          "file_readline|random|xml_parse_tree|file_readlines|read",
+          "file_readline|random|xml_parse_tree|file_readlines|read|sql_open|sql_close|sql_info|" +
+          "sql_query|sql_connections|pcre_replace|parse_json|generate_json|thread_pool|reverse|panic",
       },
       "identifier"
     );
