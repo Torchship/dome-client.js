@@ -183,100 +183,105 @@ BODY.ide-window {
 #browser-client {
   position: relative;
   height: 100%;
+  display: grid;
+
+  grid-template-columns: 
+    1fr;
+
+  grid-template-rows:
+    [status] 20px
+    [buffer] 1fr
+    [input] 50px; 
 
   #lineBuffer,
   #channel {
-    /* width: 100%; */
-    padding: 10px 10px 5px;
-    border: 2px solid black;
+    grid-row-start: status;
+    grid-row-end: buffer;
+    grid-column: 1;
+    width: 100%;
+
     background-color: black;
-    color: #aaa;
-    height: 100%;
     font-family: "Source Code Pro";
     white-space: pre-wrap;
     overflow-y: scroll;
     overflow-x: hidden;
-    .filterable {
-      border: 1px dashed #222;
-      cursor: pointer;
-      &:hover {
-        border: 1px solid white;
-      }
-    }
+    color: #aaa;
+
     &.standardText {
-      font-family: "Source Code Pro";
-      font-size: 13px;
-      line-height: 15px;
-    }
-    &.courierText {
-      font-family: "Courier New";
-      font-size: 13px;
-      line-height: 15px;
-      .ansi-brcyan,
-      .ansi-brgreen,
-      .ansi-brred,
-      .ansi-bryellow,
-      .ansi-brblue,
-      .ansi-brmagenta,
-      .ansi-brred,
-      .ansi-red,
-      .ansi-cyan,
-      .ansi-blue,
-      .ansi-green,
-      .ansi-magenta,
-      .ansi-yellow,
-      .ansi-bright,
-      .ansi-bgred,
-      .ansi-bggreen,
-      .ansi-bgyellow,
-      .ansi-bgblue,
-      .ansi-bgcyan,
-      .ansi-bgmagenta,
-      .ansi-bgwhite {
-        font-family: "Courier New";
-      }
-    }
-    &.lucidaText {
-      font-family: "Lucida Console";
-      font-size: 13px;
-      line-height: 15px;
-      .ansi-brcyan,
-      .ansi-brgreen,
-      .ansi-brred,
-      .ansi-bryellow,
-      .ansi-brblue,
-      .ansi-brmagenta,
-      .ansi-brred,
-      .ansi-red,
-      .ansi-cyan,
-      .ansi-blue,
-      .ansi-green,
-      .ansi-magenta,
-      .ansi-yellow,
-      .ansi-bright,
-      .ansi-bgred,
-      .ansi-bggreen,
-      .ansi-bgyellow,
-      .ansi-bgblue,
-      .ansi-bgcyan,
-      .ansi-bgmagenta,
-      .ansi-bgwhite {
-        font-family: "Lucida Console";
-      }
-    }
-    &.scroll-disabled {
-      border: 2px dashed red;
-    }
-    &.select-disabled {
-      -moz-user-select: none;
-      -webkit-user-select: none;
-    }
+            font-family: "Source Code Pro";
+            font-size: 13px;
+            line-height: 15px;
+          }
+          &.courierText {
+            font-family: "Courier New";
+            font-size: 13px;
+            line-height: 15px;
+            .ansi-brcyan,
+            .ansi-brgreen,
+            .ansi-brred,
+            .ansi-bryellow,
+            .ansi-brblue,
+            .ansi-brmagenta,
+            .ansi-brred,
+            .ansi-red,
+            .ansi-cyan,
+            .ansi-blue,
+            .ansi-green,
+            .ansi-magenta,
+            .ansi-yellow,
+            .ansi-bright,
+            .ansi-bgred,
+            .ansi-bggreen,
+            .ansi-bgyellow,
+            .ansi-bgblue,
+            .ansi-bgcyan,
+            .ansi-bgmagenta,
+            .ansi-bgwhite {
+              font-family: "Courier New";
+            }
+          }
+          &.lucidaText {
+            font-family: "Lucida Console";
+            font-size: 13px;
+            line-height: 15px;
+            .ansi-brcyan,
+            .ansi-brgreen,
+            .ansi-brred,
+            .ansi-bryellow,
+            .ansi-brblue,
+            .ansi-brmagenta,
+            .ansi-brred,
+            .ansi-red,
+            .ansi-cyan,
+            .ansi-blue,
+            .ansi-green,
+            .ansi-magenta,
+            .ansi-yellow,
+            .ansi-bright,
+            .ansi-bgred,
+            .ansi-bggreen,
+            .ansi-bgyellow,
+            .ansi-bgblue,
+            .ansi-bgcyan,
+            .ansi-bgmagenta,
+            .ansi-bgwhite {
+              font-family: "Lucida Console";
+            }
+          }
+          &.scroll-disabled {
+            border: 2px dashed red;
+          }
+          &.select-disabled {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+          }
   }
 
   #inputBuffer {
-    height: 50px;
-    line-height: 16px;
+    grid-row: buffer;
+    grid-column: 1;
     width: 100%;
+    line-height: 16px;
     background-color: #333;
     color: #eee;
     font-weight: normal;
@@ -291,21 +296,6 @@ BODY.ide-window {
     &:focus {
       box-shadow: none;
     }
-  }
-
-  #status {
-    height: 20px;
-    color: #eee;
-    width: 100%;
-    font-size: smaller;
-    background-color: RGBA(0, 0, 0, 0.5);
-    text-shadow: 1px 1px 1px RGBA(0, 0, 0, 0.5);
-    width: auto;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 3px 6px;
-    float: left;
   }
 }
 

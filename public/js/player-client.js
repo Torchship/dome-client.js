@@ -108,8 +108,8 @@ Date.prototype.formatDate = function (format) {
 };
 var dome = {},
   socket = null,
-  defaultHeightOffset =
-    "undefined" == typeof specialHeightOffset ? 50 : specialHeightOffset,
+  // defaultHeightOffset =
+  //   "undefined" == typeof specialHeightOffset ? 50 : specialHeightOffset,
   MOO_STATUS_ENUM = {
     UNCHECKED: "UNCHECKED",
     UNKNOWN: "UNKNOWN",
@@ -542,7 +542,7 @@ var CLIENT_OPTION_NAME_ERROR =
         dome.preferences.playDing && (dome.alert.active = !0);
       },
       defaultHeightOffset =
-        "undefined" == typeof specialHeightOffset ? 50 : specialHeightOffset,
+        "undefined" == typeof specialHeightOffset ? 85 : specialHeightOffset,
       onResizeHandler = function () {
         dome.client.css("height", window.innerHeight + "px"),
           dome.buffer.css(
