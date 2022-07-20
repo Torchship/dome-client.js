@@ -645,6 +645,7 @@ var CLIENT_OPTION_NAME_ERROR =
         0 == (meta = segment.indexOf("#$#")) ||
         (meta = segment.indexOf("\n#$#")) > 0
       ) {
+        console.log("creating editor??");
         var end = segment.indexOf("\r\n", meta),
           metaCommand = segment.substr(meta, end - meta),
           a = metaCommand.split(" upload: "),
@@ -654,20 +655,22 @@ var CLIENT_OPTION_NAME_ERROR =
         if ("edit" == (metaCommand = a[0].substr(0 == meta ? 4 : 5))) {
           editorInit();
           var terminalMarker = segment.indexOf("\n.\r", end);
-          -1 != terminalMarker
-            ? ((dome.spawned[editorName] = dome.makeEditor({
-                editorName: editorName,
-                uploadCommand: uploadCommand,
-                buffer: segment.substr(end + 1, terminalMarker - end),
-              })),
-              dome.updateEditorListView(),
-              (segment =
-                segment.substr(0, meta) + segment.substr(terminalMarker)))
-            : ((editor.readingContent = !0),
-              (editor.buffer += segment.substr(end + 1)),
-              (editor.editorName = editorName),
-              (editor.uploadCommand = uploadCommand),
-              (segment = segment.substr(0, meta)));
+          if (-1 != terminalMarker) {
+            dome.spawned[editorName] = dome.makeEditor({
+              editorName: editorName,
+              uploadCommand: uploadCommand,
+              buffer: segment.substr(end + 1, terminalMarker - end),
+            });
+            dome.updateEditorListView();
+            segment = segment.substr(0, meta) + segment.substr(terminalMarker);
+          } else {
+            console.log("non terminal marker");
+            editor.readingContent = !0;
+            editor.buffer += segment.substr(end + 1);
+            editor.editorName = editorName;
+            editor.uploadCommand = uploadCommand;
+            segment = segment.substr(0, meta);
+          }
         } else
           metaCommand && 0 == metaCommand.indexOf("user")
             ? ((dome.userType = a[0]
@@ -700,9 +703,21 @@ var CLIENT_OPTION_NAME_ERROR =
               channel.window.onChannelData(segment);
             }, 1e3)));
       if (
-        (_.each(subs, function (sub) {
-          segment = segment.replace(sub.pattern, sub.replacement);
-        }),
+        (
+          segment = segment
+            .split(/\u001b\[0m/)
+            .map(substring => {
+              _.each(subs, function (sub) {
+                substring = substring.replace(sub.pattern, sub.replacement);
+              });
+              if (ansiDepth) {
+                substring += "</span>".repeat(ansiDepth);
+                ansiDepth = 0;
+              }
+              return substring;
+            })
+            .join('')        
+        ,
         (segment = segment.replace(urlRegex, function (url) {
           0 != url.indexOf("http") && (url = "http://" + url);
           var out = '<a href="' + url + '" target="_blank">' + url + "</a>",
@@ -983,6 +998,11 @@ var CLIENT_OPTION_NAME_ERROR =
             "" + editor.editorName,
             "width=640,height=480,resizeable,scrollbars"
           );
+          editWindow.addEventListener("beforeunload", function(e) {
+            console.log(dome.spawned);
+            delete dome.spawned[editor.editorName];
+            console.log("deleted editor ref");
+          }, false);
         }
         return (
           (editWindow.editorData = editor),

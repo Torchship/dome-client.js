@@ -480,15 +480,6 @@ var subs = [
   { type: "ansi", pattern: /\u001b\[49m/g, replacement: "</span>" },
   {
     type: "ansi",
-    pattern: /\u001b\[(00|0)m/g,
-    replacement: function (m, p1) {
-      let result = "</span>".repeat(ansiDepth);
-      ansiDepth = 0;
-      return result;
-    }
-  },
-  {
-    type: "ansi",
     pattern: /\u001b\[01m/g,
     replacement: function (m, p1) {
       ansiDepth++;
