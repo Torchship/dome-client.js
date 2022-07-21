@@ -170,10 +170,14 @@ exports.connection = function (socket) {
     // can't send this to the user
   });
 
-  socket.on("disconnected", function (data) {
+
+  socket.on("disconnect", function (data) {
     socket.is_active = false;
     logger.debug("disconnected from client with data:");
     logger.debug(data);
+    moo.write( '@quit' + "\r\n", "utf8", function() {
+      moo.end();
+    });
   });
 
   // ** when receiving input from the websocket connected browser
