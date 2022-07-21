@@ -1141,10 +1141,6 @@ $.widget("custom.commandSuggestions", $.ui.autocomplete, {
   _renderItem: function(ul, item) {
       return $("<li>").data("item.autocomplete", item).data("custom-commandSuggestions", item).attr("data-value", item.value).addClass("ui-menu-item").append(item.display).appendTo(ul);
   },
-  _resizeMenu: function() {
-      var bestWidth = Math.min(dome.buffer.width() - 20, 800);
-      this.menu.element.outerWidth(bestWidth);
-  }
 });
 
 dome.autoCommands = [];

@@ -21,6 +21,7 @@
   	  var ip = "<%=req.ip%>";
 			var poweredBy = "<%=poweredBy%>";
 			var gameName = "<%=gameName%>";
+      window.history.pushState({}, document.title, window.location.href.split("?")[0]);
   	</script>
     <script src="/socket.io/socket.io.js"></script>
     <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
