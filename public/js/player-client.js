@@ -587,8 +587,8 @@ dome.setupOutputParser = function() {
   dome.parseSocketData = function(segment) {
       var ts = new Date();
       if (editor.readingContent) {
-          var terminalMarker = segment.lastIndexOf("\n.\r");
-          if (terminalMarker != -1 || (terminalMarker = segment.indexOf("." + NEW_LINE)) == 0) {
+          var terminalMarker = segment.lastIndexOf(`\n.\r`);
+          if (terminalMarker != -1 || (terminalMarker = segment.indexOf(".\r\n")) == 0) {
               editor.buffer += segment.substr(0, terminalMarker);
               var spawned = dome.makeEditor(editor);
               if (spawned) {
@@ -605,7 +605,7 @@ dome.setupOutputParser = function() {
       }
       var meta = -1;
       if ((meta = segment.indexOf("#$#")) == 0 || (meta = segment.indexOf("\n#$#")) > 0) {
-          var end = segment.indexOf(NEW_LINE, meta);
+          var end = segment.indexOf("\r\n", meta);
           var metaCommand = segment.substr(meta, end - meta);
           var a = metaCommand.split(" upload: ");
           var uploadCommand = a[a.length - 1];
