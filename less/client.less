@@ -144,10 +144,7 @@ BODY.ide-window {
     color: #eee;
     margin: 0;
     font-family: "Source Code Pro";
-    font-size: 13px;
-    line-height: 15px;
     padding: 8px;
-    border: 1px solid #333;
   }
 }
 #disconnect-overlay {
@@ -181,9 +178,14 @@ BODY.ide-window {
 }
 
 #browser-client {
-  position: relative;
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
   height: 100%;
-  display: grid;
 
   grid-template-columns: 
     1fr;
@@ -195,11 +197,14 @@ BODY.ide-window {
 
   #lineBuffer,
   #channel {
-    grid-row-start: status;
-    grid-row-end: buffer;
-    grid-column: 1;
+    box-sizing: border-box;
     width: 100%;
-
+    position: fixed;
+    bottom: 6em;
+    top: 0;
+    padding: 0.5em;
+    font-size: x-large;
+    line-height: normal;
     background-color: black;
     font-family: "Source Code Pro";
     white-space: pre-wrap;
@@ -209,13 +214,9 @@ BODY.ide-window {
 
     &.standardText {
             font-family: "Source Code Pro";
-            font-size: 13px;
-            line-height: 15px;
           }
           &.courierText {
             font-family: "Courier New";
-            font-size: 13px;
-            line-height: 15px;
             .ansi-brcyan,
             .ansi-brgreen,
             .ansi-brred,
@@ -242,8 +243,6 @@ BODY.ide-window {
           }
           &.lucidaText {
             font-family: "Lucida Console";
-            font-size: 13px;
-            line-height: 15px;
             .ansi-brcyan,
             .ansi-brgreen,
             .ansi-brred,
@@ -278,21 +277,20 @@ BODY.ide-window {
   }
 
   #inputBuffer {
-    grid-row: buffer;
-    grid-column: 1;
+    box-sizing: border-box;
+    position: absolute;
+    min-height: 4em;
+    bottom: 0;
     width: 100%;
-    line-height: 16px;
+    font-size: x-large;
+    padding: 0.5em;
+    line-height: normal;
+    resize: none;
     background-color: #333;
+    border: 1px solid #333;
     color: #eee;
     font-weight: normal;
-    font-size: 14px;
-    position: fixed;
-    left: -2px;
-    bottom: 2px;
     margin-bottom: 0;
-    padding-left: 5px;
-    border: 0;
-    border: 2px solid #eee;
     &:focus {
       box-shadow: none;
     }
@@ -307,12 +305,13 @@ BODY.ide-window {
   position: fixed;
   top: 0%;
   z-index: 1000;
-  right: 50px;
-  width: 345px;
-  height: 26px;
+  padding: 0.5em;
+  right: 0;
   button,
   A.btn {
-    margin-top: 2px;
+    margin: 0.1em;
+    font-size: x-large;
+    padding: 0.5em;
     font-family: "Source Code Pro";
     font-weight: bold;
     opacity: 0.8;
@@ -330,7 +329,6 @@ BODY.ide-window {
       A {
         font-family: "Source Code Pro";
         color: #eee;
-        font-size: 11px;
         font-weight: bold;
         padding: 0;
         padding-left: 3px;

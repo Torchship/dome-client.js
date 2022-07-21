@@ -509,11 +509,6 @@ dome.setupWindowHandlers = function() {
   var onBlurHandler = function() {
       if (dome.preferences.playDing) dome.alert.active = true;
   };
-  var defaultHeightOffset = typeof specialHeightOffset == "undefined" ? 100 : specialHeightOffset;
-  var onResizeHandler = function() {
-      dome.client.css("height", "" + window.innerHeight + "px");
-      dome.buffer.css("height", "" + (window.innerHeight - defaultHeightOffset) + "px");
-  };
   var inViewport = function(jqElem) {
       var win = $(window);
       var viewport = {
@@ -563,13 +558,8 @@ dome.setupWindowHandlers = function() {
   var winJQ = $(window);
   winJQ.on("focus", onFocusHandler);
   winJQ.on("blur", onBlurHandler);
-  if (!iOS) {
-      winJQ.on("resize", onResizeHandler);
-  }
-  winJQ.on("orientationchange", onResizeHandler);
   winJQ.on("unload", onUnloadHandler);
   dome.buffer.on("scroll", onScrollHandler);
-  onResizeHandler();
 };
 
 dome.setupOutputParser = function() {
@@ -947,7 +937,7 @@ dome.setupAutoscroll = function() {
               scrollTop: dome.buffer[0].scrollHeight
           }, 50);
           dome.buffer.removeClass("scroll-disabled");
-          button.html('<i class="icon-pause icon-white" aria-hidden="true"></i><span class="hidden-xs">PAUSE SCROLL</span>');
+          button.html('<span class="hidden-xs">PAUSE SCROLL</span>');
           button.addClass("btn-primary");
           button.removeClass("btn-danger");
           $("#inputBuffer").focus();
@@ -957,7 +947,7 @@ dome.setupAutoscroll = function() {
               dome.setFadeText(dome.statusDisplay, "SCROLLING PAUSED");
           }
           dome.buffer.addClass("scroll-disabled");
-          button.html('<i class="icon-play icon-white" aria-hidden="true"></i><span class="hidden-xs">RESUME SCROLL</span>');
+          button.html('<span class="hidden-xs">RESUME SCROLL</span>');
           button.addClass("btn-danger");
           button.removeClass("btn-primary");
           $("#lineBuffer").focus();
@@ -983,7 +973,7 @@ dome.setupAutoscroll = function() {
 dome.setupButtons = function() {
   dome.setImagesButton = function(showImages) {
       if (dome.imagesButton) {
-          dome.imagesButton.html(showImages ? '<i class="icon-eye-close icon-white" aria-hidden="true"></i><span class="hidden-xs">NO IMAGES</span>' : '<i class="icon-eye-open icon-white" aria-hidden="true"></i><span class="hidden-xs">IMAGES</span>');
+          dome.imagesButton.html(showImages ? '<span class="hidden-xs">NO IMAGES</span>' : '<span class="hidden-xs">IMAGES</span>');
           if (!showImages) {
               $("I.icon-chevron-down", dome.buffer).trigger("click");
           }
@@ -997,7 +987,7 @@ dome.setupButtons = function() {
   }
   dome.setEchoButton = function(showEcho) {
       if (dome.echoButton) {
-          dome.echoButton.html(showEcho ? '<i class="icon-volume-off icon-white" aria-hidden="true"></i><span class="hidden-xs">HIDE ECHO</span>' : '<i class="icon-volume-up icon-white" aria-hidden="true"></i><span class="hidden-xs">ECHO</span>');
+          dome.echoButton.html(showEcho ? '<span class="hidden-xs">HIDE ECHO</span>' : '<span class="hidden-xs">ECHO</span>');
       }
   };
   if (dome.echoButton) {
