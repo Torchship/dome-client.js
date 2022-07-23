@@ -175,9 +175,11 @@ exports.connection = function (socket) {
     socket.is_active = false;
     logger.debug("disconnected from client with data:");
     logger.debug(data);
-    moo.write( '@quit' + "\r\n", "utf8", function() {
-      moo.end();
-    });
+    if (moo.connected) {
+      moo.write( '@quit' + "\r\n", "utf8", function() {
+        moo.end();
+      });
+    }
   });
 
   // ** when receiving input from the websocket connected browser
