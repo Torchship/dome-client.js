@@ -17,3 +17,5 @@ public/css
 npm-debug.log
 .metadata
 .idea
+
+.DS_Store
