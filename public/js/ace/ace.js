@@ -11426,26 +11426,6 @@ font-style: italic;\
     };
     this.$moveTextAreaToCursor = function () {
       if (!this.$keepTextAreaAtCursor) return;
-
-      var posTop = this.$cursorLayer.$pixelPos.top;
-      var posLeft = this.$cursorLayer.$pixelPos.left;
-      posTop -= this.layerConfig.offset;
-
-      if (posTop < 0 || posTop > this.layerConfig.height - this.lineHeight)
-        return;
-
-      var w = this.characterWidth;
-      if (this.$composition) w += this.textarea.scrollWidth;
-      posLeft -= this.scrollLeft;
-      if (posLeft > this.$size.scrollerWidth - w)
-        posLeft = this.$size.scrollerWidth - w;
-
-      if (this.showGutter) posLeft += this.$gutterLayer.gutterWidth;
-
-      this.textarea.style.height = this.lineHeight + "px";
-      this.textarea.style.width = w + "px";
-      this.textarea.style.left = posLeft + "px";
-      this.textarea.style.top = posTop - 1 + "px";
     };
     this.getFirstVisibleRow = function () {
       return this.layerConfig.firstRow;
