@@ -127,6 +127,10 @@ exports.connection = function (socket) {
                 `#$#mcp-negotiate-can ${moo.mcp.key} package: mcp-forward min-version: 1.0 max-version: 1.0\r\n`,
                 "utf8"
               );
+              moo.write(
+                `#$#mcp-negotiate-can ${moo.mcp.key} package: dns-org-mud-moo-simpleedit min-version: 1.0 max-version: 2.0\r\n`,
+                "utf8"
+              );
               moo.write(`#$#mcp-negotiate-end ${moo.mcp.key}\r\n`, "utf8");
               moo.write(
                 `#$#mcp-forward-host ${moo.mcp.key} address: ${socket.handshake.address}\r\n`,
