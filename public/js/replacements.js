@@ -420,6 +420,22 @@ var subs = [
       return '<span class="ansi-faint">';
     },
   },
+  {
+    type: "ansi",
+    pattern: /\u001b\[4m/g,
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-underline">';
+    },
+  },
+  {
+    type: "ansi",
+    pattern: /\u001b\[3m/g,
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-italic">';
+    },
+  },
   { type: "ansi", pattern: /\u001b\[40m/g, replacement: "</span>" },
   {
     type: "ansi",
@@ -478,22 +494,6 @@ var subs = [
     },
   },
   { type: "ansi", pattern: /\u001b\[49m/g, replacement: "</span>" },
-  {
-    type: "ansi",
-    pattern: /\u001b\[01m/g,
-    replacement: function (m, p1) {
-      ansiDepth++;
-      return '<span class="ansi-underline">';
-    },
-  },
-  {
-    type: "ansi",
-    pattern: /\u001b\[03m/g,
-    replacement: function (m, p1) {
-      ansiDepth++;
-      return '<span class="ansi-italic">';
-    },
-  },
   {
     type: "ansi",
     pattern: /\u001b\[31m/g,
