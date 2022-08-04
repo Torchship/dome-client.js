@@ -488,6 +488,14 @@ var subs = [
   },
   {
     type: "ansi",
+    pattern: /\u001b\[03m/g,
+    replacement: function (m, p1) {
+      ansiDepth++;
+      return '<span class="ansi-italic">';
+    },
+  },
+  {
+    type: "ansi",
     pattern: /\u001b\[31m/g,
     replacement: function (m, p1) {
       ansiDepth++;
