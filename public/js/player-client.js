@@ -785,14 +785,14 @@ dome.setupSocket = function() {
       if (!initialCommand) setTimeout(function() {
           var cmd;
           if (cmd = store.get("dc-initial-command")) {
-              if (dome.setWindowTitle) dome.setWindowTitle("Guest | " + gameName + " | " + poweredBy);
+              if (dome.setWindowTitle) dome.setWindowTitle("Guest | " + gameName);
               dome.socket.emit("input", cmd, function() {
                   store.remove("dc-initial-command");
               });
           } else if (cmd = store.get("dc-user-login")) {
               var who = store.get("last-username");
               dome.alert.pattern = new RegExp(who);
-              if (dome.setWindowTitle) dome.setWindowTitle(who + " | " + gameName + " | " + poweredBy);
+              if (dome.setWindowTitle) dome.setWindowTitle(who + " | " + gameName);
               dome.socket.emit("input", cmd, function() {});
           }
           if (dome.preferences.shortenUrls) {
