@@ -75,7 +75,7 @@ body {
   overflow: hidden;
   background-color: #111;
   background: url("/img/torchship.jpg");
-  background-size: 100%;
+  background-size: cover;
 }
 &.client {
   border-bottom: 2px solid #eee;
@@ -142,7 +142,7 @@ BODY.ide-window {
     left: 0;
   }
   textarea {
-    position: fixed;
+    position: absolute;
     top: 2.5rem;
     bottom: 0;
     background-color: #222;
@@ -152,7 +152,6 @@ BODY.ide-window {
     margin: 0;
     font-family: "Source Code Pro";
     padding: 8px;
-    resize: none;
   }
 }
 #disconnect-overlay {
