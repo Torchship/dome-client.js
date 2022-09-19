@@ -727,7 +727,7 @@ dome.setupOutputParser = function() {
               dome.windowAlert();
           }
       }
-      segment = segment.replace(NEW_LINE, "</div><br/><div>");
+      segment = segment.replace(NEW_LINE, "<br/>");
       dome.buffer.append(segment);
       var kidCount = dome.buffer.contents().length;
       var execDuration = new Date().getTime() - ts.getTime();
