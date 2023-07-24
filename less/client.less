@@ -134,6 +134,47 @@ BODY.ide-window {
       }
     }
   }
+
+  .map-viewport {
+    position: absolute;
+    top: 2.5rem;
+    right: 50%;
+    bottom: 0;
+    left: 0;
+    background-color: #181818;
+
+    .area-title {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 2.5rem;
+    }
+
+    .room-title {
+      position: absolute;
+      top: 2.5rem;
+      right: 0;
+      left: 0;
+      height: 2.5rem;
+    }
+
+    .gameCanvas {
+      position: absolute;
+      top: 5rem;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+  }
+
+  .map-editor {
+    top: 2.5rem;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+  }
+
   .verb-editor {
     position: absolute;
     top: 2.5rem;
@@ -185,30 +226,29 @@ BODY.ide-window {
 }
 
 #browser-client {
-  display: block;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  position: fixed;
-  height: 100%;
-
-  grid-template-columns: 
-    1fr;
+  display: grid;
+  grid-template-columns: 1fr 0px;
 
   grid-template-rows:
-    [status] 20px
-    [buffer] 1fr
-    [input] 50px; 
+    [status] 0px
+    [buffer] auto
+    [input] 4rem; 
+
+  grid-template-areas: 
+    "status status"
+    "lineBuffer sidebar"
+    "input input";
 
   #lineBuffer,
   #channel {
+    grid-area: lineBuffer;
     box-sizing: border-box;
-    width: 100%;
-    position: fixed;
     bottom: 4rem;
-    top: 0;
     padding: 0.5rem;
     line-height: 1.1;
     background-color: black;
@@ -283,17 +323,15 @@ BODY.ide-window {
   }
 
   #inputBuffer {
+    grid-area: input;
     box-sizing: border-box;
-    position: absolute;
-    height: 4rem;
-    bottom: 0;
-    width: 100%;
     padding: 0.5rem;
     line-height: normal;
     resize: none;
     background-color: #333;
     border: 1px solid #333;
     color: #eee;
+    width: 100%;
     font-weight: normal;
     margin-bottom: 0;
     &:focus {

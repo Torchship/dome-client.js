@@ -175,15 +175,15 @@ exports.connection = function (socket) {
   });
 
 
-  socket.on("disconnect", function (data) {
-    socket.is_active = false;
-    logger.debug("disconnected from client with data:");
-    logger.debug(data);
-    if (moo.connected) {
+  socket.on("disconnecting", function (reason) {
+    if (socket.is_active) {
       moo.write( '@quit' + "\r\n", "utf8", function() {
         moo.end();
       });
     }
+    socket.is_active = false;
+    logger.debug("disconnected from client with reason:");
+    logger.debug(reason);
   });
 
   // ** when receiving input from the websocket connected browser

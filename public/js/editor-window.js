@@ -16,8 +16,10 @@ $(document).ready(function () {
   var cta = $("button.upload");
   var abort = $("button.abort");
   var basicEditor = $("div.editor textarea");
-
-  if (verbEditor != null) {
+  if (Game != null) {
+    Game.initialize(JSON.parse(buffer));
+    Game.play();
+  } else if (verbEditor != null) {
     verbEditor.setValue(buffer);
     initialValue = verbEditor.getValue();
   } else if (basicEditor != null && basicEditor.length > 0) {

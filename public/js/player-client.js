@@ -839,9 +839,11 @@ dome.setupEditorSupport = function() {
       var type = "basic-readonly";
       if (editor.uploadCommand) {
           if (editor.uploadCommand.indexOf("@program") != -1) {
-              type = "verb";
+            type = "verb";
+          } else if (editor.uploadCommand.indexOf("@map") != -1) {
+            type = "map";
           } else {
-              type = "basic";
+            type = "basic";
           }
       }
       if (editor["type"]) {

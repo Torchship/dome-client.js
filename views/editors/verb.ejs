@@ -27,6 +27,7 @@
 </div>
 <script src="/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
+    var Game = null;
     var verbEditor = ace.edit("verb-editor-holder");
     verbEditor.setTheme("ace/theme/<%=editorTheme%>");
     verbEditor.getSession().setMode("ace/mode/moo");

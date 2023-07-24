@@ -51,10 +51,7 @@ exports.client = function (req, res) {
 
 exports.editor = function (req, res) {
   var template = (editorType = req.params.type);
-  if (editorType != "verb") {
-    // only verb gets special support right now
-    template = "basic";
-  }
+  template = editorType;
   res.render("editors/" + template, {
     editor: {
       readonly: req.params.type == "basic-readonly" ? true : false,

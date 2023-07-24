@@ -175,7 +175,7 @@ app.get("/", routes.screens.connect); // Connection Screen
 app.post("/", routes.screens.connect);
 app.get("/client-options/", routes.screens.options); // Options Screen
 app.get("/player-client/", routes.screens.client); // Game Client Screen
-app.get("/editor/:type(basic|basic-readonly|verb)/", routes.screens.editor); // Editor Windows
+app.get("/editor/:type(basic|basic-readonly|verb|map)/", routes.screens.editor); // Editor Windows
 app.get("/channel/:name/", routes.screens.channel); // filtered content channel template
 app.get("/ac/:type(p)", routes.autocomplete.basic); // Fetch autocomplete terms
 app.post("/save/:filename", function (req, res, next) {
