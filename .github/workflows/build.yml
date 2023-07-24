@@ -3,7 +3,7 @@ name: Docker build and push to ECR
 on:
   push:
     branches:
-      - main
+      - torchship-release
 
 env:
   AWS_REGION: us-west-2
