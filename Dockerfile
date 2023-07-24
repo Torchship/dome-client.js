@@ -1,18 +1,20 @@
-FROM node:18-buster-slim
+# Define the base image
+FROM node:18
 
-# Create app directory
+# Create a directory in the container to hold the app code
 WORKDIR /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-#COPY package*.json ./
+# Copy the package.json and package-lock.json files to the working directory
+COPY package*.json ./
 
-#RUN npm ci --only=production
+# Install the app dependencies
+RUN npm install
 
-# Bundle app source
-#COPY . .
+# Copy the app source to the working directory
+COPY . .
 
-EXPOSE 5000
+# Expose the port the app runs on
+EXPOSE 80
 
-CMD [ "nodemon", "client-app.js" ]
+# Define the command to run the app
+CMD [ "node", "client-app.js" ]
