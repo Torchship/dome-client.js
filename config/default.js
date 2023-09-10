@@ -11,7 +11,7 @@ module.exports = {
     // specific ip is optional (if your server has more than one)
     //    'ip'           : '208.52.189.89',
 
-    socketUrl: "http://torchship.org:5000",
+    socketUrl: "http://ark.torchship.org:5000",
     socketUrlSSL: "",
     poweredBy: "dome-client.js",
     session: {
@@ -31,7 +31,7 @@ module.exports = {
   // where it connects to
   moo: {
     name: "Torchship",
-    host: "34.212.25.244",
+    host: "ark.torchship.org",
     port: 7777,
   },
 
