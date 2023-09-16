@@ -132,7 +132,7 @@ define("ace/mode/moo", [
       var worker = new WorkerClient(
         ["ace"],
         "ace/mode/moo_worker",
-        "MOOWorker"
+        "MOOWorker",
       );
       worker.attachToDocument(session.getDocument());
 
