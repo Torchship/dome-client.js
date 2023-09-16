@@ -30,8 +30,6 @@
     var Game = null;
     var verbEditor = ace.edit("verb-editor-holder");
     verbEditor.setTheme("ace/theme/<%=editorTheme%>");
-    var session = verbEditor.getSession();
-    session.setMode("ace/mode/moo");
-    session.setUseWorker(true);
+    verbEditor.getSession().setMode("ace/mode/moo");
 </script>
 <script src="/js/editor-window.js"></script>

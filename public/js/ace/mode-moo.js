@@ -137,7 +137,41 @@ define("ace/mode/moo", [
       worker.attachToDocument(session.getDocument());
 
       worker.on("jslint", function (results) {
-        session.setAnnotations(results.data);
+        var annotations = results.data;
+        var code = session.getDocument().getValue();
+
+        // Regex checks
+        const definePattern = /(?:\{(?:([^,\}]+),?\s?)+\} = )|(?:([\w\d]+) = )|(?:for (?:([^\s,]+),? )+in)/g;
+        const checkPattern = /(?:([\$\@\w\d]+)[\.|:])/g;
+
+        const defined = new Set();
+        let match;
+
+        while (match = definePattern.exec(code)) {
+            match.filter(m => m).slice(1).forEach(variable => {
+                defined.add(variable.trim());
+            });
+        }
+        console.log(defined);
+
+        const checked = new Set();
+        while (match = checkPattern.exec(code)) {
+            checked.add(match[1]);
+        }
+        console.log(checked);
+
+        checked.forEach(variable => {
+            if (!defined.has(variable)) {
+                annotations.push({
+                    row: code.substr(0, code.indexOf(variable)).split('\n').length - 1, // naive row calculation
+                    column: 0, // not calculating exact column, setting to 0
+                    text: `Variable ${variable} is not defined.`,
+                    type: "error"
+                });
+            }
+        });
+
+        session.setAnnotations(annotations);
       });
 
       worker.on("terminate", function () {
