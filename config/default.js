@@ -31,7 +31,7 @@ module.exports = {
   // where it connects to
   moo: {
     name: "Torchship",
-    host: "34.212.25.244",
+    host: "44.230.99.117",
     port: 7777,
   },
 
