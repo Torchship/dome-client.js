@@ -132,8 +132,10 @@ exports.connection = function (socket) {
                 "utf8"
               );
               moo.write(`#$#mcp-negotiate-end ${moo.mcp.key}\r\n`, "utf8");
+              const xForwardedFor = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
+              const clientIp = xForwardedFor.split(',')[0];  // Take the left-most IP address
               moo.write(
-                `#$#mcp-forward-host ${moo.mcp.key} address: ${socket.handshake.address}\r\n`,
+                `#$#mcp-forward-host ${moo.mcp.key} address: ${clientIp}\r\n`,
                 "utf8"
               );
               break;
