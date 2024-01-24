@@ -3,11 +3,11 @@ name: Docker build and push to ECR
 on:
   push:
     branches:
-      - torchship-release
+      - tenebrae
 
 env:
   AWS_REGION: us-west-2
-  ECR_REPOSITORY: dome-client
+  ECR_REPOSITORY: tenebrae-dome-client
   IMAGE_TAG: latest
 
 jobs:
