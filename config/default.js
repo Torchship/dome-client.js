@@ -30,9 +30,9 @@ module.exports = {
 
   // where it connects to
   moo: {
-    name: "Torchship",
-    host: "44.230.99.117",
-    port: 7777,
+    name: "Tenebrae",
+    host: "tenebraemush.net",
+    port: 4001,
   },
 
   // specialized autocomplete for each player class
