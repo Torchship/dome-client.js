@@ -1,0 +1,44 @@
+.mosaic.mosaic-blueprint-theme {
+  background-color: var(--background-color);
+
+  .mosaic-window, .mosaic-preview {
+    background-color: var(--background-color);
+    border: none;
+
+    .mosaic-window-body {
+      /* background-color: var(--background-color); */
+      background-color: rgb(255, 255, 255, 0.05);
+      color: var(--text-color);
+      border: none;
+      display: flex;
+    }
+    .mosaic-window-toolbar {
+      background-color: rgba(255, 255, 255, 0.09);
+      color: var(--text-color);
+      border: none;
+
+      &.draggable:hover {
+        .mosaic-window-title {
+          color: var(--text-color);
+        }
+        background: rgba(255, 255, 255, 0.13);
+      }
+    }
+  }
+}
+
+.console {
+  background-color: black;
+  margin: 1px;
+  border-radius: 3px;
+  flex-grow: 1;
+  font-family: "Source Code Pro";
+  font-size: 14px;
+  line-height: 15.4px;
+  padding: 8px;
+  text-wrap: wrap;
+  white-space-collapse: preserve;
+  unicode-bidi: isolate;
+  overflow-x: hidden;
+  color: rgb(170, 170, 170);
+}
