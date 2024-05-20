@@ -1,5 +1,5 @@
-import React from 'react';
-import { Mosaic, MosaicWindow } from 'react-mosaic-component';
+import React, {useState} from 'react';
+import { Mosaic, MosaicNode, MosaicWindow } from 'react-mosaic-component';
 import { ConsoleTile } from './tiles/ConsoleTile';
 
 import 'react-mosaic-component/react-mosaic-component.css';
@@ -13,9 +13,11 @@ const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
 };
 
 export const ClientWindowManager: React.FC = () => { 
+  const [nodeGraph, setNodeGraph] = useState<MosaicNode<ViewId> | null>('console');
+
   const renderToolbar = (id: ViewId) => {
     const ViewComponent = VIEW_COMPONENT_MAP[id];
-    const actions = ViewComponent.getToolbarActions();
+    const actions = ViewComponent.getToolbarActions(nodeGraph, setNodeGraph);
     return (
       <div className="window-toolbar">
         {ViewComponent.title}
@@ -30,8 +32,14 @@ export const ClientWindowManager: React.FC = () => {
     );
   };
 
+  const onChange = (currentNode: MosaicNode<ViewId> | null) => {
+    setNodeGraph(currentNode);
+  };
+
   return (
     <Mosaic<ViewId>
+        value={nodeGraph}
+        onChange={onChange}
         renderTile={(id, path) => {
           const Component = VIEW_COMPONENT_MAP[id];
           return (
@@ -44,12 +52,6 @@ export const ClientWindowManager: React.FC = () => {
                 <Component />
             </MosaicWindow>
           )}}
-        initialValue={{
-          direction: 'row',
-          first: 'character',
-          second: 'console',
-          splitPercentage: '20'
-        }}
       />
   );
 };

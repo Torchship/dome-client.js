@@ -4,10 +4,10 @@ import { io, Socket } from 'socket.io-client';
 
 interface GameSocketContextProps {
   socket: Socket | null;
-  lines: string[];
+  history: string[];
 }
 
-const GameSocketContext = createContext<GameSocketContextProps>({ socket: null, lines: [] });
+const GameSocketContext = createContext<GameSocketContextProps>({ socket: null, history: [] });
 
 export const useGameSocket = () => useContext(GameSocketContext);
 
@@ -17,7 +17,7 @@ interface GameSocketProviderProps {
 
 export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [lines, setLines] = useState<string[]>([]);
+  const [history, setHistory] = useState<string[]>([]);
 
   useEffect(() => {
     const newSocket = io('ws://localhost:3000'); // Replace with your server URL
@@ -31,7 +31,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
     });
 
     newSocket.on('data', (data: string) => {
-      setLines((prevLines) => [...prevLines, ...data.split(/\r?\n/)]);
+      setHistory((prevLines) => [...prevLines, ...data.split(/\r?\n/)]);
     });
 
     setSocket(newSocket);
@@ -42,7 +42,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
   }, []);
 
   return (
-    <GameSocketContext.Provider value={{ socket, lines }}>
+    <GameSocketContext.Provider value={{ socket, history }}>
       {children}
     </GameSocketContext.Provider>
   );
