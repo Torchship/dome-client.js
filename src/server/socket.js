@@ -1,8 +1,8 @@
 // Importing required modules
 import net from 'net';
 import _ from 'underscore';
-// import config from '../lib/config';
-// import logger from '../lib/logger';
+import config from './config.js';
+import logger from './logger.js';
 
 // Managing connected clients
 const connected = {
@@ -46,10 +46,10 @@ export const connection = (socket) => {
   let gameHost = config.moo.host;
   let gamePort = config.moo.port;
   
-  if (socket.handshake.query?.host) {
+  if (socket.handshake?.query?.host) {
     gameHost = socket.handshake.query.host;
   }
-  if (socket.handshake.query?.port) {
+  if (socket.handshake?.query?.port) {
     gamePort = socket.handshake.query.port;
   }
 
@@ -121,12 +121,12 @@ export const connection = (socket) => {
                 'utf8'
               );
               moo.write(`#$#mcp-negotiate-end ${moo.mcp.key}\r\n`, 'utf8');
-              const xForwardedFor = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
-              const clientIp = xForwardedFor.split(',')[0];
-              moo.write(
-                `#$#mcp-forward-host ${moo.mcp.key} address: ${clientIp}\r\n`,
-                'utf8'
-              );
+              // const xForwardedFor = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
+              // const clientIp = xForwardedFor.split(',')[0];
+              // moo.write(
+                // `#$#mcp-forward-host ${moo.mcp.key} address: ${clientIp}\r\n`,
+                // 'utf8'
+              // );
               break;
           }
         });
