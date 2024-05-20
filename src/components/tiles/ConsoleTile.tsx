@@ -17,5 +17,6 @@ export const ConsoleTile: TileComponentType = () => {
 
 ConsoleTile.title = "Torchship Console";
 ConsoleTile.viewId = 'console';
+ConsoleTile.getToolbarActions = () => [];
 
 export default ConsoleTile;

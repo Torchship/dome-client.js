@@ -24,5 +24,20 @@
         background: rgba(255, 255, 255, 0.13);
       }
     }
+
+    .window-toolbar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-left: 1em;
+
+      .window-toolbar-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 0.25em;
+      }
+    }
   }
 }

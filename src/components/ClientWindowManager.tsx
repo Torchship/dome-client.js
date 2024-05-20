@@ -12,7 +12,24 @@ const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
   character: CharacterTile
 };
 
-export const ClientWindowManager: React.FC = () => {  
+export const ClientWindowManager: React.FC = () => { 
+  const renderToolbar = (id: ViewId) => {
+    const ViewComponent = VIEW_COMPONENT_MAP[id];
+    const actions = ViewComponent.getToolbarActions();
+    return (
+      <div className="window-toolbar">
+        {ViewComponent.title}
+        <div className="window-toolbar-buttons">
+          {actions.map((action, index) => (
+            <button key={index} onClick={action.onClick}>
+              <img src={action.icon}/>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Mosaic<ViewId>
         renderTile={(id, path) => {
@@ -21,6 +38,7 @@ export const ClientWindowManager: React.FC = () => {
             <MosaicWindow<ViewId> 
               path={path} 
               title={Component.title} 
+              renderToolbar={() => renderToolbar(id)}
               renderPreview={() => <div></div>}
               >
                 <Component />

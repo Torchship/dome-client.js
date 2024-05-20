@@ -17,13 +17,13 @@ function App() {
   const sendInput = () => {
     if (isEmptyOrSpaces(consoleInput))
       return;
-    
+
     socket?.emit('input', consoleInput);
     setConsoleInput('');
   };
 
   const onKeyDown = (e) => {
-    if (e.keyCode === Key.Enter && e.shiftKey === false) {
+    if (e.keyCode === Key.Enter) {
       e.preventDefault();
       sendInput();
     } else if (e.keyCode == Key.UpArrow && e.shiftKey === false) {
@@ -43,8 +43,8 @@ function App() {
           <button id="options-button">
             <img src={SettingsIcon}></img>
           </button>
-          <textarea value={consoleInput} onChange={e => setConsoleInput(e.target.value)}/>
-          <button id="send-button" onClick={sendInput} onKeyDown={onKeyDown}>
+          <textarea value={consoleInput} onChange={e => setConsoleInput(e.target.value)} onKeyDown={onKeyDown}/>
+          <button id="send-button" onClick={sendInput}>
             Send
           </button>
         </div>
