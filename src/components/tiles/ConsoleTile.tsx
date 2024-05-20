@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect, RefObject} from 'react';
-import { useGameSocket } from '../providers/GameSocketProvider';
+import { GameMessage, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
 import { VariableSizeList as List } from 'react-window';
 import './ConsoleTile.css';
@@ -32,23 +32,22 @@ export const ConsoleTile: TileComponentType = () => {
   const rowHeights = useRef({});
 
   function getRowHeight(index) {
-    return rowHeights.current[index] || measureTextHeight(consoleContainerRef, history[index]);
+    return rowHeights.current[index] || measureTextHeight(consoleContainerRef, history[index].raw);
   }
 
   function Row({ index, style }) {
-    const text = history[index];
+    const gameMessage: GameMessage = history[index];
 
     useEffect(() => {
       if (consoleContainerRef) {
-        const height = measureTextHeight(consoleContainerRef, text);
+        const height = measureTextHeight(consoleContainerRef, gameMessage.raw);
         if (height)
           setRowHeight(index, height);
       }
     }, [consoleContainerRef])
 
     return (
-      <div style={style}>
-        {text}
+      <div style={style} dangerouslySetInnerHTML={{__html: gameMessage.raw}}>
       </div>
     );
   }
