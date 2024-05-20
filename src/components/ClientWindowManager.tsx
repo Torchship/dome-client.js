@@ -1,38 +1,37 @@
 import React from 'react';
-import { Mosaic, MosaicWindow, RemoveButton } from 'react-mosaic-component';
+import { Mosaic, MosaicWindow } from 'react-mosaic-component';
+import { ConsoleTile } from './tiles/ConsoleTile';
 
-import { useGameSocket } from './providers/GameSocketProvider';
 import 'react-mosaic-component/react-mosaic-component.css';
 import './ClientWindowManager.css';
+import {TileComponentType, ViewId} from './TileComponent';
+import { CharacterTile } from './tiles/CharacterTile';
 
-export type ViewId = 'console' | 'new';
-
-const TITLE_MAP: Record<ViewId, string> = {
-  console: 'Torchship Console',
-  new: 'New Window',
+const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
+  console: ConsoleTile,
+  character: CharacterTile
 };
 
-export const ClientWindowManager: React.FC = () => {
-  const { lines } = useGameSocket();
-  
+export const ClientWindowManager: React.FC = () => {  
   return (
     <Mosaic<ViewId>
-        renderTile={(id, path) => (
-          <MosaicWindow<ViewId> 
-            path={path} 
-            createNode={() => 'new'} 
-            title={TITLE_MAP[id]} 
-            renderPreview={() => <div></div>}
-            >
-              <div className="console">
-                {lines && lines.map((msg, index) => (
-                  <div key={index}>{msg}</div>
-                ))}
-              </div>
-            {/* <h1>{TITLE_MAP[id]}</h1> */}
-          </MosaicWindow>
-        )}
-        initialValue={'console'}
+        renderTile={(id, path) => {
+          const Component = VIEW_COMPONENT_MAP[id];
+          return (
+            <MosaicWindow<ViewId> 
+              path={path} 
+              title={Component.title} 
+              renderPreview={() => <div></div>}
+              >
+                <Component />
+            </MosaicWindow>
+          )}}
+        initialValue={{
+          direction: 'row',
+          first: 'character',
+          second: 'console',
+          splitPercentage: '20'
+        }}
       />
   );
 };

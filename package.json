@@ -18,6 +18,7 @@
     "react-mosaic-component": "^6.1.0",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
+    "ts-keycode-enum": "^1.0.6",
     "underscore": "^1.13.6",
     "ws": "^8.17.0"
   },
