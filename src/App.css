@@ -47,7 +47,7 @@
     textarea:focus, input:focus{
         outline: 0;
     }
-
+/* 
     #options-button {
       background-color: var(--primary-color);
       height: 4em;
@@ -62,6 +62,6 @@
       padding-left: 1em;
       padding-right: 1em;
       background-color: var(--success-color);
-    }
+    } */
   }
 }
