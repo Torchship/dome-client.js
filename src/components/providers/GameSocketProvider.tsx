@@ -20,12 +20,12 @@ export interface GameMessage {
   line_number: number;
   timestamp: number;
   raw: string;
-  parsed: TextFragment;
+  parsed: TextFragment[];
 }
 
 export interface TextFragment {
-  content: string | TextFragment[];
-  ansi?: AnsiState;
+  content: string;
+  ansi: AnsiState;
 }
 
 export const ANSI_NORMAL: AnsiState = {
@@ -75,9 +75,33 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
       lines.forEach(line => {
         // Parse the line...
         let c;
-        let current_fragment: TextFragment = {content: ''};
+        const parsed_line: TextFragment[] = [{content: '', ansi: openAnsiState.current}];
+        
+        function cloneAnsi(ansi: AnsiState): AnsiState {
+          return {
+            is_bold: ansi.is_bold,
+            is_italic: ansi.is_italic,
+            is_underline: ansi.is_underline,
+            foreground_color: ansi.foreground_color,
+            background_color: ansi.background_color
+          }
+        }
+
+        // Gets our latest/last fragment
+        function last_fragment(): TextFragment {
+          return parsed_line[parsed_line.length - 1];
+        };
+
+        function new_fragment(): TextFragment {
+          return {
+            content: '',
+            ansi: cloneAnsi(openAnsiState.current)
+          };
+        };
+
         for (let i=0; i < line.length;i++) {
           c = line[i];
+          const current_fragment = last_fragment();
           if (c === '\x1b' && i + 1 < line.length && line[i+1] === '[') {
             // Beginning of ANSI sequence
             let sequences = [];
@@ -101,10 +125,10 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
               // active sequence
               sequence += ansi_char;
             }
+
             // Check to see if we actually ended at a valid ANSI sequence terminator
             if (ansi_char !== 'm' || sequences.length <= 0) {
               // We did not.
-              current_fragment.content += c;
               continue;
             }
 
@@ -112,16 +136,15 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
             i = n;
 
             // Use sequences to determine wtf we're doing...
-            let new_ansi: AnsiState = {
-              is_bold: openAnsiState.current.is_bold,
-              is_italic: openAnsiState.current.is_italic,
-              is_underline: openAnsiState.current.is_underline,
-              foreground_color: openAnsiState.current.foreground_color,
-              background_color: openAnsiState.current.background_color
-            };
+            let ansi_fragment = current_fragment;
+            ansi_fragment.ansi = cloneAnsi(ansi_fragment.ansi);
+            if (ansi_fragment.content.length > 0) {
+              ansi_fragment = new_fragment();
+              parsed_line.push(ansi_fragment);
+            }
 
             if (sequences.length === 1 && sequences[0] === 0) {
-              new_ansi = ANSI_NORMAL;
+              ansi_fragment.ansi = ANSI_NORMAL;
             } else if (sequences.length === 3 && sequences[0] === 38 && sequences[1] === 5) {
               // xterm 256 foreground
               const xtermCode = sequences[2];
@@ -129,7 +152,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
               const r = Math.floor(index / 36) % 6 * 51;
               const g = Math.floor(index / 6) % 6 * 51;
               const b = index % 6 * 51;
-              new_ansi.foreground_color = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+              ansi_fragment.ansi.foreground_color = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
             } else {
               let color_code = sequences[0];
               if (sequences.length > 1) {
@@ -140,96 +163,75 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
 
               switch (color_code) {
                 case 1: // Bold
-                  new_ansi.is_bold = true;
+                  ansi_fragment.ansi.is_bold = true;
                   break;
                 case 2: // Faint
                   break;
                 case 3: // Italic
-                  new_ansi.is_italic = true;
+                  ansi_fragment.ansi.is_italic = true;
                   break;
                 case 4: // Underline
-                  new_ansi.is_underline = true;
+                  ansi_fragment.ansi.is_underline = true;
                   break;
                 case 31: // Red
-                  new_ansi.foreground_color = '#900';
+                  ansi_fragment.ansi.foreground_color = '#900';
                   break;
                 case 32: // Green
-                  new_ansi.foreground_color = '#090';
+                  ansi_fragment.ansi.foreground_color = '#090';
                   break;
                 case 33: // Yellow
-                  new_ansi.foreground_color = '#990';
+                  ansi_fragment.ansi.foreground_color = '#990';
                   break;
                 case 34: // Blue
-                  new_ansi.foreground_color = '#009';
+                  ansi_fragment.ansi.foreground_color = '#009';
                   break;
                 case 35: // Magenta
-                  new_ansi.foreground_color = '#909';
+                  ansi_fragment.ansi.foreground_color = '#909';
                   break;
                 case 36: // Cyan
-                  new_ansi.foreground_color = '#099';
+                  ansi_fragment.ansi.foreground_color = '#099';
                   break;
                 case 37: // White
-                  new_ansi.foreground_color = 'white';
+                  ansi_fragment.ansi.foreground_color = 'white';
                   break;
                 case 91: // Bright Red
-                  new_ansi.foreground_color = '#F00';
+                  ansi_fragment.ansi.foreground_color = '#F00';
                   break;
                 case 92: // Bright Green
-                  new_ansi.foreground_color = '#0f0';
+                  ansi_fragment.ansi.foreground_color = '#0f0';
                   break;
                 case 93: // Bright Yellow
-                  new_ansi.foreground_color = '#ff0';
+                  ansi_fragment.ansi.foreground_color = '#ff0';
                   break;
                 case 94: // Bright Blue
-                  new_ansi.foreground_color = '#00f';
+                  ansi_fragment.ansi.foreground_color = '#00f';
                   break;
                 case 95: // Bright Magenta
-                  new_ansi.foreground_color = '#f0f';
+                  ansi_fragment.ansi.foreground_color = '#f0f';
                   break;
                 case 96: // Bright Cyan
-                  new_ansi.foreground_color = '#0ff';
+                  ansi_fragment.ansi.foreground_color = '#0ff';
                   break;
                 default:
                   console.log(`wtf sequence is ${sequences}?`);
-                  new_ansi.foreground_color = 'yellow';
+                  ansi_fragment.ansi.foreground_color = 'yellow';
                   break;
               }
             }
 
-            // Append to fragment
-            if (typeof current_fragment.content === 'string') {
-              if (current_fragment.content) {
-                current_fragment.content = [
-                  {content: current_fragment.content, ansi: openAnsiState.current}
-                ];
-              } else {
-                current_fragment.content = [];
-              }
-            }
-
-            // Append new fragment chunk
-            current_fragment.content.push({
-              content: '',
-              ansi: new_ansi
-            });
-
             // Bleed the state
-            openAnsiState.current = new_ansi;
+            openAnsiState.current = ansi_fragment.ansi;
 
             // Move to the next operation
             continue;
           }
 
-          if (typeof current_fragment.content === 'string') {
-            current_fragment.content += c;
-          } else {
-            current_fragment.content[current_fragment.content.length - 1].content += c;
-          }
+          current_fragment.content += c;
         }
 
-        // OPTIMIZATION: Kill any empty trailing nodes
-        if (typeof current_fragment.content !== 'string' && !current_fragment.content[current_fragment.content.length - 1].content) {
-          current_fragment.content.pop();
+        // FIX: This guarantees empty lines will have a height when rendered
+        if (parsed_line.length === 1 && parsed_line[0].content === '') {
+          parsed_line[0].content = ' ';
         }
 
         // Create a new object to represent this message
@@ -237,8 +239,10 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
           line_number: lastLine.current++,
           timestamp: Date.now(),
           raw: line,
-          parsed: current_fragment
+          parsed: parsed_line
         };
+
+        console.log(parsed_line);
 
         // Done parsing; add to history.
         setHistory((prevHistory) => [...prevHistory, gameMessage]);
