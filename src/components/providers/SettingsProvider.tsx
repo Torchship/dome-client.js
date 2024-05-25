@@ -1,22 +1,22 @@
-// src/socketContext.tsx
 import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
+import { ConsoleSettings } from '../FontStyler';
 
 const DEFAULT_SETTINGS: Settings = {
   autoscroll: true,
+  input: {
+    fontType: "Source Code Pro",
+    fontSize: 14
+  },
   output: {
     fontType: "Source Code Pro",
     fontSize: 14
   }
 }
 
-export interface ConsoleSettings {
-  fontType: string;
-  fontSize: number;
-}
-
 export interface Settings {
   autoscroll: boolean;
   output: ConsoleSettings;
+  input: ConsoleSettings;
 }
 
 interface SettingsContextProps {

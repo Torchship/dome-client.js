@@ -7,6 +7,7 @@ import SettingsIcon from "./assets/settings.svg";
 import { Key } from 'ts-keycode-enum';
 import { useGameSocket } from './components/providers/GameSocketProvider';
 import {useSettings} from './components/providers/SettingsProvider';
+import FontStyler from './components/FontStyler';
 
 function isEmptyOrSpaces(str: string){
   return str === null || str.match(/^ *$/) !== null;
@@ -15,7 +16,7 @@ function isEmptyOrSpaces(str: string){
 function App() {
   const { socket } = useGameSocket();
   const [consoleInput, setConsoleInput] = useState('');
-  const {isSettingsOpen, setSettingsOpen} = useSettings(); 
+  const {isSettingsOpen, setSettingsOpen, settings} = useSettings(); 
 
   const sendInput = () => {
     if (isEmptyOrSpaces(consoleInput))
@@ -55,7 +56,9 @@ function App() {
           <button id="options-button" onClick={openSettings}>
             <img src={SettingsIcon}></img>
           </button>
-          <textarea value={consoleInput} onChange={e => setConsoleInput(e.target.value)} onKeyDown={onKeyDown}/>
+          <FontStyler settings={settings.input}>
+            <textarea value={consoleInput} onChange={e => setConsoleInput(e.target.value)} onKeyDown={onKeyDown}/>
+          </FontStyler>
           <button id="send-button" onClick={sendInput}>
             Send
           </button>
