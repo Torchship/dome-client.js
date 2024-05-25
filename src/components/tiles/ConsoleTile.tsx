@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
-import { Virtuoso } from "react-virtuoso";
+import { FollowOutput, Virtuoso } from "react-virtuoso";
 import './ConsoleTile.css';
 import { Settings, useSettings } from '../providers/SettingsProvider';
 import FontStyler from '../FontStyler';
@@ -34,7 +34,7 @@ export const ConsoleTile: TileComponentType = () => {
     ),
     []
   );
-
+  
   return (
     <FontStyler 
       className="console"
@@ -43,7 +43,10 @@ export const ConsoleTile: TileComponentType = () => {
       <Virtuoso
         className="virtuoso-container"
         data={history}
-        followOutput={true}
+        followOutput={() => {
+          if (settings.autoscroll) return true;
+          return false;
+        }}
         initialTopMostItemIndex={history?.length}
         itemContent={itemContent}
       />
