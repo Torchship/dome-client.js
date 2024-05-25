@@ -8,6 +8,7 @@ import { Key } from 'ts-keycode-enum';
 import { useGameSocket } from './components/providers/GameSocketProvider';
 import {useSettings} from './components/providers/SettingsProvider';
 import FontStyler from './components/FontStyler';
+import Button from './components/Button';
 
 function isEmptyOrSpaces(str: string){
   return str === null || str.match(/^ *$/) !== null;
@@ -53,15 +54,15 @@ function App() {
       </div>
       <div id="input">
         <div className="input-container">
-          <button id="options-button" onClick={openSettings}>
+          <Button onClick={openSettings}>
             <img src={SettingsIcon}></img>
-          </button>
+          </Button>
           <FontStyler settings={settings.input}>
             <textarea value={consoleInput} onChange={e => setConsoleInput(e.target.value)} onKeyDown={onKeyDown}/>
           </FontStyler>
-          <button id="send-button" onClick={sendInput}>
+          <Button onClick={sendInput}>
             Send
-          </button>
+          </Button>
         </div>
       </div>
     </div>

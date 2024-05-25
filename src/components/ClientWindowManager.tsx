@@ -25,8 +25,8 @@ export const ClientWindowManager: React.FC = () => {
       <div className="window-toolbar">
         {ViewComponent.title}
         <div className="window-toolbar-buttons">
-          {actions.map((action, index) => (
-            <Button>
+          {actions.map((action, _index) => (
+            <Button className="toolbar-button">
               {action.icon ? (<img src={action.icon}/>) : null}
               {action.text ? (action.text) : null}
             </Button>

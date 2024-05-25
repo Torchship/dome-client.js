@@ -57,12 +57,6 @@ ConsoleTile.getToolbarActions = (settings: Settings) => [
   {
     onClick: () => console.log('Close clicked'),
     text: settings.autoscroll ? "Pause Scroll" : "Resume Scroll",
-    style: {
-      height: '1.75em', 
-      paddingLeft: '0.5em',
-      paddingRight: '0.5em',
-      backgroundColor: '#A5D6A7' 
-    }
   },
 ];
 
