@@ -1,0 +1,51 @@
+.ReactModal__Content {
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 2em auto;
+  grid-template-areas: 
+    "header header"
+    "navbar content";
+}
+
+.header {
+  background-color: rgba(255, 255, 255, 0.12);
+  grid-area: header;
+
+  #back-button {
+    color: white;
+    display: flex;
+    border: none;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.12);
+  grid-area: navbar;
+
+  .menu-item {
+    height: 3em;
+    display: grid;
+    grid-template-columns: 50px auto;
+    grid-template-areas: "icon title";
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .menu-icon {
+      grid-area: icon;
+    }
+
+    .menu-title {
+      grid-area: title;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.content {
+  grid-area: content;
+}

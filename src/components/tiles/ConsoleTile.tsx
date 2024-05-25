@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect, RefObject} from 'react';
-import { GameMessage, useGameSocket } from '../providers/GameSocketProvider';
+import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
 import { VariableSizeList as List } from 'react-window';
 import './ConsoleTile.css';
@@ -25,6 +25,30 @@ const measureTextHeight = (ref: RefObject<HTMLDivElement>, text: string): number
   return height;
 };
 
+const renderTextFragment = (fragment: TextFragment, key: number | string): JSX.Element => {
+  const style: React.CSSProperties = {
+      fontWeight: fragment.ansi?.is_bold ? 'bold' : 'normal',
+      color: fragment.ansi?.foreground_color || 'inherit',
+      backgroundColor: fragment.ansi?.background_color || 'inherit',
+  };
+
+  if (typeof fragment.content === 'string') {
+      return (
+          <span key={key} style={style}>
+              {fragment.content}
+          </span>
+      );
+  } else {
+      return (
+          <span key={key} style={style}>
+              {fragment.content.map((nestedFragment, index) =>
+                  renderTextFragment(nestedFragment, `${key}-${index}`)
+              )}
+          </span>
+      );
+  }
+};
+
 export const ConsoleTile: TileComponentType = () => {
   const { history } = useGameSocket();
   const consoleContainerRef = useRef<HTMLDivElement>(null);
@@ -35,7 +59,7 @@ export const ConsoleTile: TileComponentType = () => {
     return rowHeights.current[index] || measureTextHeight(consoleContainerRef, history[index].raw);
   }
 
-  function Row({ index, style }) {
+  function Row({ index }) {
     const gameMessage: GameMessage = history[index];
 
     useEffect(() => {
@@ -47,7 +71,8 @@ export const ConsoleTile: TileComponentType = () => {
     }, [consoleContainerRef])
 
     return (
-      <div style={style} dangerouslySetInnerHTML={{__html: gameMessage.raw}}>
+      <div>
+        {renderTextFragment(gameMessage.parsed, 0)}
       </div>
     );
   }
@@ -69,18 +94,18 @@ export const ConsoleTile: TileComponentType = () => {
 
   return (
     <div className="console" ref={consoleContainerRef}>
-      <AutoSizer style={{height: "100%", width: "100%"}}>
-      {({ height, width }) => (
-        <List
-          ref={listRef}
-          itemCount={history.length}
-          itemSize={getRowHeight}
-          height={height}
-          width={width}
-          >
-          {Row}
-        </List>
-      )}
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            ref={listRef}
+            itemCount={history.length}
+            itemSize={getRowHeight}
+            height={height}
+            width={width}
+            >
+            {Row}
+          </List>
+        )}
       </AutoSizer>
     </div>
   );

@@ -5,14 +5,17 @@ import App from './App.tsx';
 import './styles/global.css';
 
 import {GameSocketProvider} from "./components/providers/GameSocketProvider.tsx";
+import {SettingsProvider} from "./components/providers/SettingsProvider.tsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <GameSocketProvider>
-      <App />
-    </GameSocketProvider>
-  </React.StrictMode>,
+    <SettingsProvider>
+      <GameSocketProvider>
+        <App />
+      </GameSocketProvider>
+    </SettingsProvider>
+  </React.StrictMode>
 );
 
-Modal.setAppElement('#app');
+Modal.setAppElement('#root');
