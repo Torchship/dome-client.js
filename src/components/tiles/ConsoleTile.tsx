@@ -21,7 +21,6 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
 
 export const ConsoleTile: TileComponentType = () => {
   const { history } = useGameSocket();
-  const consoleContainerRef = useRef<HTMLDivElement>(null);
 
   const itemContent = useCallback(
     (_index: number, gameMessage: GameMessage) => (
@@ -35,7 +34,7 @@ export const ConsoleTile: TileComponentType = () => {
   );
 
   return (
-    <div className="console" ref={consoleContainerRef}>
+    <div className="console">
       <Virtuoso
         className="virtuoso-container"
         data={history}

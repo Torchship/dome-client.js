@@ -1,6 +1,7 @@
 // src/socketContext.tsx
 import React, { createContext, useContext, useEffect, useState, ReactNode, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
+import { useEditorManager } from './EditorManagerProvider';
 
 
 interface GameSocketContextProps {
@@ -44,8 +45,16 @@ export interface AnsiState {
   background_color: string;
 }
 
+export interface SocketMode {
+  mode: string;
+  params: Record<string, string>;
+  buffer: string;
+}
+
 export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children }) => {
+  const {spawnEditor} = useEditorManager();
   const [socket, setSocket] = useState<Socket | null>(null);
+  const mode = useRef<SocketMode | null>(null);
   const [history, setHistory] = useState<GameMessage[]>([]);
   const buffer = useRef<string>("");
   const lastLine = useRef<number>(1);
@@ -73,7 +82,34 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
 
       // Process each complete line
       lines.forEach(line => {
-        // Parse the line...
+        // Begin parsing line by line
+        if (mode.current) {
+          if (line === '.') {
+            spawnEditor?.(mode.current.mode, mode.current.buffer, mode.current.params);
+            mode.current = null;       
+            return;
+          }
+
+          // We don't pass on additional lines to the reader socket...
+          mode.current.buffer += line;
+          mode.current.buffer += '\n';
+          return;
+        } 
+        
+        
+        if (line.startsWith("#$#")) {          
+          const oobRegex = /(?:(?:#\$# (\w+) )|([^:]+): (.*?)(?= [^:]+: |$))/g;
+          let match;
+          const newRecord: Record<string, string> = {};
+          let new_mode = {mode: '', params: newRecord, buffer: ''};
+          while ((match = oobRegex.exec(line)) !== null) {
+            if (!new_mode.mode) new_mode.mode = match.slice(1)[0];
+            else new_mode.params[match.slice(1)[1].trim()] = match.slice(1)[2].trim();
+          }
+          mode.current = new_mode;
+          console.log(`OOB Edit Command Received: ${JSON.stringify(new_mode)}`);     
+          return;
+        }
         let c;
         const parsed_line: TextFragment[] = [{content: '', ansi: openAnsiState.current}];
         
