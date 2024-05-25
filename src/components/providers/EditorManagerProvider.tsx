@@ -56,8 +56,8 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
           onBlock={() => onEditorUnload(data)}>
             <div className="editor-container">
               <div className="header">
-                <Button label="Abort"></Button>
-                <Button label="Save"></Button>
+                <Button label="Abort" onClick={() => onEditorUnload(data)}></Button>
+                <Button label="Save" onClick={() => onEditorUnload(data)}></Button>
               </div>
               <div className="content">
                 <MooEditor content={data.content} />

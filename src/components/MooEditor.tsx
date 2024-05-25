@@ -5,10 +5,11 @@ import "ace-builds/src-noconflict/theme-twilight";
 import "../assets/ace/mode-moo";
 
 interface MooEditorProps {
-  content: string
+  content: string;
+  onChange?: ((value: string, event?: any) => void) | undefined;
 }
 
-export const MooEditor: React.FC<MooEditorProps> = ({ content }) => {
+export const MooEditor: React.FC<MooEditorProps> = ({ content, onChange }) => {
   return (
     <AceEditor 
       name='ace-editor'
@@ -16,7 +17,8 @@ export const MooEditor: React.FC<MooEditorProps> = ({ content }) => {
       mode="moo"
       theme="twilight"
       width="100%"
-      height='auto'/>
+      height='auto'
+      onChange={onChange}/>
   )
 };
 
