@@ -27,9 +27,13 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
   const spawnEditor = (type: string, content: string, params: Record<string, string>): EditorWindowData => {
     const newEditor: EditorWindowData = {
       id: `${type}-${Date.now()}`,
-      title: params['name'] || 'Scratch',
+      title: 'Scratch',
       content
     };
+
+    if (type === 'edit' && 'name' in params) {
+      newEditor.title = `Editing ${params['name']}`;
+    }
 
     setEditorWindows([...editorWindows, newEditor]);
     return newEditor;
@@ -44,7 +48,7 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
       {editorWindows.map(data => (
         <NewWindow 
           key={data.id}
-          name={data.title}
+          title={data.title}
           onUnload={() => onEditorUnload(data)}
           onBlock={() => onEditorUnload(data)}>
             <MooEditor content={data.content} />
