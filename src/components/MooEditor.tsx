@@ -15,7 +15,8 @@ export const MooEditor: React.FC<MooEditorProps> = ({ content }) => {
       value={content}
       mode="moo"
       theme="twilight"
-      width="100%"/>
+      width="100%"
+      height='auto'/>
   )
 };
 

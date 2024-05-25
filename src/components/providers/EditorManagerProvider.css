@@ -1,6 +1,8 @@
 .editor-container {
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  width: 100vw;
 
   .header {
     height: 3em;
@@ -15,5 +17,9 @@
   .content {
     flex-grow: 1;
     display: flex;
+
+    #ace-editor {
+      flex-grow: 1;
+    }
   }
 }
