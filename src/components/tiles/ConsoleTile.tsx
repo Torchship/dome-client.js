@@ -1,9 +1,20 @@
-import React, {useRef, useCallback} from 'react';
+import React, {useCallback} from 'react';
+import styled from 'styled-components';
 import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
 import { Virtuoso } from "react-virtuoso";
 import './ConsoleTile.css';
-import { Settings } from '../providers/SettingsProvider';
+import { Settings, useSettings } from '../providers/SettingsProvider';
+
+interface DynamicConsoleProps {
+  fontType: string;
+  fontSize: number;
+}
+
+const DynamicConsole = styled.div<DynamicConsoleProps>`
+  font-family: ${(props: DynamicConsoleProps) => props.fontType};
+  font-size: ${(props: DynamicConsoleProps) => props.fontSize}px;
+`;
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {
@@ -21,6 +32,7 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
 
 export const ConsoleTile: TileComponentType = () => {
   const { history } = useGameSocket();
+  const { settings } = useSettings();
 
   const itemContent = useCallback(
     (_index: number, gameMessage: GameMessage) => (
@@ -34,7 +46,11 @@ export const ConsoleTile: TileComponentType = () => {
   );
 
   return (
-    <div className="console">
+    <DynamicConsole 
+      className="console"
+      fontType={settings.output.fontType}
+      fontSize={settings.output.fontSize}
+      >
       <Virtuoso
         className="virtuoso-container"
         data={history}
@@ -42,7 +58,7 @@ export const ConsoleTile: TileComponentType = () => {
         initialTopMostItemIndex={history?.length}
         itemContent={itemContent}
       />
-    </div>
+    </DynamicConsole>
   );
 }
 

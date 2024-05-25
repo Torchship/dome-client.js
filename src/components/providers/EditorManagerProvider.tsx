@@ -2,6 +2,9 @@ import React, { createContext, useContext, ReactNode, useState } from 'react';
 import MooEditor from '../MooEditor';
 import NewWindow from 'react-new-window';
 
+import "./EditorManagerProvider.css";
+import Button from '../Button';
+
 interface EditorWindowData {
   id: string,
   title: string,
@@ -51,7 +54,15 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
           title={data.title}
           onUnload={() => onEditorUnload(data)}
           onBlock={() => onEditorUnload(data)}>
-            <MooEditor content={data.content} />
+            <div className="editor-container">
+              <div className="header">
+                <Button label="Abort"></Button>
+                <Button label="Save"></Button>
+              </div>
+              <div className="content">
+                <MooEditor content={data.content} />
+              </div>
+            </div>            
         </NewWindow>
       ))}
       {children}

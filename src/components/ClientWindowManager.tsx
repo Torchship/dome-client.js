@@ -7,6 +7,7 @@ import './ClientWindowManager.css';
 import {TileComponentType, ViewId} from './TileComponent';
 import { CharacterTile } from './tiles/CharacterTile';
 import { useSettings } from './providers/SettingsProvider';
+import Button from './Button';
 
 const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
   console: ConsoleTile,
@@ -25,10 +26,10 @@ export const ClientWindowManager: React.FC = () => {
         {ViewComponent.title}
         <div className="window-toolbar-buttons">
           {actions.map((action, index) => (
-            <button key={index} onClick={action.onClick} style={action.style}>
+            <Button>
               {action.icon ? (<img src={action.icon}/>) : null}
               {action.text ? (action.text) : null}
-            </button>
+            </Button>
           ))}
         </div>
       </div>

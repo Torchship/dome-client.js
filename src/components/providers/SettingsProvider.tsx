@@ -2,11 +2,21 @@
 import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
 
 const DEFAULT_SETTINGS: Settings = {
-  autoscroll: true
+  autoscroll: true,
+  output: {
+    fontType: "Source Code Pro",
+    fontSize: 14
+  }
+}
+
+export interface ConsoleSettings {
+  fontType: string;
+  fontSize: number;
 }
 
 export interface Settings {
-  autoscroll: boolean
+  autoscroll: boolean;
+  output: ConsoleSettings;
 }
 
 interface SettingsContextProps {

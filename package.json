@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/socket.io": "^3.0.2",
     "@types/socket.io-client": "^3.0.0",
+    "@types/styled-components": "^5.1.34",
     "ace-builds": "^1.34.1",
     "express": "^4.19.2",
     "react": "^18.2.0",
@@ -23,6 +24,7 @@
     "react-virtuoso": "^4.7.11",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
+    "styled-components": "^6.1.11",
     "ts-keycode-enum": "^1.0.6",
     "underscore": "^1.13.6",
     "ws": "^8.17.0"

@@ -1,0 +1,33 @@
+.material-button {
+  background-color: #6200ea; /* Primary color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.material-button:hover {
+  background-color: #3700b3; /* Darker shade for hover state */
+}
+
+.material-button:active {
+  background-color: #1a00a3; /* Even darker shade for active state */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.material-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.5);
+}
+
+.material-button:disabled {
+  background-color: #c7a4ff; /* Disabled color */
+  cursor: not-allowed;
+  opacity: 0.6;
+}

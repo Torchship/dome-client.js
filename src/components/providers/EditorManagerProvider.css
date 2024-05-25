@@ -1,0 +1,19 @@
+.editor-container {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    height: 3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .content {
+    flex-grow: 1;
+    display: flex;
+  }
+}
