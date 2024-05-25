@@ -1,10 +1,10 @@
-import React, {useRef, useCallback} from 'react';
+import React, {useRef, useCallback, useEffect} from 'react';
 import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
-import { Virtuoso } from "react-virtuoso";
+import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import './ConsoleTile.css';
 
-const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element | null => {
+const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {
       fontWeight: fragment.ansi?.is_bold ? 'bold' : 'normal',
       color: fragment.ansi?.foreground_color || 'inherit',
@@ -21,18 +21,7 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
 export const ConsoleTile: TileComponentType = () => {
   const { history } = useGameSocket();
   const consoleContainerRef = useRef<HTMLDivElement>(null);
-  const lastLine = history?.length ? history[history?.length - 1] : null;
-
-  const onFollowOutputHandler = useCallback(
-    (atBottom) => {
-      if (atBottom) {
-        return "auto";
-      } else {
-        return false;
-      }
-    },
-    [lastLine]
-  );
+  const virtualWindowRef = useRef<VirtuosoHandle>(null);
 
   const itemContent = useCallback(
     (_index: number, gameMessage: GameMessage) => (
@@ -44,12 +33,22 @@ export const ConsoleTile: TileComponentType = () => {
     ),
     []
   );
+  
+  useEffect(() => {
+    // Why am I doing this every 50ms? because autoscroll sucks in virtuoso.
+    const interval = setInterval(() => {
+      if (!virtualWindowRef.current) return;
+      virtualWindowRef.current.scrollToIndex(history.length);
+    }, 50);
+  
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, [])
 
   return (
     <div className="console" ref={consoleContainerRef}>
       <Virtuoso
+        ref={virtualWindowRef}
         data={history}
-        followOutput={onFollowOutputHandler}
         initialTopMostItemIndex={history?.length}
         itemContent={itemContent}
       />

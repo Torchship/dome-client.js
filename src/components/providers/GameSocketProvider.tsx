@@ -242,8 +242,6 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
           parsed: parsed_line
         };
 
-        console.log(parsed_line);
-
         // Done parsing; add to history.
         setHistory((prevHistory) => [...prevHistory, gameMessage]);
       });
