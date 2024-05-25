@@ -8,7 +8,7 @@ import { Key } from 'ts-keycode-enum';
 import { useGameSocket } from './components/providers/GameSocketProvider';
 import {useSettings} from './components/providers/SettingsProvider';
 
-function isEmptyOrSpaces(str){
+function isEmptyOrSpaces(str: string){
   return str === null || str.match(/^ *$/) !== null;
 }
 

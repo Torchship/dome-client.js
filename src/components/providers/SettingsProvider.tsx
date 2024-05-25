@@ -1,17 +1,21 @@
 // src/socketContext.tsx
 import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
 
-interface Settings {
+const DEFAULT_SETTINGS: Settings = {
+  autoscroll: true
+}
 
+export interface Settings {
+  autoscroll: boolean
 }
 
 interface SettingsContextProps {
   isSettingsOpen: boolean;
   setSettingsOpen: React.Dispatch<React.SetStateAction<boolean>> | null;
-  settings: React.MutableRefObject<Settings> | null;
+  settings: Settings;
 }
 
-const SettingsContext = createContext<SettingsContextProps>({ isSettingsOpen: false, setSettingsOpen: null, settings: null });
+const SettingsContext = createContext<SettingsContextProps>({ isSettingsOpen: false, setSettingsOpen: null, settings: DEFAULT_SETTINGS });
 
 export const useSettings = () => useContext(SettingsContext);
 
@@ -21,10 +25,10 @@ interface SettingsProviderProps {
 
 export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
   const [isSettingsOpen, setSettingsOpen] = useState<boolean>(false);
-  const settings = useRef<Settings>({});
+  const settings = useRef<Settings>(DEFAULT_SETTINGS);
 
   return (
-    <SettingsContext.Provider value={{ isSettingsOpen, setSettingsOpen, settings }}>
+    <SettingsContext.Provider value={{ isSettingsOpen, setSettingsOpen, settings: settings.current }}>
       {children}
     </SettingsContext.Provider>
   );

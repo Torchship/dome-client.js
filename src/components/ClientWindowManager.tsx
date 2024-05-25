@@ -6,6 +6,7 @@ import 'react-mosaic-component/react-mosaic-component.css';
 import './ClientWindowManager.css';
 import {TileComponentType, ViewId} from './TileComponent';
 import { CharacterTile } from './tiles/CharacterTile';
+import { useSettings } from './providers/SettingsProvider';
 
 const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
   console: ConsoleTile,
@@ -14,17 +15,19 @@ const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
 
 export const ClientWindowManager: React.FC = () => { 
   const [nodeGraph, setNodeGraph] = useState<MosaicNode<ViewId> | null>('console');
+  const {settings} = useSettings();
 
   const renderToolbar = (id: ViewId) => {
     const ViewComponent = VIEW_COMPONENT_MAP[id];
-    const actions = ViewComponent.getToolbarActions(nodeGraph, setNodeGraph);
+    const actions = ViewComponent.getToolbarActions(settings, nodeGraph, setNodeGraph);
     return (
       <div className="window-toolbar">
         {ViewComponent.title}
         <div className="window-toolbar-buttons">
           {actions.map((action, index) => (
-            <button key={index} onClick={action.onClick}>
-              <img src={action.icon}/>
+            <button key={index} onClick={action.onClick} style={action.style}>
+              {action.icon ? (<img src={action.icon}/>) : null}
+              {action.text ? (action.text) : null}
             </button>
           ))}
         </div>

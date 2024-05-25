@@ -1,8 +1,9 @@
-import React, {useRef, useCallback, useEffect} from 'react';
+import React, {useRef, useCallback} from 'react';
 import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
-import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
+import { Virtuoso } from "react-virtuoso";
 import './ConsoleTile.css';
+import { Settings } from '../providers/SettingsProvider';
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {
@@ -21,7 +22,6 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
 export const ConsoleTile: TileComponentType = () => {
   const { history } = useGameSocket();
   const consoleContainerRef = useRef<HTMLDivElement>(null);
-  const virtualWindowRef = useRef<VirtuosoHandle>(null);
 
   const itemContent = useCallback(
     (_index: number, gameMessage: GameMessage) => (
@@ -33,22 +33,13 @@ export const ConsoleTile: TileComponentType = () => {
     ),
     []
   );
-  
-  useEffect(() => {
-    // Why am I doing this every 50ms? because autoscroll sucks in virtuoso.
-    const interval = setInterval(() => {
-      if (!virtualWindowRef.current) return;
-      virtualWindowRef.current.scrollToIndex(history.length);
-    }, 50);
-  
-    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, [])
 
   return (
     <div className="console" ref={consoleContainerRef}>
       <Virtuoso
-        ref={virtualWindowRef}
+        className="virtuoso-container"
         data={history}
+        followOutput={true}
         initialTopMostItemIndex={history?.length}
         itemContent={itemContent}
       />
@@ -58,6 +49,17 @@ export const ConsoleTile: TileComponentType = () => {
 
 ConsoleTile.title = "Torchship Console";
 ConsoleTile.viewId = 'console';
-ConsoleTile.getToolbarActions = () => [];
+ConsoleTile.getToolbarActions = (settings: Settings) => [
+  {
+    onClick: () => console.log('Close clicked'),
+    text: settings.autoscroll ? "Pause Scroll" : "Resume Scroll",
+    style: {
+      height: '1.75em', 
+      paddingLeft: '0.5em',
+      paddingRight: '0.5em',
+      backgroundColor: '#A5D6A7' 
+    }
+  },
+];
 
 export default ConsoleTile;
