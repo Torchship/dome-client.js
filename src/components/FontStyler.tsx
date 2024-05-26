@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export interface ConsoleSettings {
   fontType: string;
   fontSize: number;
+  lineWidth: number;
 }
 
 interface FontStylerProps {

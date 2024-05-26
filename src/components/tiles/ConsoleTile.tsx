@@ -1,10 +1,12 @@
-import React, {useRef, useEffect} from 'react';
-import { TextFragment, useGameSocket } from '../providers/GameSocketProvider';
+import React, {useRef, useEffect, useState, useMemo} from 'react';
+import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
-import {List, AutoSizer, CellMeasurerCache, CellMeasurer} from 'react-virtualized';
-import './ConsoleTile.css';
+import {List, AutoSizer} from 'react-virtualized';
 import { Settings, useSettings } from '../providers/SettingsProvider';
 import FontStyler from '../FontStyler';
+
+import './ConsoleTile.css';
+import 'react-virtualized/styles.css'; // only needs to be imported once
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {
@@ -20,35 +22,110 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
   );
 };
 
+const measureMonospaceCharacterWidth = (font: string): number => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  if (context) {
+    context.font = font;
+    return context.measureText('M').width; // Measure width of a single character
+  }
+  return 0;
+};
+
+const splitMessageIntoLines = (
+  message: GameMessage,
+  lineWidth: number,
+  charWidth: number
+): GameMessage[] => {
+  const maxCharsPerLine = Math.floor(lineWidth / charWidth);
+  const lines: GameMessage[] = [];
+  let currentLine: TextFragment[] = [];
+  let currentLineLength = 0;
+
+  message.parsed.forEach((fragment) => {
+    let content = fragment.content;
+    while (content.length > 0) {
+      const remainingChars = maxCharsPerLine - currentLineLength;
+      const splitIndex = Math.min(remainingChars, content.length);
+      
+      const fragmentPart = content.substring(0, splitIndex);
+      currentLine.push({ content: fragmentPart, ansi: fragment.ansi });
+      currentLineLength += fragmentPart.length;
+
+      if (currentLineLength >= maxCharsPerLine || splitIndex < content.length) {
+        lines.push({
+          line_number: message.line_number,
+          timestamp: message.timestamp,
+          raw: message.raw,
+          parsed: currentLine,
+        });
+        currentLine = [];
+        currentLineLength = 0;
+      }
+
+      content = content.substring(splitIndex);
+    }
+  });
+
+  if (currentLine.length > 0) {
+    lines.push({
+      line_number: message.line_number,
+      timestamp: message.timestamp,
+      raw: message.raw,
+      parsed: currentLine,
+    });
+  }
+
+  return lines;
+};
+
 export const ConsoleTile: TileComponentType = () => {
-  const virtualListRef = useRef<List>(null);
   const { history } = useGameSocket();
   const { settings } = useSettings();
+  const [consoleWidth, setConsoleWidth] = useState<number>(1000);
+  const virtualListRef = useRef<List>(null);  
+
+  const characterWidth = useMemo(() => {
+    return measureMonospaceCharacterWidth(settings.output.fontType);
+  }, [settings.output.fontType])
 
   useEffect(() => {
-    if (!virtualListRef.current) return;
-    virtualListRef.current.scrollToRow(history.length);
-  }, [history])
+    const updateWidth = () => {
+      if (!virtualListRef.current) return;
+      setConsoleWidth(virtualListRef.current.props.width);
+    };
 
-  const cache = new CellMeasurerCache({
-    fixedWidth: true
-  });  
+    updateWidth();
+
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  const consoleLineWidth = useMemo(() => {
+    if (consoleWidth <= characterWidth) return settings.output.lineWidth * characterWidth;
+    return Math.min(settings.output.lineWidth * characterWidth, consoleWidth);
+  }, [settings.output.lineWidth, consoleWidth, characterWidth]);
+
+  const consoleRows = useMemo(() => {
+    return history.flatMap((message) =>
+      splitMessageIntoLines(message, consoleLineWidth, characterWidth)
+    );
+  }, [history, consoleLineWidth]);
+
+  // When history updates, send us to the bottom
+  useEffect(() => {
+    if (!virtualListRef.current) return;
+    virtualListRef.current.scrollToRow(consoleRows.length - 1);
+  }, [consoleRows]);
 
   function rowRenderer(params: any) {
-    const gameMessage = history[params.index];
+    const gameMessage = consoleRows[params.index];
     return (
-      <CellMeasurer
-        cache={cache}
-        columnIndex={0}
-        key={params.key}
-        parent={params.parent}
-        rowIndex={params.index}>
-        <div key={params.key} style={params.style}>
-          {gameMessage.parsed.map((fragment, index) => (
-            renderTextFragment(fragment, gameMessage.line_number, index)
-          ))}
-        </div>
-      </CellMeasurer>
+      <div key={params.key} style={params.style}>
+        {gameMessage.parsed.map((fragment, index) => (
+          renderTextFragment(fragment, gameMessage.line_number, index)
+        ))}
+      </div>
     );
   }
   
@@ -59,12 +136,11 @@ export const ConsoleTile: TileComponentType = () => {
       <AutoSizer>
         {({height, width}) => (
           <List
-            deferredMeasurementCache={cache}
             ref={virtualListRef}
             height={height}
-            rowCount={history.length}
+            rowCount={consoleRows.length}
             rowRenderer={rowRenderer}
-            rowHeight={cache.rowHeight}
+            rowHeight={14}
             width={width}
           />
         )}

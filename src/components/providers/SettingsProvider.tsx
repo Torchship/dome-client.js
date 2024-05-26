@@ -5,11 +5,13 @@ const DEFAULT_SETTINGS: Settings = {
   autoscroll: true,
   input: {
     fontType: "Source Code Pro",
-    fontSize: 14
+    fontSize: 14,
+    lineWidth: 78
   },
   output: {
     fontType: "Source Code Pro",
-    fontSize: 14
+    fontSize: 14,
+    lineWidth: 78
   }
 }
 
