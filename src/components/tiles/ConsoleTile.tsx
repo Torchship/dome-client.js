@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react';
-import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
+import React, {useRef, useEffect} from 'react';
+import { TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
-import { FollowOutput, Virtuoso } from "react-virtuoso";
+import {List, AutoSizer, CellMeasurerCache, CellMeasurer} from 'react-virtualized';
 import './ConsoleTile.css';
 import { Settings, useSettings } from '../providers/SettingsProvider';
 import FontStyler from '../FontStyler';
@@ -21,35 +21,54 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
 };
 
 export const ConsoleTile: TileComponentType = () => {
+  const virtualListRef = useRef<List>(null);
   const { history } = useGameSocket();
   const { settings } = useSettings();
 
-  const itemContent = useCallback(
-    (_index: number, gameMessage: GameMessage) => (
-      <div key={gameMessage.line_number}>
-        {gameMessage.parsed.map((fragment, index) => (
-          renderTextFragment(fragment, gameMessage.line_number, index)
-        ))}
-      </div>
-    ),
-    []
-  );
+  useEffect(() => {
+    if (!virtualListRef.current) return;
+    virtualListRef.current.scrollToRow(history.length);
+  }, [history])
+
+  const cache = new CellMeasurerCache({
+    fixedWidth: true
+  });  
+
+  function rowRenderer(params: any) {
+    const gameMessage = history[params.index];
+    return (
+      <CellMeasurer
+        cache={cache}
+        columnIndex={0}
+        key={params.key}
+        parent={params.parent}
+        rowIndex={params.index}>
+        <div key={params.key} style={params.style}>
+          {gameMessage.parsed.map((fragment, index) => (
+            renderTextFragment(fragment, gameMessage.line_number, index)
+          ))}
+        </div>
+      </CellMeasurer>
+    );
+  }
   
   return (
     <FontStyler 
       className="console"
-      settings={settings.output}
-      >
-      <Virtuoso
-        className="virtuoso-container"
-        data={history}
-        followOutput={() => {
-          if (settings.autoscroll) return true;
-          return false;
-        }}
-        initialTopMostItemIndex={history?.length}
-        itemContent={itemContent}
-      />
+      settings={settings.output}>
+      <AutoSizer>
+        {({height, width}) => (
+          <List
+            deferredMeasurementCache={cache}
+            ref={virtualListRef}
+            height={height}
+            rowCount={history.length}
+            rowRenderer={rowRenderer}
+            rowHeight={cache.rowHeight}
+            width={width}
+          />
+        )}
+      </AutoSizer>
     </FontStyler>
   );
 }
