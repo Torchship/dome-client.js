@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Modal from 'react-modal';
 import App from './App.tsx';
@@ -11,15 +10,13 @@ import { EditorManagerProvider } from './components/providers/EditorManagerProvi
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <SettingsProvider>
-      <EditorManagerProvider>
-        <GameSocketProvider>
-          <App />
-        </GameSocketProvider>
-      </EditorManagerProvider>
-    </SettingsProvider>
-  </React.StrictMode>
+  <SettingsProvider>
+    <EditorManagerProvider>
+      <GameSocketProvider>
+        <App />
+      </GameSocketProvider>
+    </EditorManagerProvider>
+  </SettingsProvider>
 );
 
 Modal.setAppElement('#root');
