@@ -16,7 +16,7 @@ const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
 
 export const ClientWindowManager: React.FC = () => { 
   const [nodeGraph, setNodeGraph] = useState<MosaicNode<ViewId> | null>('console');
-  const {settings} = useSettings();
+  const {settings, setSettings} = useSettings();
 
   const renderToolbar = (id: ViewId) => {
     const ViewComponent = VIEW_COMPONENT_MAP[id];
@@ -26,7 +26,11 @@ export const ClientWindowManager: React.FC = () => {
         {ViewComponent.title}
         <div className="window-toolbar-buttons">
           {actions.map((action, _index) => (
-            <Button className="toolbar-button">
+            <Button 
+              className="toolbar-button" 
+              color={action.color || 'info'} 
+              onClick={() => action.onClick(setSettings)}
+            >
               {action.icon ? (<img src={action.icon}/>) : null}
               {action.text ? (action.text) : null}
             </Button>

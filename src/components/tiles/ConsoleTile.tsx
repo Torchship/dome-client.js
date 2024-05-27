@@ -8,6 +8,7 @@ import FontStyler from '../FontStyler';
 import './ConsoleTile.css';
 import 'react-virtualized/styles.css'; // only needs to be imported once
 import Settings from '../../models/Settings';
+import { deepClone } from '../../util';
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {
@@ -116,6 +117,7 @@ export const ConsoleTile: TileComponentType = () => {
   // When history updates, send us to the bottom
   useEffect(() => {
     if (!virtualListRef.current) return;
+    if (!settings.autoscroll) return;
     virtualListRef.current.scrollToRow(consoleRows.length - 1);
   }, [consoleRows]);
 
@@ -154,8 +156,13 @@ ConsoleTile.title = "Torchship Console";
 ConsoleTile.viewId = 'console';
 ConsoleTile.getToolbarActions = (settings: Settings) => [
   {
-    onClick: () => console.log('Close clicked'),
+    onClick: (setSettings: (newSettings: Settings) => void) => {
+      const newSettings = deepClone(settings);
+      newSettings.autoscroll = !settings.autoscroll;
+      setSettings(newSettings);
+    },
     text: settings.autoscroll ? "Pause Scroll" : "Resume Scroll",
+    color: settings.autoscroll ? 'info' : 'warning'
   },
 ];
 

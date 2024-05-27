@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useRef, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import Settings, { DEFAULT_SETTINGS } from '../../models/Settings';
 
 interface SettingsContextProps {
@@ -6,13 +6,15 @@ interface SettingsContextProps {
   setSettingsOpen: React.Dispatch<React.SetStateAction<boolean>> | null;
   settings: Settings;
   saveSettings: () => void;
+  setSettings: (newSettings: Settings) => void;
 }
 
 const SettingsContext = createContext<SettingsContextProps>({ 
   isSettingsOpen: false, 
   setSettingsOpen: null, 
   settings: DEFAULT_SETTINGS, 
-  saveSettings: () => {}
+  saveSettings: () => {},
+  setSettings: () => {}
 });
 
 export const useSettings = () => useContext(SettingsContext);
@@ -23,16 +25,17 @@ interface SettingsProviderProps {
 
 export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
   const [isSettingsOpen, setSettingsOpen] = useState<boolean>(false);
-  const settings = useRef<Settings>(DEFAULT_SETTINGS);
+  // const settings = useRef<Settings>(DEFAULT_SETTINGS);
+  const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
 
   const saveSettings = () => {
-    localStorage.setItem("settings", JSON.stringify(settings.current));
+    localStorage.setItem("settings", JSON.stringify(settings));
   };
 
   const loadSettings = () => {
     const rawSettings = localStorage.getItem("settings");
     if (!rawSettings) return;
-    settings.current = JSON.parse(rawSettings);
+    setSettings(JSON.parse(rawSettings));
   }
 
   useEffect(() => {
@@ -40,7 +43,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
   }, []);
 
   return (
-    <SettingsContext.Provider value={{ isSettingsOpen, setSettingsOpen, settings: settings.current, saveSettings }}>
+    <SettingsContext.Provider value={{ isSettingsOpen, setSettingsOpen, settings: settings, saveSettings, setSettings }}>
       {children}
     </SettingsContext.Provider>
   );

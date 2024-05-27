@@ -1,14 +1,15 @@
 import React from 'react';
 import { MosaicNode } from 'react-mosaic-component';
-import { Settings } from './providers/SettingsProvider';
+import Settings from '../models/Settings';
 
 export type ViewId = 'console' | 'character';
 
 export interface ToolbarAction {
-  onClick: () => void;
+  onClick: (setSettings: (newSettings: Settings) => void) => void;
   icon?: string;
   style?: React.CSSProperties;
   text?: string;
+  color?: "info" | "success" | "error" | "warning";
 }
 
 export interface TileComponentType extends React.FC {
