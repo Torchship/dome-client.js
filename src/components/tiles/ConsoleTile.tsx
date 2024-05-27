@@ -2,11 +2,12 @@ import React, {useRef, useEffect, useState, useMemo} from 'react';
 import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
 import {List, AutoSizer} from 'react-virtualized';
-import { Settings, useSettings } from '../providers/SettingsProvider';
+import { useSettings } from '../providers/SettingsProvider';
 import FontStyler from '../FontStyler';
 
 import './ConsoleTile.css';
 import 'react-virtualized/styles.css'; // only needs to be imported once
+import Settings from '../../models/Settings';
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {

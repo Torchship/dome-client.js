@@ -2,7 +2,23 @@ import React, {useState} from 'react';
 import Modal from 'react-modal';
 import './SettingsModal.css';
 import {useSettings} from './providers/SettingsProvider';
-import BackArrow from '../assets/arrow-left.svg';
+import Cross from '../assets/x.svg';
+import Monitor from '../assets/monitor.svg';
+import Button from './Button';
+import OutputSettingsTab from './settings/OutputSettingsTab';
+import InputSettingsTab from './settings/InputSettingsTab';
+
+interface SettingsTab {
+  label: string;
+  icon?: string;
+  content: React.ComponentType<any>
+}
+
+const TABS: SettingsTab[] = [
+  { label: 'Output', icon: Monitor, content: OutputSettingsTab},
+  { label: 'Input', icon: Monitor, content: InputSettingsTab}
+];
+
 
 const settingsModalStyle = {
   overlay: {
@@ -28,11 +44,18 @@ const settingsModalStyle = {
 
 export const SettingsModal: React.FC = () => {
   const {isSettingsOpen, setSettingsOpen} = useSettings();
+  const [activeTab, setActiveTab] = useState<string>('Output');
 
   function closeModal() {
     if (setSettingsOpen)
       setSettingsOpen(false);
   }
+
+  function onTabClick(tab: SettingsTab) {
+    setActiveTab(tab.label);
+  }
+
+  const ActiveTabContent = TABS.find(tab => tab.label === activeTab)?.content;
 
   return (
     <Modal
@@ -42,30 +65,25 @@ export const SettingsModal: React.FC = () => {
       style={settingsModalStyle}
     >
       <div className="header">
-        <button id='back-button'>
-        <img src={BackArrow}></img>
-        Close
-        </button>
+        <Button onClick={() => setSettingsOpen?.(false)}>
+          <img src={Cross} style={{filter: 'invert(1)'}}></img>
+        </Button>
       </div>
       <div className="navbar">
-        <div className='menu-item'>
-          <div className='menu-title'>
-            General
+        {TABS.map(tab => (
+          <div className={`menu-item ${tab.label === activeTab ? 'selected' : ''}`} onClick={() => onTabClick(tab)}>
+            {tab.icon
+              ? (<div className="menu-icon"><img src={tab.icon} style={{filter: 'invert(1)'}}></img></div>)
+              : null
+            }
+            <div className='menu-title'>
+              {tab.label}
+            </div>
           </div>
-        </div>
-        <div className='menu-item'>
-          <div className='menu-title'>
-            Main Display
-          </div>
-        </div>
-        <div className='menu-item'>
-          <div className='menu-title'>
-            Input Display
-          </div>
-        </div>
+        ))}
       </div>
       <div className="content">
-        Meow
+        {ActiveTabContent && <ActiveTabContent/>}
       </div>      
     </Modal>
   );

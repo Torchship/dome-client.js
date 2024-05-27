@@ -10,14 +10,15 @@
 .header {
   background-color: rgba(255, 255, 255, 0.12);
   grid-area: header;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.26);
 
-  #back-button {
-    color: white;
-    display: flex;
-    border: none;
-    background-color: transparent;
-    justify-content: center;
-    align-items: center;
+  .material-button {
+    height: 1.75em;
+    width: 1.75em;
   }
 }
 
@@ -30,12 +31,25 @@
     display: grid;
     grid-template-columns: 50px auto;
     grid-template-areas: "icon title";
+    text-transform: uppercase;
+    letter-spacing: 1.25px;
+    cursor: pointer;
+    overflow: hidden;
+    caret-color: transparent;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      -webkit-text-decoration: none;
     }
-    
+
     .menu-icon {
       grid-area: icon;
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
     }
 
     .menu-title {
@@ -44,8 +58,14 @@
       align-items: center;
     }
   }
+  
+  .menu-item.selected {
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .content {
   grid-area: content;
+  padding: 1em;
 }
