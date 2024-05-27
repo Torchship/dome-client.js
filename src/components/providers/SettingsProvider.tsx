@@ -1,25 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
-import { ConsoleSettings } from '../FontStyler';
-
-const DEFAULT_SETTINGS: Settings = {
-  autoscroll: true,
-  input: {
-    fontType: "Source Code Pro",
-    fontSize: 14,
-    lineWidth: 78
-  },
-  output: {
-    fontType: "Source Code Pro",
-    fontSize: 14,
-    lineWidth: 78
-  }
-}
-
-export interface Settings {
-  autoscroll: boolean;
-  output: ConsoleSettings;
-  input: ConsoleSettings;
-}
+import Settings, { DEFAULT_SETTINGS } from '../../models/Settings';
 
 interface SettingsContextProps {
   isSettingsOpen: boolean;

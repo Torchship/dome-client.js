@@ -1,10 +1,5 @@
 import styled from 'styled-components';
-
-export interface ConsoleSettings {
-  fontType: string;
-  fontSize: number;
-  lineWidth: number;
-}
+import { ConsoleSettings } from '../models/Settings';
 
 interface FontStylerProps {
   settings: ConsoleSettings;
