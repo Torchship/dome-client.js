@@ -10,4 +10,9 @@
   unicode-bidi: isolate;
   overflow-x: hidden;
   color: rgb(170, 170, 170);
+  border: 2px solid transparent;
+
+  &.scroll-disabled {
+    border: 2px dashed red;
+  }
 }

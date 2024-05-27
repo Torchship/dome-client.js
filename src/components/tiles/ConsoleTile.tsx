@@ -134,7 +134,7 @@ export const ConsoleTile: TileComponentType = () => {
   
   return (
     <FontStyler 
-      className="console"
+      className={`console ${!settings.autoscroll ? 'scroll-disabled' : ''}`}
       settings={settings.output}>
       <AutoSizer>
         {({height, width}) => (
