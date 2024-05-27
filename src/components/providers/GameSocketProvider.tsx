@@ -1,7 +1,7 @@
 // src/socketContext.tsx
 import React, { createContext, useContext, useEffect, useState, ReactNode, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { useEditorManager } from './EditorManagerProvider';
+import { useEditorManager, EditorWindowData } from './EditorManagerProvider';
 
 
 interface GameSocketContextProps {
@@ -85,7 +85,21 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
         // Begin parsing line by line
         if (mode.current) {
           if (line === '.') {
-            spawnEditor?.(mode.current.mode, mode.current.buffer, mode.current.params);
+            spawnEditor?.(
+              mode.current.mode, 
+              mode.current.buffer, 
+              mode.current.params, 
+              {
+                label: mode.current.params['upload'], 
+                callback: (editor: EditorWindowData) => {
+                  newSocket.emit('input', editor.saveCommand?.label);
+                  editor.content
+                    .split(/\r?\n/)
+                    .forEach(line => newSocket.emit('input', line));
+                  newSocket.emit('input', ".");
+                }
+              }
+            );
             mode.current = null;       
             return;
           }

@@ -5,15 +5,21 @@ import NewWindow from 'react-new-window';
 import "./EditorManagerProvider.css";
 import Button from '../Button';
 
-interface EditorWindowData {
+interface EditorSaveCommand {
+  label: string;
+  callback: (editor: EditorWindowData) => void;
+}
+
+export interface EditorWindowData {
   id: string,
   title: string,
-  content: string
+  content: string,
+  saveCommand?: EditorSaveCommand;
 }
 
 interface EditorManagerContextProps {
   editors: EditorWindowData[],
-  spawnEditor?: (type: string, content: string, params: Record<string, string>) => EditorWindowData;
+  spawnEditor?: (type: string, content: string, params: Record<string, string>, saveCommand?: EditorSaveCommand) => EditorWindowData;
 }
 
 const EditorManagerContext = createContext<EditorManagerContextProps>({editors: [], spawnEditor: undefined});
@@ -27,11 +33,12 @@ interface EditorManagerProps {
 export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }) => {
   const [editorWindows, setEditorWindows] = useState<EditorWindowData[]>([]);
 
-  const spawnEditor = (type: string, content: string, params: Record<string, string>): EditorWindowData => {
+  const spawnEditor = (type: string, content: string, params: Record<string, string>, saveCommand?: EditorSaveCommand): EditorWindowData => {
     const newEditor: EditorWindowData = {
       id: `${type}-${Date.now()}`,
       title: 'Scratch',
-      content
+      content,
+      saveCommand
     };
 
     if (type === 'edit' && 'name' in params) {
@@ -46,6 +53,11 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
     setEditorWindows(editorWindows.filter(other => other.id !== editor.id));
   };
 
+  const onEditorSave = (editor: EditorWindowData) => {
+    editor.saveCommand?.callback(editor);
+    onEditorUnload(editor);
+  }
+
   return (
     <EditorManagerContext.Provider value={{editors: editorWindows, spawnEditor}}>
       {editorWindows.map(data => (
@@ -56,8 +68,12 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
           onBlock={() => onEditorUnload(data)}>
             <div className="editor-container">
               <div className="header">
-                <Button label="Abort" onClick={() => onEditorUnload(data)}></Button>
-                <Button label="Save" onClick={() => onEditorUnload(data)}></Button>
+                <Button label="Abort" onClick={() => onEditorUnload(data)}/>
+                {
+                  data.saveCommand
+                    ? (<Button label={data.saveCommand.label} onClick={() => onEditorSave(data)}/>)
+                    : null
+                }
               </div>
               <div className="content">
                 <MooEditor content={data.content} />
