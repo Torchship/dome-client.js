@@ -1,29 +1,29 @@
 /* WebKit Browsers (Chrome, Safari, Edge) */
-*::-webkit-scrollbar, .virtuoso-container::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 12px;
 }
 
-*::-webkit-scrollbar-track, .virtuoso-container::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
-*::-webkit-scrollbar-thumb, .virtuoso-container::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
 }
 
-*::-webkit-scrollbar-thumb:hover, .virtuoso-container::-webkit-scrollbar-thumb:hover {
+*::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
 /* Removing arrows */
-*::-webkit-scrollbar-button, .virtuoso-container::-webkit-scrollbar-button {
+*::-webkit-scrollbar-button {
   display: none;
 }
 
 /* Firefox */
-body, .virtuoso-container  {
+body  {
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
 }
