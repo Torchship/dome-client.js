@@ -8,7 +8,7 @@ import FontStyler from '../FontStyler';
 import './ConsoleTile.css';
 import 'react-virtualized/styles.css'; // only needs to be imported once
 import Settings from '../../models/Settings';
-import { deepClone } from '../../util';
+import { deepClone, measureMonospaceCharacterWidth } from '../../util';
 import Button from '../Button';
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
@@ -23,16 +23,6 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
         {fragment.content}
     </span>
   );
-};
-
-const measureMonospaceCharacterWidth = (font: string): number => {
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
-  if (context) {
-    context.font = font;
-    return context.measureText('M').width; // Measure width of a single character
-  }
-  return 0;
 };
 
 const splitMessageIntoLines = (

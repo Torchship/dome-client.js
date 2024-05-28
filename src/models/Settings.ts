@@ -10,7 +10,6 @@ export const DEFAULT_SETTINGS: Settings = {
   input: {
     fontType: "Source Code Pro",
     fontSize: 14,
-    lineWidth: 78
   },
   output: {
     fontType: "Source Code Pro",
@@ -22,13 +21,17 @@ export const DEFAULT_SETTINGS: Settings = {
 export interface ConsoleSettings {
   fontType: string;
   fontSize: number;
+  
+}
+
+export interface OutputConsoleSettings extends ConsoleSettings {
   lineWidth: number;
 }
 
 export interface Settings {
   version: Version;
   autoscroll: boolean;
-  output: ConsoleSettings;
+  output: OutputConsoleSettings;
   input: ConsoleSettings;
   inputEcho: boolean;
   autoClearInput: boolean;

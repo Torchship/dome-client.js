@@ -19,3 +19,13 @@ export function deepClone<T>(obj: T): T {
   }
   return objCopy as T;
 }
+
+export const measureMonospaceCharacterWidth = (font: string): number => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  if (context) {
+    context.font = font;
+    return context.measureText('M').width; // Measure width of a single character
+  }
+  return 0;
+};
