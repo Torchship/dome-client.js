@@ -7,9 +7,10 @@ import { useEditorManager, EditorWindowData } from './EditorManagerProvider';
 interface GameSocketContextProps {
   socket: Socket | null;
   history: GameMessage[];
+  connectionState: 'connected' | 'disconnected';
 }
 
-const GameSocketContext = createContext<GameSocketContextProps>({ socket: null, history: [] });
+const GameSocketContext = createContext<GameSocketContextProps>({ socket: null, history: [], connectionState: 'disconnected' });
 
 export const useGameSocket = () => useContext(GameSocketContext);
 
@@ -56,6 +57,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
   const [socket, setSocket] = useState<Socket | null>(null);
   const mode = useRef<SocketMode | null>(null);
   const [history, setHistory] = useState<GameMessage[]>([]);
+  const [connectionState, setConnectionState] = useState<'connected' | 'disconnected'>('disconnected');
   const buffer = useRef<string>("");
   const lastLine = useRef<number>(1);
   const openAnsiState = useRef<AnsiState>(ANSI_NORMAL);
@@ -64,11 +66,11 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
     const newSocket = io('ws://localhost:3000'); // Replace with your server URL
 
     newSocket.on('connect', () => {
-      console.log('Connected to Socket.IO server');
+      setConnectionState('connected');
     });
 
     newSocket.on('disconnect', () => {
-      console.log('Disconnected from Socket.IO server');
+      setConnectionState('disconnected');
     });
 
     newSocket.on('data', (data: string) => {
@@ -305,7 +307,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
   }, []);
 
   return (
-    <GameSocketContext.Provider value={{ socket, history }}>
+    <GameSocketContext.Provider value={{ socket, history, connectionState }}>
       {children}
     </GameSocketContext.Provider>
   );

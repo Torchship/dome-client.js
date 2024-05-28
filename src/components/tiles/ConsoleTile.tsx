@@ -9,6 +9,7 @@ import './ConsoleTile.css';
 import 'react-virtualized/styles.css'; // only needs to be imported once
 import Settings from '../../models/Settings';
 import { deepClone } from '../../util';
+import Button from '../Button';
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {
@@ -82,7 +83,7 @@ const splitMessageIntoLines = (
 };
 
 export const ConsoleTile: TileComponentType = () => {
-  const { history } = useGameSocket();
+  const { history, connectionState } = useGameSocket();
   const { settings } = useSettings();
   const [consoleWidth, setConsoleWidth] = useState<number>(1000);
   const virtualListRef = useRef<List>(null);  
@@ -133,22 +134,36 @@ export const ConsoleTile: TileComponentType = () => {
   }
   
   return (
-    <FontStyler 
-      className={`console ${!settings.autoscroll ? 'scroll-disabled' : ''}`}
-      settings={settings.output}>
-      <AutoSizer>
-        {({height, width}) => (
-          <List
-            ref={virtualListRef}
-            height={height}
-            rowCount={consoleRows.length}
-            rowRenderer={rowRenderer}
-            rowHeight={settings.output.fontSize * 1.1}
-            width={width}
-          />
-        )}
-      </AutoSizer>
-    </FontStyler>
+    <>
+      { connectionState === 'disconnected'
+        ? (
+          <div className="overlay">
+            <div className="popup">
+              <h3>Connection Lost</h3>
+              <span>Would you like to reconnect?</span>
+              <Button label="Reconnect"></Button>
+            </div>
+          </div>
+          )
+        : null
+      }      
+      <FontStyler 
+        className={`console ${!settings.autoscroll ? 'scroll-disabled' : ''}`}
+        settings={settings.output}>
+        <AutoSizer>
+          {({height, width}) => (
+            <List
+              ref={virtualListRef}
+              height={height}
+              rowCount={consoleRows.length}
+              rowRenderer={rowRenderer}
+              rowHeight={settings.output.fontSize * 1.1}
+              width={width}
+            />
+          )}
+        </AutoSizer>
+      </FontStyler>
+    </>
   );
 }
 
