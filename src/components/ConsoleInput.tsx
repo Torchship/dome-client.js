@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SettingsIcon from "../assets/settings.svg";
 import { Key } from 'ts-keycode-enum';
 
@@ -15,6 +15,15 @@ export const ConsoleInput: React.FC = () => {
   const { socket } = useGameSocket();
   const { isSettingsOpen, setSettingsOpen, settings } = useSettings();
   const [consoleInput, setConsoleInput] = useState('');
+  const [consoleHistory, setConsoleHistory] = useState<string[]>([]);
+  const [consoleHistorySelector, setConsoleHistorySelector] = useState<number>(-1);
+
+  // Load our input history from local storage.
+  useEffect(() => {
+    const cachedHistory = localStorage.getItem('input-history');
+    if (!cachedHistory) return;
+    setConsoleHistory(JSON.parse(cachedHistory));
+  }, []);
 
   const openSettings = () => {
     if (isSettingsOpen)
@@ -28,8 +37,11 @@ export const ConsoleInput: React.FC = () => {
     if (isEmptyOrSpaces(consoleInput))
       return;
 
+    setConsoleHistory((prevValue) => [consoleInput, ...prevValue].slice(0, 100));
+    localStorage.setItem('input-history', JSON.stringify(consoleHistory));
     socket?.emit('input', consoleInput);
     setConsoleInput('');
+    setConsoleHistorySelector(-1);
   };
   
   const onKeyDown = (e) => {
@@ -38,8 +50,19 @@ export const ConsoleInput: React.FC = () => {
       sendInput();
     } else if (e.keyCode == Key.UpArrow && e.shiftKey === false) {
       // Go up to previous input
+      const selector = consoleHistorySelector + 1;
+      if (selector > consoleHistory.length - 1) return;
+      setConsoleHistorySelector(selector);
+      setConsoleInput(consoleHistory[selector]);
     } else if (e.keyCode == Key.DownArrow && e.shiftKey === false) {
       // Go to more recent input
+      const selector = consoleHistorySelector - 1;
+      if (selector < 0) {
+        setConsoleInput('');
+        return;
+      }
+      setConsoleHistorySelector(selector);
+      setConsoleInput(consoleHistory[selector]);
     }
   }
   
