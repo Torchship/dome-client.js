@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
-import Select from 'react-select'
 import { useSettings } from './providers/SettingsProvider';
+import { DropdownList } from 'react-widgets/cjs';
+import { deepClone } from '../util';
 
 const options = [
   {label: 'Roboto Mono', value: 'https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap'},
@@ -18,7 +19,7 @@ const loadFont = (fontUrl: string) => {
 };
 
 export const FontSelector: React.FC = () => {
-  const {settings} = useSettings();
+  const {settings, setSettings} = useSettings();
 
   useEffect(() => {
     const font = options.find(f => f.label === settings.output.fontType);
@@ -28,11 +29,17 @@ export const FontSelector: React.FC = () => {
   }, [settings.output.fontType]);
 
   return (
-    <Select 
-      onChange={(e) => settings.output.fontType = e?.label}
-      options={options}>
-
-    </Select>
+    <DropdownList
+      dataKey="label"
+      textField="label"
+      defaultValue={settings.output.fontType}
+      data={options}
+      onChange={(nextValue) => {
+        const newSettings = deepClone(settings);
+        newSettings.output.fontType = nextValue.label;
+        setSettings(newSettings);
+      }}
+    />
   );
 };
 
