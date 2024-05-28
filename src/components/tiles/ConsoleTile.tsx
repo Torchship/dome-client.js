@@ -158,6 +158,15 @@ ConsoleTile.getToolbarActions = (settings: Settings) => [
   {
     onClick: (setSettings: (newSettings: Settings) => void) => {
       const newSettings = deepClone(settings);
+      newSettings.input_echo = !settings.input_echo;
+      setSettings(newSettings);
+    },
+    text: 'Echo',
+    color: !settings.input_echo ? 'info' : 'warning'
+  },
+  {
+    onClick: (setSettings: (newSettings: Settings) => void) => {
+      const newSettings = deepClone(settings);
       newSettings.autoscroll = !settings.autoscroll;
       setSettings(newSettings);
     },
