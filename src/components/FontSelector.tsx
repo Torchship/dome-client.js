@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { useSettings } from './providers/SettingsProvider';
-import { DropdownList } from 'react-widgets/cjs';
+import DropdownList from "react-widgets/DropdownList";
 import { deepClone } from '../util';
 
 const options = [

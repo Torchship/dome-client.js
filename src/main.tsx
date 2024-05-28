@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import Modal from 'react-modal';
 import App from './App.tsx';
+import 'react-widgets/styles.css';
 import './styles/global.css';
 import './styles/scrollbar.css';
 
