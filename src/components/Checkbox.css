@@ -1,0 +1,38 @@
+/* MyCheckbox.css */
+.checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 2px solid var(--success-color);
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.checkbox-input:checked + .checkbox-custom {
+  background-color: var(--success-color);
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 2px;
+}

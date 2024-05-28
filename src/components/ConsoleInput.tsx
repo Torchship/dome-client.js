@@ -39,8 +39,11 @@ export const ConsoleInput: React.FC = () => {
 
     setConsoleHistory((prevValue) => [consoleInput, ...prevValue].slice(0, 100));
     localStorage.setItem('input-history', JSON.stringify(consoleHistory));
+    if (settings.inputEcho) {
+      // TODO: Echo Input
+    }
     socket?.emit('input', consoleInput);
-    setConsoleInput('');
+    if (settings.autoClearInput) setConsoleInput('');
     setConsoleHistorySelector(-1);
   };
   

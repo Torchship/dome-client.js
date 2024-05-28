@@ -173,11 +173,11 @@ ConsoleTile.getToolbarActions = (settings: Settings) => [
   {
     onClick: (setSettings: (newSettings: Settings) => void) => {
       const newSettings = deepClone(settings);
-      newSettings.input_echo = !settings.input_echo;
+      newSettings.inputEcho = !settings.inputEcho;
       setSettings(newSettings);
     },
     text: 'Echo',
-    color: !settings.input_echo ? 'info' : 'warning'
+    color: !settings.inputEcho ? 'info' : 'warning'
   },
   {
     onClick: (setSettings: (newSettings: Settings) => void) => {

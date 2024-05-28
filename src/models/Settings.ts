@@ -5,7 +5,8 @@ export const CURRENT_VERSION: Version = new Version(1, 0, 0);
 export const DEFAULT_SETTINGS: Settings = {
   version: CURRENT_VERSION,
   autoscroll: true,
-  input_echo: false,
+  autoClearInput: true,
+  inputEcho: false,
   input: {
     fontType: "Source Code Pro",
     fontSize: 14,
@@ -29,7 +30,8 @@ export interface Settings {
   autoscroll: boolean;
   output: ConsoleSettings;
   input: ConsoleSettings;
-  input_echo: boolean;
+  inputEcho: boolean;
+  autoClearInput: boolean;
 }
 
 export default Settings;

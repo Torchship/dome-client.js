@@ -7,6 +7,7 @@ import Monitor from '../assets/monitor.svg';
 import Button from './Button';
 import OutputSettingsTab from './settings/OutputSettingsTab';
 import InputSettingsTab from './settings/InputSettingsTab';
+import GeneralSettingsTab from './settings/GeneralSettingsTab';
 
 interface SettingsTab {
   label: string;
@@ -15,6 +16,7 @@ interface SettingsTab {
 }
 
 const TABS: SettingsTab[] = [
+  { label: 'General', content: GeneralSettingsTab},
   { label: 'Output', icon: Monitor, content: OutputSettingsTab},
   { label: 'Input', icon: Monitor, content: InputSettingsTab}
 ];
@@ -44,7 +46,7 @@ const settingsModalStyle = {
 
 export const SettingsModal: React.FC = () => {
   const {isSettingsOpen, setSettingsOpen} = useSettings();
-  const [activeTab, setActiveTab] = useState<string>('Output');
+  const [activeTab, setActiveTab] = useState<string>('General');
 
   function closeModal() {
     if (setSettingsOpen)
