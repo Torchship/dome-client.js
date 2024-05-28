@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Mosaic, MosaicNode, MosaicWindow } from 'react-mosaic-component';
 import { ConsoleTile } from './tiles/ConsoleTile';
 
@@ -18,6 +18,16 @@ export const ClientWindowManager: React.FC = () => {
   const [nodeGraph, setNodeGraph] = useState<MosaicNode<ViewId> | null>('console');
   const {settings, setSettings} = useSettings();
 
+  /* TESTING CODE: Uncomment for multiple windows */
+  // useEffect(() => {
+  //   setNodeGraph({
+  //     direction: 'row',
+  //     first: 'character',
+  //     second: 'console',
+  //     splitPercentage: 14.5
+  //   });
+  // }, [])
+  
   const renderToolbar = (id: ViewId) => {
     const ViewComponent = VIEW_COMPONENT_MAP[id];
     const actions = ViewComponent.getToolbarActions(settings, nodeGraph, setNodeGraph);

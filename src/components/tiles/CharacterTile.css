@@ -1,3 +1,46 @@
 .character-pane {
-  max-width: 100px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+  background-color: rgba(255, 255, 255, 0.12);
+  align-items: center;
+  padding-top: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  
+  .pill {
+    background-color: var(--background-color);
+    border-radius: 1em;
+    min-height: 2em;
+    width: 100%;
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .portrait {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    background-color: var(--background-color);
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 8px;
+    }
+  }
+
+  .card {
+    border-radius: 4px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+    background-color: var(--background-color);
+  }
 }
