@@ -143,7 +143,7 @@ export const ConsoleTile: TileComponentType = () => {
             height={height}
             rowCount={consoleRows.length}
             rowRenderer={rowRenderer}
-            rowHeight={15.4}
+            rowHeight={settings.output.fontSize * 1.1}
             width={width}
           />
         )}
