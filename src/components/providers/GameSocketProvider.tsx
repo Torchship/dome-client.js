@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useEditorManager, EditorWindowData } from './EditorManagerProvider';
+import { deepClone } from '../../util';
 
 
 interface GameSocketContextProps {
@@ -31,17 +32,19 @@ export interface TextFragment {
 }
 
 export const ANSI_NORMAL: AnsiState = {
-  is_bold: false,
   is_underline: false,
   is_italic: false,
+  blink: 'none',
+  weight: 'normal',
   foreground_color: 'normal',
   background_color: 'normal'
 };
 
 export interface AnsiState {
-  is_bold: boolean;
   is_underline: boolean;
   is_italic: boolean;
+  blink: 'none' | 'slow' | 'rapid';
+  weight: 'normal' | 'faint',
   foreground_color: string;
   background_color: string;
 }
@@ -128,16 +131,6 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
         }
         let c;
         const parsed_line: TextFragment[] = [{content: '', ansi: openAnsiState.current}];
-        
-        function cloneAnsi(ansi: AnsiState): AnsiState {
-          return {
-            is_bold: ansi.is_bold,
-            is_italic: ansi.is_italic,
-            is_underline: ansi.is_underline,
-            foreground_color: ansi.foreground_color,
-            background_color: ansi.background_color
-          }
-        }
 
         // Gets our latest/last fragment
         function last_fragment(): TextFragment {
@@ -147,7 +140,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
         function new_fragment(): TextFragment {
           return {
             content: '',
-            ansi: cloneAnsi(openAnsiState.current)
+            ansi: deepClone(openAnsiState.current)
           };
         };
 
@@ -189,7 +182,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
 
             // Use sequences to determine wtf we're doing...
             let ansi_fragment = current_fragment;
-            ansi_fragment.ansi = cloneAnsi(ansi_fragment.ansi);
+            ansi_fragment.ansi = deepClone(ansi_fragment.ansi);
             if (ansi_fragment.content.length > 0) {
               ansi_fragment = new_fragment();
               parsed_line.push(ansi_fragment);
@@ -207,16 +200,13 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
               ansi_fragment.ansi.foreground_color = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
             } else {
               let color_code = sequences[0];
-              if (sequences.length > 1) {
+              if (sequences.length > 1 || color_code === 1) {
                 color_code = sequences[1];
                 // Hack to upgrade color codes to their more recent versions...
                 if (sequences[0] === 0) color_code += 60;
               }
 
               switch (color_code) {
-                case 1: // Bold
-                  ansi_fragment.ansi.is_bold = true;
-                  break;
                 case 2: // Faint
                   break;
                 case 3: // Italic
@@ -224,6 +214,21 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
                   break;
                 case 4: // Underline
                   ansi_fragment.ansi.is_underline = true;
+                  break;
+                case 5: // Slow blink
+                  ansi_fragment.ansi.blink = 'slow';
+                  break;
+                case 6: // Rapid blink
+                  ansi_fragment.ansi.blink = 'rapid';
+                  break;
+                case 22: // Normal intensity
+                  ansi_fragment.ansi.weight = 'normal';
+                  break;
+                case 24: // Not underline 
+                  ansi_fragment.ansi.is_underline = false;
+                  break;
+                case 25: // Not blinking
+                  ansi_fragment.ansi.blink = 'none';
                   break;
                 case 31: // Red
                   ansi_fragment.ansi.foreground_color = '#900';

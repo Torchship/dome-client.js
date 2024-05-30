@@ -13,9 +13,16 @@ import Button from '../Button';
 
 const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
   const style: React.CSSProperties = {
-      fontWeight: fragment.ansi?.is_bold ? 'bold' : 'normal',
+      animation: fragment.ansi?.blink === 'slow'
+        ? 'blinker 1s infinite'
+        : fragment.ansi?.blink === 'rapid' 
+          ? 'blinker 0.5s infinite'
+          : 'none',
+      fontWeight: fragment.ansi?.weight === 'faint' ? 100 : 'normal',
       color: fragment.ansi?.foreground_color || 'inherit',
       backgroundColor: fragment.ansi?.background_color || 'inherit',
+      fontStyle: fragment.ansi?.is_italic ? 'italic' : 'normal',
+      textDecoration: fragment.ansi?.is_underline ? `underline ${fragment.ansi?.foreground_color || 'inherit'}` : 'none',
   };
 
   return (
