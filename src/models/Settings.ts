@@ -7,6 +7,7 @@ export const DEFAULT_SETTINGS: Settings = {
   autoscroll: true,
   autoClearInput: true,
   inputEcho: false,
+  theme: 'default',
   input: {
     fontType: "Source Code Pro",
     fontSize: 14,
@@ -31,6 +32,7 @@ export interface OutputConsoleSettings extends ConsoleSettings {
 export interface Settings {
   version: Version;
   autoscroll: boolean;
+  theme: string;
   output: OutputConsoleSettings;
   input: ConsoleSettings;
   inputEcho: boolean;
