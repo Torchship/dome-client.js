@@ -54,7 +54,7 @@ const splitMessageIntoLines = (
 
       if (currentLineLength >= maxCharsPerLine || splitIndex < content.length) {
         lines.push({
-          line_number: message.line_number,
+          lineNumber: message.lineNumber,
           timestamp: message.timestamp,
           raw: message.raw,
           parsed: currentLine,
@@ -69,7 +69,7 @@ const splitMessageIntoLines = (
 
   if (currentLine.length > 0) {
     lines.push({
-      line_number: message.line_number,
+      lineNumber: message.lineNumber,
       timestamp: message.timestamp,
       raw: message.raw,
       parsed: currentLine,
@@ -124,7 +124,7 @@ export const ConsoleTile: TileComponentType = () => {
     return (
       <div key={params.key} style={params.style}>
         {gameMessage.parsed.map((fragment, index) => (
-          renderTextFragment(fragment, gameMessage.line_number, index)
+          renderTextFragment(fragment, gameMessage.lineNumber, index)
         ))}
       </div>
     );
