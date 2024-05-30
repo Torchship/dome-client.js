@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState, useMemo} from 'react';
-import { GameMessage, TextFragment, useGameSocket } from '../providers/GameSocketProvider';
+import { GameMessage, useGameSocket } from '../providers/GameSocketProvider';
 import TileComponentType from '../TileComponent';
 import {List, AutoSizer} from 'react-virtualized';
 import { useSettings } from '../providers/SettingsProvider';
@@ -10,8 +10,15 @@ import 'react-virtualized/styles.css'; // only needs to be imported once
 import Settings from '../../models/Settings';
 import { deepClone, measureMonospaceCharacterWidth } from '../../util';
 import Button from '../Button';
+import { Theme } from '../../themes';
+import TextFragment from '../../parser/TextFragment';
 
-const renderTextFragment = (fragment: TextFragment, line_number: number, index: number): JSX.Element => {
+const renderTextFragment = (fragment: TextFragment, theme: Theme, line_number: number, index: number): JSX.Element => {
+  let foregroundColor = fragment.ansi?.foreground_color;
+  if (typeof foregroundColor === 'function') foregroundColor = foregroundColor(theme);
+  let backgroundColor = fragment.ansi?.background_color;
+  if (typeof backgroundColor === 'function') backgroundColor = backgroundColor(theme);
+
   const style: React.CSSProperties = {
       animation: fragment.ansi?.blink === 'slow'
         ? 'blinker 1s infinite'
@@ -19,8 +26,8 @@ const renderTextFragment = (fragment: TextFragment, line_number: number, index: 
           ? 'blinker 0.5s infinite'
           : 'none',
       fontWeight: fragment.ansi?.weight === 'faint' ? 100 : 'normal',
-      color: fragment.ansi?.foreground_color || 'inherit',
-      backgroundColor: fragment.ansi?.background_color || 'inherit',
+      color: foregroundColor || 'inherit',
+      backgroundColor: backgroundColor || 'inherit',
       fontStyle: fragment.ansi?.is_italic ? 'italic' : 'normal',
       textDecoration: fragment.ansi?.is_underline ? `underline ${fragment.ansi?.foreground_color || 'inherit'}` : 'none',
   };
@@ -81,7 +88,7 @@ const splitMessageIntoLines = (
 
 export const ConsoleTile: TileComponentType = () => {
   const { history, connectionState } = useGameSocket();
-  const { settings } = useSettings();
+  const { settings, getTheme } = useSettings();
   const [consoleWidth, setConsoleWidth] = useState<number>(1000);
   const virtualListRef = useRef<List>(null);  
 
@@ -124,7 +131,7 @@ export const ConsoleTile: TileComponentType = () => {
     return (
       <div key={params.key} style={params.style}>
         {gameMessage.parsed.map((fragment, index) => (
-          renderTextFragment(fragment, gameMessage.lineNumber, index)
+          renderTextFragment(fragment, getTheme(), gameMessage.lineNumber, index)
         ))}
       </div>
     );
