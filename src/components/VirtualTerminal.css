@@ -1,0 +1,24 @@
+.console {
+  background-color: black;
+  margin: 1px;
+  border-radius: 3px;
+  flex-grow: 1;
+  line-height: 110%;
+  padding: 8px;
+  text-wrap: wrap;
+  white-space-collapse: preserve;
+  unicode-bidi: isolate;
+  overflow-x: hidden;
+  color: rgb(170, 170, 170);
+  border: 2px solid transparent;
+
+  &.scroll-disabled {
+    border: 2px dashed red;
+  }
+}
+
+@keyframes blinker {
+  from { opacity: 1.0; }
+  50% { opacity: 0.5; }
+  to { opacity: 1.0; }
+}
