@@ -4,6 +4,7 @@ import BackgroundColorSequence from "./sequences/BackgroundColorSequence";
 import ForegroundColorSequence from "./sequences/ForegroundColorSequence";
 import TerminationSequence from "./sequences/TerminationSequence";
 import TextDecorationSequence from "./sequences/TextDecorationSequence";
+import XTermBackgroundSequence from "./sequences/XTermBackgroundSequence";
 import XTermForegroundSequence from "./sequences/XTermForegroundSequence";
 import TextFragment from "./TextFragment";
 
@@ -12,7 +13,8 @@ const SEQUENCES: AnsiSequence[] = [
   new ForegroundColorSequence(),
   new BackgroundColorSequence(),
   new TextDecorationSequence(),
-  new XTermForegroundSequence()
+  new XTermForegroundSequence(),
+  new XTermBackgroundSequence()
 ];
 
 export interface ParserResult {
