@@ -8,6 +8,7 @@ import {TileComponentType, ViewId} from './TileComponent';
 import { CharacterTile } from './tiles/CharacterTile';
 import { useSettings } from './providers/SettingsProvider';
 import Button from './Button';
+import { deepClone } from '../util';
 
 const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
   console: ConsoleTile,
@@ -15,22 +16,17 @@ const VIEW_COMPONENT_MAP: Record<ViewId, TileComponentType> = {
 };
 
 export const ClientWindowManager: React.FC = () => { 
-  const [nodeGraph, setNodeGraph] = useState<MosaicNode<ViewId> | null>('console');
   const {settings, setSettings} = useSettings();
 
-  /* TESTING CODE: Uncomment for multiple windows */
-  // useEffect(() => {
-  //   setNodeGraph({
-  //     direction: 'row',
-  //     first: 'character',
-  //     second: 'console',
-  //     splitPercentage: 14.5
-  //   });
-  // }, [])
+  const setNodeGraph = (newNodeGraph: MosaicNode<ViewId> | null) => {
+    const newSettings = deepClone(settings);
+    newSettings.nodeGraph = newNodeGraph;
+    setSettings(newSettings);
+  }
   
   const renderToolbar = (id: ViewId) => {
     const ViewComponent = VIEW_COMPONENT_MAP[id];
-    const actions = ViewComponent.getToolbarActions(settings, nodeGraph, setNodeGraph);
+    const actions = ViewComponent.getToolbarActions(settings, settings.nodeGraph, setNodeGraph);
     return (
       <div className="window-toolbar">
         {ViewComponent.title}
@@ -56,7 +52,7 @@ export const ClientWindowManager: React.FC = () => {
 
   return (
     <Mosaic<ViewId>
-        value={nodeGraph}
+        value={settings.nodeGraph}
         onChange={onChange}
         renderTile={(id, path) => {
           const Component = VIEW_COMPONENT_MAP[id];

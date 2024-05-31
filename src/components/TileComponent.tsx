@@ -15,7 +15,7 @@ export interface ToolbarAction {
 export interface TileComponentType extends React.FC {
   viewId: ViewId;
   title: string;
-  getToolbarActions: (settings: Settings, nodeGraph: MosaicNode<ViewId> | null, setNodeGraph: React.Dispatch<React.SetStateAction<MosaicNode<ViewId> | null>>) => ToolbarAction[];
+  getToolbarActions: (settings: Settings, nodeGraph: MosaicNode<ViewId> | null, setNodeGraph: (newNodeGraph: MosaicNode<ViewId> | null) => void) => ToolbarAction[];
 }
 
 export default TileComponentType;
