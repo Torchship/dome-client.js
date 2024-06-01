@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import Settings, { DEFAULT_SETTINGS } from '../../models/Settings';
 import DEFAULT_THEME, { Theme, THEMES } from '../../themes';
 
-interface SettingsContextProps {
+export interface SettingsContextProps {
   isSettingsOpen: boolean;
   setSettingsOpen: React.Dispatch<React.SetStateAction<boolean>> | null;
   settings: Settings;
