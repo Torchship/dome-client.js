@@ -12,9 +12,15 @@ interface GameSocketContextProps {
   socket: Socket | null;
   history: GameMessage[];
   connectionState: 'connected' | 'disconnected';
+  reconnect: () => void;
 }
 
-const GameSocketContext = createContext<GameSocketContextProps>({ socket: null, history: [], connectionState: 'disconnected' });
+const GameSocketContext = createContext<GameSocketContextProps>({
+  socket: null, history: [], connectionState: 'disconnected',
+  reconnect: function (): void {
+    throw new Error('Function not implemented.');
+  }
+});
 
 export const useGameSocket = () => useContext(GameSocketContext);
 
@@ -45,7 +51,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
   const lastLine = useRef<number>(1);
   const openAnsiState = useRef<AnsiState>(ANSI_NORMAL);
 
-  useEffect(() => {
+  function connect(): Socket {
     const newSocket = io('ws://localhost:3000'); // Replace with your server URL
 
     newSocket.on('connect', () => {
@@ -133,13 +139,23 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
 
     setSocket(newSocket);
 
+    return newSocket;
+  }
+
+  function reconnect() {
+    connect();
+  }
+
+  useEffect(() => {
+    connect();
+
     return () => {
-      newSocket.close();
+      socket?.close();
     };
   }, []);
 
   return (
-    <GameSocketContext.Provider value={{ socket, history, connectionState }}>
+    <GameSocketContext.Provider value={{ socket, history, connectionState, reconnect }}>
       {children}
     </GameSocketContext.Provider>
   );

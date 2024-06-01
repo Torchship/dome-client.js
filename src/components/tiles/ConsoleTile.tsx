@@ -21,7 +21,7 @@ export const ConsoleTileToolbar: TileToolbarType = () => {
     newSettings.autoscroll = !settings.autoscroll;
     setSettings(newSettings);
   }
-  
+
   return (
     <>
       <Button 
@@ -39,7 +39,7 @@ export const ConsoleTileToolbar: TileToolbarType = () => {
 };
 
 export const ConsoleTile: TileComponentType = () => {
-  const { connectionState, history } = useGameSocket();  
+  const { connectionState, history, reconnect } = useGameSocket();  
 
   return (
     <>
@@ -49,7 +49,7 @@ export const ConsoleTile: TileComponentType = () => {
             <div className="popup">
               <h3>Connection Lost</h3>
               <span>Would you like to reconnect?</span>
-              <Button label="Reconnect"></Button>
+              <Button label="Reconnect" onClick={reconnect}></Button>
             </div>
           </div>
           )
