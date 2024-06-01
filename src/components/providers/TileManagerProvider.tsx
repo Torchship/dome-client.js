@@ -4,7 +4,7 @@ import dropRight from 'lodash/dropRight';
 import TileComponentType from '../TileComponent';
 import { TileModel } from '../../models/TileModel';
 import { deepClone } from '../../util';
-import ConsoleTile from '../tiles/ConsoleTile';
+import ConsoleTile, { ConsoleTileToolbar } from '../tiles/ConsoleTile';
 
 export interface TileManagerContextProps {
   nodeGraph: MosaicNode<number> | null;
@@ -36,7 +36,14 @@ interface TileManagerProps {
 export const TileManagerProvider: React.FC<TileManagerProps> = ({ children }) => {
   const [ nextViewId, setNextViewId ] = useState<number>(1);
   const [ nodeGraph, setNodeGraph ] = useState<MosaicNode<number> | null>(1);
-  const [ viewModels, setViewModels ] = useState<Record<number, TileModel>>({1: {title: 'Torchship Console', component: ConsoleTile, persistentData: {}}});
+  const [ viewModels, setViewModels ] = useState<Record<number, TileModel>>({
+    1: {
+      title: 'Torchship Console', 
+      component: ConsoleTile, 
+      toolbar: ConsoleTileToolbar, 
+      persistentData: {}
+    }
+  });
 
   function updateNodeGraph(newGraph: MosaicNode<number> | null): void {
     if (!newGraph) {

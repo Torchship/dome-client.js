@@ -1,6 +1,5 @@
 import React from 'react';
-import { MosaicNode } from 'react-mosaic-component';
-import Settings from '../models/Settings';
+import { TileModel } from '../models/TileModel';
 
 export type ViewId = 'console' | 'character';
 
@@ -9,9 +8,15 @@ interface TileComponentProps {
 }
 
 export interface TileComponentType extends React.FC<TileComponentProps> {
-  viewId: ViewId;
-  title: string;
-  getToolbarActions: (settings: Settings, nodeGraph: MosaicNode<ViewId> | null, setNodeGraph: (newNodeGraph: MosaicNode<ViewId> | null) => void) => ToolbarAction[];
+}
+
+interface TileToolbarProps {
+  viewId: number;
+  viewModel: TileModel;
+}
+
+export interface TileToolbarType extends React.FC<TileToolbarProps> {
+
 }
 
 export default TileComponentType;

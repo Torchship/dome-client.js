@@ -13,9 +13,19 @@ export const TileManager: React.FC = () => {
   };
 
   const renderToolbar = (id: number, viewModel: TileModel) => {
+    const ToolbarActions = viewModel.toolbar;
     return (
       <div className="window-toolbar">
         {viewModel.title}
+        {
+          ToolbarActions
+            ? (
+                <div className="window-toolbar-buttons">
+                  <ToolbarActions viewId={id} viewModel={viewModel}/>
+                </div>
+              )
+            : null
+        }
       </div>
     )
   };
