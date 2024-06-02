@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import WorkersQuarter from '../../assets/sample_map.json';
 import Area from '../../models/map/Area';
 import Vector3, { toCanvas } from '../../models/map/Vector3';
-import { RenderedExit, RenderedRoom } from '../../models/map/RenderedElement';
+import RenderedElement, { RenderedExit, RenderedRoom } from '../../models/map/RenderedElement';
 
 const GRID_SIZE: number = 64;
 
@@ -27,19 +27,45 @@ interface MapRendererProps {
     const [isDragging, setIsDragging] = useState(false);
     const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
     const [offset, setOffset] = useState({ x: 0, y: 0 });
-    const [mapSize] = useState({ width: 2000, height: 2000 });
+    const [mapBoundingBox, setMapBoundingBox] = useState({ x: -100, y: -100, width: 100, height: 100 });
 
-    const area = parseArea(WorkersQuarter);
-    const rooms = area.rooms.map(r => new RenderedRoom(r, GRID_SIZE));
-    const exits: RenderedExit[] = [];
-    for (let room of area.rooms) {
-      for (let exit of room.exits) {
-        if (exits.some(e => e.data.includes(exit))) continue;
-        const toRoom = area.rooms.find(r => r.id === exit.to);
-        if (!toRoom) continue;
-        exits.push(new RenderedExit(room, toRoom, GRID_SIZE));
+    const [renderedElements, setRenderedElements] = useState<RenderedElement[]>([]);
+
+    useEffect(() => {
+      const area = parseArea(WorkersQuarter);
+      const rooms = area.rooms.map(r => new RenderedRoom(r, GRID_SIZE));
+      const exits: RenderedExit[] = [];
+      for (let room of area.rooms) {
+        for (let exit of room.exits) {
+          if (exits.some(e => e.data.includes(exit))) continue;
+          const toRoom = area.rooms.find(r => r.id === exit.to);
+          if (!toRoom) continue;
+          exits.push(new RenderedExit(room, toRoom, GRID_SIZE));
+        }
       }
-    }
+
+      setRenderedElements([...exits, ...rooms]);
+    }, []);
+
+    useEffect(() => {
+      if (!renderedElements || renderedElements.length <= 0) return;
+
+      const padding = {
+        // x: (viewportWidth / 2) - (GRID_SIZE % (viewportWidth / 2)),
+        // y: (viewportHeight / 2) - (GRID_SIZE % (viewportHeight / 2))
+        x: 12 + (GRID_SIZE * 4),
+        y: 12 + (GRID_SIZE * 4)
+      };
+
+      const x = renderedElements.reduce((min, item) => (item.minX() < min.minX() ? item : min), renderedElements[0]).minX() - padding.x
+      const y = renderedElements.reduce((min, item) => (item.minY() < min.minY() ? item : min), renderedElements[0]).minY() - padding.y;
+      setMapBoundingBox({
+        x,
+        y,
+        width: Math.abs(x) + Math.abs(renderedElements.reduce((min, item) => (item.maxX() < min.maxX() ? item : min), renderedElements[0]).maxX()) + padding.x,
+        height: Math.abs(y) + Math.abs(renderedElements.reduce((min, item) => (item.maxY() < min.maxY() ? item : min), renderedElements[0]).maxY()) + padding.y
+      })
+    }, [renderedElements]);
     
     useEffect(() => {
       const canvas = canvasRef.current;
@@ -57,7 +83,11 @@ interface MapRendererProps {
   
         // Draw the background
         context.fillStyle = '#5693BA';
-        context.fillRect(-offset.x, -offset.y, mapSize.width, mapSize.height);
+        context.fillRect(
+          mapBoundingBox.x - offset.x,
+          mapBoundingBox.y - offset.y,
+          mapBoundingBox.width, 
+          mapBoundingBox.height);
   
         // Function to draw a dot
         const drawDot = (x: number, y: number) => {
@@ -68,18 +98,43 @@ interface MapRendererProps {
           context.closePath();
         };
   
-        for (let x = GRID_SIZE; x <= mapSize.width - GRID_SIZE; x += GRID_SIZE) {
-          for (let y = GRID_SIZE; y <= mapSize.height - GRID_SIZE; y += GRID_SIZE) {
+        for (let x = mapBoundingBox.x + GRID_SIZE; x <= mapBoundingBox.width + mapBoundingBox.x; x += GRID_SIZE) {
+          for (let y = mapBoundingBox.y + GRID_SIZE; y <= mapBoundingBox.height + mapBoundingBox.y; y += GRID_SIZE) {
             drawDot(x, y);
           }
         }
+        
+        renderedElements.forEach(ro => ro.render(context, offset.x, offset.y));
 
-        exits.forEach(exit => exit.render(context, offset.x, offset.y));
-        rooms.forEach(room => room.render(context, offset.x, offset.y));
+        // Draw vertical lines
+        for (
+          let x = mapBoundingBox.x + (GRID_SIZE / 2);
+          x <= mapBoundingBox.width + mapBoundingBox.x;
+          x += GRID_SIZE
+        ) {
+          context.strokeStyle = 'rgba(166, 201, 220, 0.24)';
+          context.beginPath();
+          context.moveTo(x - offset.x, mapBoundingBox.y - offset.y);
+          context.lineTo(x - offset.x, mapBoundingBox.y + mapBoundingBox.height - offset.y);
+          context.stroke();
+        }
+
+        // Draw horizontal lines
+        for (
+          let y = mapBoundingBox.y + (GRID_SIZE / 2);
+          y <= mapBoundingBox.height + mapBoundingBox.y;
+          y += GRID_SIZE
+        ) {
+          context.strokeStyle = 'rgba(166, 201, 220, 0.24)';
+          context.beginPath();
+          context.moveTo(mapBoundingBox.x - offset.x, y - offset.y);
+          context.lineTo(mapBoundingBox.x + mapBoundingBox.width - offset.x, y - offset.y);
+          context.stroke();
+        }
       };
   
       draw();
-    }, [offset, mapSize, viewportHeight, viewportWidth]);
+    }, [offset, mapBoundingBox, viewportHeight, viewportWidth]);
   
     const handleMouseDown = (e: React.MouseEvent) => {
       setIsDragging(true);
