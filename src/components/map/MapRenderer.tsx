@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import WorkersQuarter from '../../assets/sample_map.json';
 import Area from '../../models/map/Area';
-import Vector3, { toCanvas } from '../../models/map/Vector3';
-import RenderedElement, { RenderedExit, RenderedRoom } from '../../models/map/RenderedElement';
+import Vector3 from '../../models/map/Vector3';
+import RenderedElement from '../../models/map/RenderedElement';
+import { RenderedExit } from '../../models/map/RenderedExit';
+import { RenderedRoom } from '../../models/map/RenderedRoom';
 
 const GRID_SIZE: number = 64;
 
