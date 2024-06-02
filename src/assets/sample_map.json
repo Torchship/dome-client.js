@@ -1,0 +1,4074 @@
+{
+    "id": 1507,
+    "name": "Worker's Quarter",
+    "rooms": [
+      {
+        "exits": [
+          {
+            "id": 533,
+            "isDoor": false,
+            "name": "up",
+            "to": 532
+          },
+          {
+            "id": 1028,
+            "isDoor": false,
+            "name": "south",
+            "to": 1024
+          }
+        ],
+        "id": 236,
+        "location": {
+          "x": -8,
+          "y": 7,
+          "z": 100
+        },
+        "name": "Unmarked Stairwell"
+      },
+      {
+        "exits": [
+          {
+            "id": 338,
+            "isDoor": false,
+            "name": "north",
+            "to": 337
+          },
+          {
+            "id": 341,
+            "isDoor": false,
+            "name": "south",
+            "to": 340
+          },
+          {
+            "id": 2002,
+            "isDoor": false,
+            "name": "east",
+            "to": 2001
+          }
+        ],
+        "id": 336,
+        "location": {
+          "x": 0,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 339,
+            "isDoor": false,
+            "name": "south",
+            "to": 336
+          },
+          {
+            "id": 446,
+            "isDoor": false,
+            "name": "north",
+            "to": 441
+          },
+          {
+            "id": 5381,
+            "isDoor": false,
+            "name": "east",
+            "to": 3771
+          }
+        ],
+        "id": 337,
+        "location": {
+          "x": 0,
+          "y": 2,
+          "z": 100
+        },
+        "name": "Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 342,
+            "isDoor": false,
+            "name": "north",
+            "to": 336
+          },
+          {
+            "id": 345,
+            "isDoor": false,
+            "name": "south",
+            "to": 344
+          },
+          {
+            "id": 1326,
+            "isDoor": false,
+            "name": "east",
+            "to": 1325
+          }
+        ],
+        "id": 340,
+        "location": {
+          "x": 0,
+          "y": 0,
+          "z": 100
+        },
+        "name": "Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 346,
+            "isDoor": false,
+            "name": "north",
+            "to": 340
+          },
+          {
+            "id": 348,
+            "isDoor": false,
+            "name": "south",
+            "to": 347
+          }
+        ],
+        "id": 344,
+        "location": {
+          "x": 0,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 349,
+            "isDoor": false,
+            "name": "north",
+            "to": 344
+          },
+          {
+            "id": 351,
+            "isDoor": false,
+            "name": "west",
+            "to": 350
+          },
+          {
+            "id": 806,
+            "isDoor": false,
+            "name": "east",
+            "to": 805
+          },
+          {
+            "id": 1096,
+            "isDoor": false,
+            "name": "south",
+            "to": 550
+          }
+        ],
+        "id": 347,
+        "location": {
+          "x": 0,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street and Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 352,
+            "isDoor": false,
+            "name": "east",
+            "to": 347
+          },
+          {
+            "id": 354,
+            "isDoor": false,
+            "name": "west",
+            "to": 353
+          },
+          {
+            "id": 357,
+            "isDoor": false,
+            "name": "south",
+            "to": 356
+          }
+        ],
+        "id": 350,
+        "location": {
+          "x": -1,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street and Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 355,
+            "isDoor": false,
+            "name": "east",
+            "to": 350
+          },
+          {
+            "id": 360,
+            "isDoor": false,
+            "name": "west",
+            "to": 359
+          }
+        ],
+        "id": 353,
+        "location": {
+          "x": -2,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 708,
+            "isDoor": false,
+            "name": "north",
+            "to": 350
+          },
+          {
+            "id": 709,
+            "isDoor": false,
+            "name": "south",
+            "to": 707
+          }
+        ],
+        "id": 356,
+        "location": {
+          "x": -1,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 361,
+            "isDoor": false,
+            "name": "east",
+            "to": 353
+          },
+          {
+            "id": 363,
+            "isDoor": false,
+            "name": "west",
+            "to": 362
+          },
+          {
+            "id": 660,
+            "isDoor": false,
+            "name": "south",
+            "to": 658
+          },
+          {
+            "id": 4386,
+            "isDoor": false,
+            "name": "north",
+            "to": 1519
+          }
+        ],
+        "id": 359,
+        "location": {
+          "x": -3,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 364,
+            "isDoor": false,
+            "name": "east",
+            "to": 359
+          },
+          {
+            "id": 366,
+            "isDoor": false,
+            "name": "west",
+            "to": 365
+          },
+          {
+            "id": 2545,
+            "isDoor": false,
+            "name": "south",
+            "to": 2543
+          }
+        ],
+        "id": 362,
+        "location": {
+          "x": -4,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 367,
+            "isDoor": false,
+            "name": "east",
+            "to": 362
+          },
+          {
+            "id": 755,
+            "isDoor": false,
+            "name": "west",
+            "to": 368
+          },
+          {
+            "id": 1038,
+            "isDoor": false,
+            "name": "north",
+            "to": 1037
+          }
+        ],
+        "id": 365,
+        "location": {
+          "x": -5,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 757,
+            "isDoor": false,
+            "name": "east",
+            "to": 365
+          },
+          {
+            "id": 369,
+            "isDoor": false,
+            "name": "west",
+            "to": 371
+          },
+          {
+            "id": 758,
+            "isDoor": false,
+            "name": "north",
+            "to": 470
+          }
+        ],
+        "id": 368,
+        "location": {
+          "x": -6,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 373,
+            "isDoor": false,
+            "name": "east",
+            "to": 368
+          },
+          {
+            "id": 375,
+            "isDoor": false,
+            "name": "west",
+            "to": 374
+          },
+          {
+            "id": 3549,
+            "isDoor": false,
+            "name": "south",
+            "to": 3548
+          }
+        ],
+        "id": 371,
+        "location": {
+          "x": -7,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 376,
+            "isDoor": false,
+            "name": "east",
+            "to": 371
+          },
+          {
+            "id": 378,
+            "isDoor": false,
+            "name": "west",
+            "to": 377
+          }
+        ],
+        "id": 374,
+        "location": {
+          "x": -8,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 379,
+            "isDoor": false,
+            "name": "east",
+            "to": 374
+          },
+          {
+            "id": 381,
+            "isDoor": false,
+            "name": "west",
+            "to": 380
+          },
+          {
+            "id": 796,
+            "isDoor": false,
+            "name": "south",
+            "to": 795
+          }
+        ],
+        "id": 377,
+        "location": {
+          "x": -9,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street and Flophouse Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 382,
+            "isDoor": false,
+            "name": "east",
+            "to": 377
+          },
+          {
+            "id": 384,
+            "isDoor": false,
+            "name": "west",
+            "to": 383
+          },
+          {
+            "id": 1160,
+            "isDoor": false,
+            "name": "south",
+            "to": 1159
+          },
+          {
+            "id": 5419,
+            "isDoor": false,
+            "name": "north",
+            "to": 5420
+          }
+        ],
+        "id": 380,
+        "location": {
+          "x": -10,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 385,
+            "isDoor": false,
+            "name": "east",
+            "to": 380
+          },
+          {
+            "id": 387,
+            "isDoor": false,
+            "name": "west",
+            "to": 386
+          },
+          {
+            "id": 3551,
+            "isDoor": false,
+            "name": "south",
+            "to": 2043
+          }
+        ],
+        "id": 383,
+        "location": {
+          "x": -11,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 388,
+            "isDoor": false,
+            "name": "east",
+            "to": 383
+          },
+          {
+            "id": 390,
+            "isDoor": false,
+            "name": "north",
+            "to": 389
+          },
+          {
+            "id": 481,
+            "isDoor": false,
+            "name": "west",
+            "to": 480
+          },
+          {
+            "id": 1055,
+            "isDoor": false,
+            "name": "south",
+            "to": 1054
+          }
+        ],
+        "id": 386,
+        "location": {
+          "x": -12,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street and Eclipse Avenue"
+      },
+      {
+        "exits": [
+          {
+            "id": 391,
+            "isDoor": false,
+            "name": "south",
+            "to": 386
+          },
+          {
+            "id": 393,
+            "isDoor": false,
+            "name": "north",
+            "to": 392
+          },
+          {
+            "id": 1278,
+            "isDoor": false,
+            "name": "west",
+            "to": 1277
+          }
+        ],
+        "id": 389,
+        "location": {
+          "x": -12,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Eclipse Avenue"
+      },
+      {
+        "exits": [
+          {
+            "id": 394,
+            "isDoor": false,
+            "name": "south",
+            "to": 389
+          },
+          {
+            "id": 396,
+            "isDoor": false,
+            "name": "north",
+            "to": 395
+          }
+        ],
+        "id": 392,
+        "location": {
+          "x": -12,
+          "y": 0,
+          "z": 100
+        },
+        "name": "Eclipse Avenue"
+      },
+      {
+        "exits": [
+          {
+            "id": 397,
+            "isDoor": false,
+            "name": "south",
+            "to": 392
+          },
+          {
+            "id": 399,
+            "isDoor": false,
+            "name": "north",
+            "to": 398
+          },
+          {
+            "id": 5377,
+            "isDoor": false,
+            "name": "west",
+            "to": 5374
+          }
+        ],
+        "id": 395,
+        "location": {
+          "x": -12,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Eclipse Avenue"
+      },
+      {
+        "exits": [
+          {
+            "id": 400,
+            "isDoor": false,
+            "name": "south",
+            "to": 395
+          },
+          {
+            "id": 402,
+            "isDoor": false,
+            "name": "north",
+            "to": 401
+          },
+          {
+            "id": 1104,
+            "isDoor": false,
+            "name": "west",
+            "to": 1110
+          }
+        ],
+        "id": 398,
+        "location": {
+          "x": -12,
+          "y": 2,
+          "z": 100
+        },
+        "name": "Eclipse Avenue"
+      },
+      {
+        "exits": [
+          {
+            "id": 403,
+            "isDoor": false,
+            "name": "south",
+            "to": 398
+          },
+          {
+            "id": 407,
+            "isDoor": false,
+            "name": "northeast",
+            "to": 404
+          },
+          {
+            "id": 468,
+            "isDoor": false,
+            "name": "west",
+            "to": 467
+          },
+          {
+            "id": 734,
+            "isDoor": false,
+            "name": "north",
+            "to": 659
+          }
+        ],
+        "id": 401,
+        "location": {
+          "x": -12,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare and Eclipse Avenue"
+      },
+      {
+        "exits": [
+          {
+            "id": 410,
+            "isDoor": false,
+            "name": "southwest",
+            "to": 401
+          },
+          {
+            "id": 412,
+            "isDoor": false,
+            "name": "east",
+            "to": 411
+          },
+          {
+            "id": 745,
+            "isDoor": false,
+            "name": "west",
+            "to": 659
+          },
+          {
+            "id": 5366,
+            "isDoor": false,
+            "name": "north",
+            "to": 5364
+          }
+        ],
+        "id": 404,
+        "location": {
+          "x": -11,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 413,
+            "isDoor": false,
+            "name": "west",
+            "to": 404
+          },
+          {
+            "id": 415,
+            "isDoor": false,
+            "name": "east",
+            "to": 414
+          },
+          {
+            "id": 624,
+            "isDoor": false,
+            "name": "north",
+            "to": 622
+          }
+        ],
+        "id": 411,
+        "location": {
+          "x": -10,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 416,
+            "isDoor": false,
+            "name": "west",
+            "to": 411
+          },
+          {
+            "id": 418,
+            "isDoor": false,
+            "name": "east",
+            "to": 417
+          },
+          {
+            "id": 823,
+            "isDoor": false,
+            "name": "north",
+            "to": 822
+          }
+        ],
+        "id": 414,
+        "location": {
+          "x": -9,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 419,
+            "isDoor": false,
+            "name": "west",
+            "to": 414
+          },
+          {
+            "id": 421,
+            "isDoor": false,
+            "name": "east",
+            "to": 420
+          },
+          {
+            "id": 615,
+            "isDoor": false,
+            "name": "north",
+            "to": 614
+          }
+        ],
+        "id": 417,
+        "location": {
+          "x": -8,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 422,
+            "isDoor": false,
+            "name": "west",
+            "to": 417
+          },
+          {
+            "id": 424,
+            "isDoor": false,
+            "name": "east",
+            "to": 423
+          }
+        ],
+        "id": 420,
+        "location": {
+          "x": -7,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 425,
+            "isDoor": false,
+            "name": "west",
+            "to": 420
+          },
+          {
+            "id": 427,
+            "isDoor": false,
+            "name": "east",
+            "to": 426
+          },
+          {
+            "id": 702,
+            "isDoor": false,
+            "name": "north",
+            "to": 701
+          }
+        ],
+        "id": 423,
+        "location": {
+          "x": -6,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 428,
+            "isDoor": false,
+            "name": "west",
+            "to": 423
+          },
+          {
+            "id": 430,
+            "isDoor": false,
+            "name": "east",
+            "to": 429
+          }
+        ],
+        "id": 426,
+        "location": {
+          "x": -5,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 431,
+            "isDoor": false,
+            "name": "west",
+            "to": 426
+          },
+          {
+            "id": 433,
+            "isDoor": false,
+            "name": "east",
+            "to": 432
+          },
+          {
+            "id": 935,
+            "isDoor": false,
+            "name": "north",
+            "to": 933
+          }
+        ],
+        "id": 429,
+        "location": {
+          "x": -4,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 434,
+            "isDoor": false,
+            "name": "west",
+            "to": 429
+          },
+          {
+            "id": 436,
+            "isDoor": false,
+            "name": "east",
+            "to": 435
+          }
+        ],
+        "id": 432,
+        "location": {
+          "x": -3,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 437,
+            "isDoor": false,
+            "name": "west",
+            "to": 432
+          },
+          {
+            "id": 439,
+            "isDoor": false,
+            "name": "southeast",
+            "to": 438
+          },
+          {
+            "id": 465,
+            "isDoor": false,
+            "name": "north",
+            "to": 464
+          },
+          {
+            "id": 4257,
+            "isDoor": false,
+            "name": "east",
+            "to": 445
+          }
+        ],
+        "id": 435,
+        "location": {
+          "x": -2,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Drag"
+      },
+      {
+        "exits": [
+          {
+            "id": 440,
+            "isDoor": false,
+            "name": "northwest",
+            "to": 435
+          },
+          {
+            "id": 442,
+            "isDoor": false,
+            "name": "east",
+            "to": 441
+          },
+          {
+            "id": 447,
+            "isDoor": false,
+            "name": "north",
+            "to": 445
+          },
+          {
+            "id": 1224,
+            "isDoor": false,
+            "name": "west",
+            "to": 1223
+          }
+        ],
+        "id": 438,
+        "location": {
+          "x": -1,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare and Aft Terminus Courtyard"
+      },
+      {
+        "exits": [
+          {
+            "id": 443,
+            "isDoor": false,
+            "name": "west",
+            "to": 438
+          },
+          {
+            "id": 444,
+            "isDoor": false,
+            "name": "south",
+            "to": 337
+          },
+          {
+            "id": 450,
+            "isDoor": false,
+            "name": "east",
+            "to": 449
+          },
+          {
+            "id": 3600,
+            "isDoor": false,
+            "name": "north",
+            "to": 3599
+          }
+        ],
+        "id": 441,
+        "location": {
+          "x": 0,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare and Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 448,
+            "isDoor": false,
+            "name": "south",
+            "to": 438
+          },
+          {
+            "id": 4256,
+            "isDoor": false,
+            "name": "west",
+            "to": 435
+          }
+        ],
+        "id": 445,
+        "location": {
+          "x": -1,
+          "y": 4,
+          "z": 100
+        },
+        "name": "Fore Terminus Courtyard"
+      },
+      {
+        "exits": [
+          {
+            "id": 451,
+            "isDoor": false,
+            "name": "west",
+            "to": 441
+          },
+          {
+            "id": 453,
+            "isDoor": false,
+            "name": "east",
+            "to": 452
+          }
+        ],
+        "id": 449,
+        "location": {
+          "x": 1,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare"
+      },
+      {
+        "exits": [
+          {
+            "id": 454,
+            "isDoor": false,
+            "name": "west",
+            "to": 449
+          },
+          {
+            "id": 456,
+            "isDoor": false,
+            "name": "east",
+            "to": 455
+          },
+          {
+            "id": 972,
+            "isDoor": false,
+            "name": "north",
+            "to": 971
+          }
+        ],
+        "id": 452,
+        "location": {
+          "x": 2,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare"
+      },
+      {
+        "exits": [
+          {
+            "id": 457,
+            "isDoor": false,
+            "name": "west",
+            "to": 452
+          },
+          {
+            "id": 459,
+            "isDoor": false,
+            "name": "east",
+            "to": 458
+          },
+          {
+            "id": 849,
+            "isDoor": false,
+            "name": "north",
+            "to": 847
+          },
+          {
+            "id": 864,
+            "isDoor": false,
+            "name": "south",
+            "to": 863
+          }
+        ],
+        "id": 455,
+        "location": {
+          "x": 3,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare and Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 460,
+            "isDoor": false,
+            "name": "west",
+            "to": 455
+          },
+          {
+            "id": 462,
+            "isDoor": false,
+            "name": "east",
+            "to": 461
+          }
+        ],
+        "id": 458,
+        "location": {
+          "x": 4,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare"
+      },
+      {
+        "exits": [
+          {
+            "id": 463,
+            "isDoor": false,
+            "name": "west",
+            "to": 458
+          },
+          {
+            "id": 1227,
+            "isDoor": false,
+            "name": "south",
+            "to": 1226
+          }
+        ],
+        "id": 461,
+        "location": {
+          "x": 5,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare"
+      },
+      {
+        "exits": [
+          {
+            "id": 466,
+            "isDoor": false,
+            "name": "south",
+            "to": 435
+          },
+          {
+            "id": 5058,
+            "isDoor": false,
+            "name": "northwest",
+            "to": 5057
+          }
+        ],
+        "id": 464,
+        "location": {
+          "x": -2,
+          "y": 5,
+          "z": 100
+        },
+        "name": "El-Tarif Courtyard"
+      },
+      {
+        "exits": [
+          {
+            "id": 469,
+            "isDoor": false,
+            "name": "east",
+            "to": 401
+          },
+          {
+            "id": 5035,
+            "isDoor": false,
+            "name": "north",
+            "to": 5034
+          },
+          {
+            "id": 4014,
+            "isDoor": false,
+            "name": "west",
+            "to": 4013
+          }
+        ],
+        "id": 467,
+        "location": {
+          "x": -13,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare"
+      },
+      {
+        "exits": [
+          {
+            "id": 472,
+            "isDoor": false,
+            "name": "south",
+            "to": 368
+          },
+          {
+            "id": 474,
+            "isDoor": false,
+            "name": "north",
+            "to": 473
+          }
+        ],
+        "id": 470,
+        "location": {
+          "x": -6,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Scrap Filled Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 475,
+            "isDoor": false,
+            "name": "south",
+            "to": 470
+          },
+          {
+            "id": 477,
+            "isDoor": false,
+            "name": "north",
+            "to": 476
+          }
+        ],
+        "id": 473,
+        "location": {
+          "x": -6,
+          "y": 0,
+          "z": 100
+        },
+        "name": "Scrap Filled Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 478,
+            "isDoor": false,
+            "name": "south",
+            "to": 473
+          },
+          {
+            "id": 956,
+            "isDoor": false,
+            "name": "east",
+            "to": 955
+          },
+          {
+            "id": 1030,
+            "isDoor": false,
+            "name": "north",
+            "to": 1029
+          }
+        ],
+        "id": 476,
+        "location": {
+          "x": -6,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Scrap Filled Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 482,
+            "isDoor": false,
+            "name": "east",
+            "to": 386
+          },
+          {
+            "id": 5415,
+            "isDoor": true,
+            "name": "south",
+            "to": 5413
+          }
+        ],
+        "id": 480,
+        "location": {
+          "x": -13,
+          "y": -2,
+          "z": 100
+        },
+        "name": "West Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 536,
+            "isDoor": false,
+            "name": "down",
+            "to": 236
+          }
+        ],
+        "id": 532,
+        "location": {
+          "x": -8,
+          "y": 7,
+          "z": 101
+        },
+        "name": "Unmarked Stairwell"
+      },
+      {
+        "exits": [
+          {
+            "id": 551,
+            "isDoor": false,
+            "name": "north",
+            "to": 347
+          },
+          {
+            "id": 4524,
+            "isDoor": false,
+            "name": "up",
+            "to": 4523
+          }
+        ],
+        "id": 550,
+        "location": {
+          "x": 0,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Shipfitters and Astronautic Workers - Union Hall"
+      },
+      {
+        "exits": [
+          {
+            "id": 616,
+            "isDoor": false,
+            "name": "south",
+            "to": 417
+          }
+        ],
+        "id": 614,
+        "location": {
+          "x": -8,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Retrograde - Shop"
+      },
+      {
+        "exits": [
+          {
+            "id": 1863,
+            "isDoor": false,
+            "name": "west",
+            "to": 868
+          }
+        ],
+        "id": 617,
+        "location": {
+          "x": 4,
+          "y": 1,
+          "z": 100
+        },
+        "name": "The Horn of Plenty"
+      },
+      {
+        "exits": [
+          {
+            "id": 625,
+            "isDoor": false,
+            "name": "south",
+            "to": 411
+          }
+        ],
+        "id": 622,
+        "location": {
+          "x": -10,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Needle & Stitch Medical Clinic - Waiting Room"
+      },
+      {
+        "exits": [
+          {
+            "id": 1100,
+            "isDoor": false,
+            "name": "north",
+            "to": 359
+          },
+          {
+            "id": 1102,
+            "isDoor": false,
+            "name": "east",
+            "to": 1101
+          },
+          {
+            "id": 9113,
+            "isDoor": false,
+            "name": "south",
+            "to": 9111
+          }
+        ],
+        "id": 658,
+        "location": {
+          "x": -3,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Disposal Works - Recycling Kilns"
+      },
+      {
+        "exits": [
+          {
+            "id": 738,
+            "isDoor": false,
+            "name": "east",
+            "to": 404
+          },
+          {
+            "id": 729,
+            "isDoor": false,
+            "name": "south",
+            "to": 401
+          },
+          {
+            "id": 884,
+            "isDoor": false,
+            "name": "inside",
+            "to": 804
+          }
+        ],
+        "id": 659,
+        "location": {
+          "x": -12,
+          "y": 4,
+          "z": 100
+        },
+        "name": "Buddy's Bodega - Parking Lot"
+      },
+      {
+        "exits": [
+          {
+            "id": 703,
+            "isDoor": false,
+            "name": "south",
+            "to": 423
+          },
+          {
+            "id": 1019,
+            "isDoor": false,
+            "name": "north",
+            "to": 706
+          },
+          {
+            "id": 9093,
+            "isDoor": false,
+            "name": "down",
+            "to": 9094
+          }
+        ],
+        "id": 701,
+        "location": {
+          "x": -6,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Cramped Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 1020,
+            "isDoor": false,
+            "name": "south",
+            "to": 701
+          },
+          {
+            "id": 1022,
+            "isDoor": false,
+            "name": "west",
+            "to": 1021
+          }
+        ],
+        "id": 706,
+        "location": {
+          "x": -6,
+          "y": 6,
+          "z": 100
+        },
+        "name": "Cramped Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 710,
+            "isDoor": false,
+            "name": "north",
+            "to": 356
+          },
+          {
+            "id": 712,
+            "isDoor": false,
+            "name": "south",
+            "to": 711
+          },
+          {
+            "id": 2155,
+            "isDoor": false,
+            "name": "east",
+            "to": 1489
+          },
+          {
+            "id": 3433,
+            "isDoor": false,
+            "name": "west",
+            "to": 3432
+          }
+        ],
+        "id": 707,
+        "location": {
+          "x": -1,
+          "y": -4,
+          "z": 100
+        },
+        "name": "Aft Terminus Corridor"
+      },
+      {
+        "exits": [
+          {
+            "id": 713,
+            "isDoor": false,
+            "name": "north",
+            "to": 707
+          },
+          {
+            "id": 4905,
+            "isDoor": false,
+            "name": "east",
+            "to": 4560
+          }
+        ],
+        "id": 711,
+        "location": {
+          "x": -1,
+          "y": -5,
+          "z": 100
+        },
+        "name": "Aft Terminus Corridor - Abandoned Courtyard"
+      },
+      {
+        "exits": [
+          {
+            "id": 781,
+            "isDoor": false,
+            "name": "up",
+            "to": 778
+          },
+          {
+            "id": 777,
+            "isDoor": false,
+            "name": "east",
+            "to": 874
+          }
+        ],
+        "id": 775,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 100
+        },
+        "name": "The Cicero - Suiren Ramen"
+      },
+      {
+        "exits": [
+          {
+            "id": 780,
+            "isDoor": false,
+            "name": "down",
+            "to": 775
+          },
+          {
+            "id": 981,
+            "isDoor": false,
+            "name": "west",
+            "to": 980
+          },
+          {
+            "id": 987,
+            "isDoor": false,
+            "name": "up",
+            "to": 986
+          }
+        ],
+        "id": 778,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 101
+        },
+        "name": "The Cicero - 2nd Floor Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 798,
+            "isDoor": false,
+            "name": "north",
+            "to": 377
+          },
+          {
+            "id": 799,
+            "isDoor": false,
+            "name": "south",
+            "to": 797
+          },
+          {
+            "id": 1056,
+            "isDoor": false,
+            "name": "east",
+            "to": 1053
+          }
+        ],
+        "id": 795,
+        "location": {
+          "x": -9,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Flophouse Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 800,
+            "isDoor": false,
+            "name": "north",
+            "to": 795
+          },
+          {
+            "id": 802,
+            "isDoor": false,
+            "name": "south",
+            "to": 801
+          },
+          {
+            "id": 3084,
+            "isDoor": false,
+            "name": "west",
+            "to": 3083
+          },
+          {
+            "id": 4258,
+            "isDoor": false,
+            "name": "southwest",
+            "to": 3516
+          }
+        ],
+        "id": 797,
+        "location": {
+          "x": -9,
+          "y": -4,
+          "z": 100
+        },
+        "name": "Albedo Road & Flophouse Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 803,
+            "isDoor": false,
+            "name": "north",
+            "to": 797
+          },
+          {
+            "id": 3877,
+            "isDoor": false,
+            "name": "south",
+            "to": 3863
+          },
+          {
+            "id": 9383,
+            "isDoor": false,
+            "name": "up",
+            "to": 9382
+          }
+        ],
+        "id": 801,
+        "location": {
+          "x": -9,
+          "y": -5,
+          "z": 100
+        },
+        "name": "Radical Ray's - Cramped Storefront"
+      },
+      {
+        "exits": [
+          {
+            "id": 886,
+            "isDoor": false,
+            "name": "out",
+            "to": 659
+          }
+        ],
+        "id": 804,
+        "location": {
+          "x": -13,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Buddy's Bodega - Store"
+      },
+      {
+        "exits": [
+          {
+            "id": 879,
+            "isDoor": false,
+            "name": "west",
+            "to": 347
+          },
+          {
+            "id": 883,
+            "isDoor": false,
+            "name": "east",
+            "to": 882
+          }
+        ],
+        "id": 805,
+        "location": {
+          "x": 1,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 824,
+            "isDoor": false,
+            "name": "south",
+            "to": 414
+          }
+        ],
+        "id": 822,
+        "location": {
+          "x": -9,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Wired - Club Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 858,
+            "isDoor": false,
+            "name": "south",
+            "to": 455
+          },
+          {
+            "id": 861,
+            "isDoor": false,
+            "name": "north",
+            "to": 860
+          },
+          {
+            "id": 3469,
+            "isDoor": false,
+            "name": "east",
+            "to": 3467
+          }
+        ],
+        "id": 847,
+        "location": {
+          "x": 3,
+          "y": 4,
+          "z": 100
+        },
+        "name": "Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 862,
+            "isDoor": false,
+            "name": "south",
+            "to": 847
+          },
+          {
+            "id": 1588,
+            "isDoor": false,
+            "name": "east",
+            "to": 1587
+          }
+        ],
+        "id": 860,
+        "location": {
+          "x": 3,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 865,
+            "isDoor": false,
+            "name": "north",
+            "to": 455
+          },
+          {
+            "id": 869,
+            "isDoor": false,
+            "name": "south",
+            "to": 868
+          },
+          {
+            "id": 1230,
+            "isDoor": false,
+            "name": "west",
+            "to": 1229
+          }
+        ],
+        "id": 863,
+        "location": {
+          "x": 3,
+          "y": 2,
+          "z": 100
+        },
+        "name": "Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 870,
+            "isDoor": false,
+            "name": "north",
+            "to": 863
+          },
+          {
+            "id": 872,
+            "isDoor": false,
+            "name": "south",
+            "to": 871
+          },
+          {
+            "id": 3153,
+            "isDoor": false,
+            "name": "west",
+            "to": 3152
+          },
+          {
+            "id": 931,
+            "isDoor": false,
+            "name": "east",
+            "to": 617
+          }
+        ],
+        "id": 868,
+        "location": {
+          "x": 3,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 873,
+            "isDoor": false,
+            "name": "north",
+            "to": 868
+          },
+          {
+            "id": 875,
+            "isDoor": false,
+            "name": "south",
+            "to": 874
+          },
+          {
+            "id": 3471,
+            "isDoor": false,
+            "name": "east",
+            "to": 3470
+          }
+        ],
+        "id": 871,
+        "location": {
+          "x": 3,
+          "y": 0,
+          "z": 100
+        },
+        "name": "Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 876,
+            "isDoor": false,
+            "name": "north",
+            "to": 871
+          },
+          {
+            "id": 878,
+            "isDoor": false,
+            "name": "south",
+            "to": 877
+          },
+          {
+            "id": 776,
+            "isDoor": false,
+            "name": "west",
+            "to": 775
+          }
+        ],
+        "id": 874,
+        "location": {
+          "x": 3,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 880,
+            "isDoor": false,
+            "name": "north",
+            "to": 874
+          },
+          {
+            "id": 888,
+            "isDoor": false,
+            "name": "west",
+            "to": 882
+          },
+          {
+            "id": 3474,
+            "isDoor": false,
+            "name": "southeast",
+            "to": 3473
+          }
+        ],
+        "id": 877,
+        "location": {
+          "x": 3,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street and Juno Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 885,
+            "isDoor": false,
+            "name": "west",
+            "to": 805
+          },
+          {
+            "id": 887,
+            "isDoor": false,
+            "name": "east",
+            "to": 877
+          },
+          {
+            "id": 3464,
+            "isDoor": false,
+            "name": "south",
+            "to": 3463
+          }
+        ],
+        "id": 882,
+        "location": {
+          "x": 2,
+          "y": -2,
+          "z": 100
+        },
+        "name": "Welles Street"
+      },
+      {
+        "exits": [
+          {
+            "id": 936,
+            "isDoor": false,
+            "name": "south",
+            "to": 429
+          },
+          {
+            "id": 1032,
+            "isDoor": false,
+            "name": "west",
+            "to": 1031
+          },
+          {
+            "id": 1035,
+            "isDoor": false,
+            "name": "east",
+            "to": 1034
+          },
+          {
+            "id": 5003,
+            "isDoor": false,
+            "name": "north",
+            "to": 5001
+          }
+        ],
+        "id": 933,
+        "location": {
+          "x": -4,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Debris Strewn Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 958,
+            "isDoor": false,
+            "name": "west",
+            "to": 476
+          }
+        ],
+        "id": 955,
+        "location": {
+          "x": -5,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Starline - Warehouse Loading Dock"
+      },
+      {
+        "exits": [
+          {
+            "id": 973,
+            "isDoor": false,
+            "name": "south",
+            "to": 452
+          },
+          {
+            "id": 975,
+            "isDoor": false,
+            "name": "northwest",
+            "to": 974
+          }
+        ],
+        "id": 971,
+        "location": {
+          "x": 2,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Black Cat - Coat Check"
+      },
+      {
+        "exits": [
+          {
+            "id": 976,
+            "isDoor": false,
+            "name": "southeast",
+            "to": 971
+          },
+          {
+            "id": 978,
+            "isDoor": false,
+            "name": "east",
+            "to": 977
+          }
+        ],
+        "id": 974,
+        "location": {
+          "x": 1,
+          "y": 5,
+          "z": 100
+        },
+        "name": "The Black Cat - Main Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 979,
+            "isDoor": false,
+            "name": "west",
+            "to": 974
+          },
+          {
+            "id": 1127,
+            "isDoor": false,
+            "name": "up",
+            "to": 1109
+          }
+        ],
+        "id": 977,
+        "location": {
+          "x": 2,
+          "y": 5,
+          "z": 100
+        },
+        "name": "The Black Cat - Back Hallway"
+      },
+      {
+        "exits": [
+          {
+            "id": 982,
+            "isDoor": false,
+            "name": "east",
+            "to": 778
+          }
+        ],
+        "id": 980,
+        "location": {
+          "x": 1,
+          "y": -1,
+          "z": 101
+        },
+        "name": "The Cicero - Inks of Yu Ming-ze"
+      },
+      {
+        "exits": [
+          {
+            "id": 989,
+            "isDoor": false,
+            "name": "down",
+            "to": 778
+          },
+          {
+            "id": 990,
+            "isDoor": false,
+            "name": "up",
+            "to": 988
+          },
+          {
+            "id": 2010,
+            "isDoor": false,
+            "name": "west",
+            "to": 2009
+          }
+        ],
+        "id": 986,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 102
+        },
+        "name": "The Cicero - 3rd Floor Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 991,
+            "isDoor": false,
+            "name": "down",
+            "to": 986
+          },
+          {
+            "id": 993,
+            "isDoor": false,
+            "name": "up",
+            "to": 992
+          }
+        ],
+        "id": 988,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 103
+        },
+        "name": "The Cicero - 4th Floor Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 994,
+            "isDoor": false,
+            "name": "down",
+            "to": 988
+          },
+          {
+            "id": 996,
+            "isDoor": false,
+            "name": "up",
+            "to": 995
+          }
+        ],
+        "id": 992,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 104
+        },
+        "name": "The Cicero - 5th Floor Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 997,
+            "isDoor": false,
+            "name": "down",
+            "to": 992
+          },
+          {
+            "id": 1000,
+            "isDoor": false,
+            "name": "up",
+            "to": 999
+          }
+        ],
+        "id": 995,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 105
+        },
+        "name": "The Cicero - 6th Floor Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 1001,
+            "isDoor": false,
+            "name": "south",
+            "to": 1002
+          },
+          {
+            "id": 1015,
+            "isDoor": false,
+            "name": "down",
+            "to": 999
+          },
+          {
+            "id": 1017,
+            "isDoor": false,
+            "name": "up",
+            "to": 1016
+          }
+        ],
+        "id": 998,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 107
+        },
+        "name": "The Cicero - 8th Floor Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 1013,
+            "isDoor": false,
+            "name": "down",
+            "to": 995
+          },
+          {
+            "id": 1014,
+            "isDoor": false,
+            "name": "up",
+            "to": 998
+          }
+        ],
+        "id": 999,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 106
+        },
+        "name": "The Cicero - 7th Floor Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 1003,
+            "isDoor": false,
+            "name": "north",
+            "to": 998
+          },
+          {
+            "id": 1005,
+            "isDoor": false,
+            "name": "southwest",
+            "to": 1004
+          },
+          {
+            "id": 1011,
+            "isDoor": false,
+            "name": "east",
+            "to": 1010
+          }
+        ],
+        "id": 1002,
+        "location": {
+          "x": 2,
+          "y": -2,
+          "z": 107
+        },
+        "name": "The Cicero - Haven of Stasia-ze Massage, Reception"
+      },
+      {
+        "exits": [
+          {
+            "id": 1006,
+            "isDoor": false,
+            "name": "northeast",
+            "to": 1002
+          }
+        ],
+        "id": 1004,
+        "location": {
+          "x": 1,
+          "y": -2,
+          "z": 107
+        },
+        "name": "The Cicero - Haven of Stasia-ze Massage, Showers"
+      },
+      {
+        "exits": [
+          {
+            "id": 1012,
+            "isDoor": false,
+            "name": "west",
+            "to": 1002
+          }
+        ],
+        "id": 1010,
+        "location": {
+          "x": 3,
+          "y": -2,
+          "z": 107
+        },
+        "name": "The Cicero - Haven of Stasia-ze Massage, Jade Room"
+      },
+      {
+        "exits": [
+          {
+            "id": 1018,
+            "isDoor": false,
+            "name": "down",
+            "to": 998
+          }
+        ],
+        "id": 1016,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 108
+        },
+        "name": "The Cicero - Rooftop"
+      },
+      {
+        "exits": [
+          {
+            "id": 1023,
+            "isDoor": false,
+            "name": "east",
+            "to": 706
+          },
+          {
+            "id": 1025,
+            "isDoor": false,
+            "name": "west",
+            "to": 1024
+          },
+          {
+            "id": 1315,
+            "isDoor": false,
+            "name": "south",
+            "to": 1301
+          }
+        ],
+        "id": 1021,
+        "location": {
+          "x": -7,
+          "y": 6,
+          "z": 100
+        },
+        "name": "Cramped Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 1026,
+            "isDoor": false,
+            "name": "east",
+            "to": 1021
+          },
+          {
+            "id": 1027,
+            "isDoor": false,
+            "name": "north",
+            "to": 236
+          }
+        ],
+        "id": 1024,
+        "location": {
+          "x": -8,
+          "y": 6,
+          "z": 100
+        },
+        "name": "Cramped Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 1041,
+            "isDoor": false,
+            "name": "south",
+            "to": 476
+          }
+        ],
+        "id": 1029,
+        "location": {
+          "x": -6,
+          "y": 2,
+          "z": 100
+        },
+        "name": "The Block - 1st Floor Lobby"
+      },
+      {
+        "exits": [
+          {
+            "id": 1033,
+            "isDoor": false,
+            "name": "east",
+            "to": 933
+          }
+        ],
+        "id": 1031,
+        "location": {
+          "x": -5,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Unit 56W - Entryway"
+      },
+      {
+        "exits": [
+          {
+            "id": 1036,
+            "isDoor": false,
+            "name": "west",
+            "to": 933
+          }
+        ],
+        "id": 1034,
+        "location": {
+          "x": -3,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Unit 56E - Entryway"
+      },
+      {
+        "exits": [
+          {
+            "id": 1039,
+            "isDoor": false,
+            "name": "south",
+            "to": 365
+          }
+        ],
+        "id": 1037,
+        "location": {
+          "x": -5,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Watson Foundry - Workyard"
+      },
+      {
+        "exits": [
+          {
+            "id": 1057,
+            "isDoor": false,
+            "name": "west",
+            "to": 795
+          },
+          {
+            "id": 4552,
+            "isDoor": false,
+            "name": "up",
+            "to": 4551
+          }
+        ],
+        "id": 1053,
+        "location": {
+          "x": -8,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Furniture Emporium - Sales Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 1095,
+            "isDoor": false,
+            "name": "north",
+            "to": 386
+          },
+          {
+            "id": 1498,
+            "isDoor": false,
+            "name": "south",
+            "to": 1497
+          }
+        ],
+        "id": 1054,
+        "location": {
+          "x": -12,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Dinamo - Box Office"
+      },
+      {
+        "exits": [
+          {
+            "id": 1103,
+            "isDoor": false,
+            "name": "west",
+            "to": 658
+          }
+        ],
+        "id": 1101,
+        "location": {
+          "x": -2,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Disposal Works - Industrial Incinerators"
+      },
+      {
+        "exits": [
+          {
+            "id": 1128,
+            "isDoor": false,
+            "name": "down",
+            "to": 977
+          },
+          {
+            "id": 1129,
+            "isDoor": false,
+            "name": "west",
+            "to": 1130
+          }
+        ],
+        "id": 1109,
+        "location": {
+          "x": 2,
+          "y": 5,
+          "z": 101
+        },
+        "name": "The Black Cat - Upstairs East Hall"
+      },
+      {
+        "exits": [
+          {
+            "id": 1105,
+            "isDoor": false,
+            "name": "east",
+            "to": 398
+          }
+        ],
+        "id": 1110,
+        "location": {
+          "x": -13,
+          "y": 2,
+          "z": 100
+        },
+        "name": "The Lopatin - Lobby"
+      },
+      {
+        "exits": [
+          {
+            "id": 1131,
+            "isDoor": false,
+            "name": "east",
+            "to": 1109
+          }
+        ],
+        "id": 1130,
+        "location": {
+          "x": 1,
+          "y": 5,
+          "z": 101
+        },
+        "name": "The Black Cat - Upstairs West Hall"
+      },
+      {
+        "exits": [
+          {
+            "id": 1161,
+            "isDoor": false,
+            "name": "north",
+            "to": 380
+          }
+        ],
+        "id": 1159,
+        "location": {
+          "x": -10,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Grupo Marte Nuevo - Office"
+      },
+      {
+        "exits": [
+          {
+            "id": 1225,
+            "isDoor": false,
+            "name": "east",
+            "to": 438
+          }
+        ],
+        "id": 1223,
+        "location": {
+          "x": -2,
+          "y": 3,
+          "z": 100
+        },
+        "name": "Public Capsules"
+      },
+      {
+        "exits": [
+          {
+            "id": 1228,
+            "isDoor": false,
+            "name": "north",
+            "to": 461
+          }
+        ],
+        "id": 1226,
+        "location": {
+          "x": 5,
+          "y": 2,
+          "z": 100
+        },
+        "name": "Frontier Security - Field Office"
+      },
+      {
+        "exits": [
+          {
+            "id": 1231,
+            "isDoor": false,
+            "name": "east",
+            "to": 863
+          }
+        ],
+        "id": 1229,
+        "location": {
+          "x": 2,
+          "y": 2,
+          "z": 100
+        },
+        "name": "Imperial Wine Merchants - Shop"
+      },
+      {
+        "exits": [
+          {
+            "id": 1279,
+            "isDoor": false,
+            "name": "east",
+            "to": 389
+          }
+        ],
+        "id": 1277,
+        "location": {
+          "x": -13,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Sokolov Firearms"
+      },
+      {
+        "exits": [
+          {
+            "id": 1316,
+            "isDoor": false,
+            "name": "north",
+            "to": 1021
+          }
+        ],
+        "id": 1301,
+        "location": {
+          "x": -7,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Aboard a Condemned Shuttle - Cockpit"
+      },
+      {
+        "exits": [
+          {
+            "id": 1327,
+            "isDoor": false,
+            "name": "west",
+            "to": 340
+          }
+        ],
+        "id": 1325,
+        "location": {
+          "x": 1,
+          "y": 0,
+          "z": 100
+        },
+        "name": "The Haymaker"
+      },
+      {
+        "exits": [
+          {
+            "id": 2157,
+            "isDoor": false,
+            "name": "west",
+            "to": 707
+          }
+        ],
+        "id": 1489,
+        "location": {
+          "x": 0,
+          "y": -4,
+          "z": 100
+        },
+        "name": "The Gettin Place"
+      },
+      {
+        "exits": [
+          {
+            "id": 1500,
+            "isDoor": false,
+            "name": "north",
+            "to": 1054
+          },
+          {
+            "id": 1501,
+            "isDoor": false,
+            "name": "up",
+            "to": 1499
+          }
+        ],
+        "id": 1497,
+        "location": {
+          "x": -12,
+          "y": -4,
+          "z": 100
+        },
+        "name": "Dinamo - Main Room"
+      },
+      {
+        "exits": [
+          {
+            "id": 1502,
+            "isDoor": false,
+            "name": "down",
+            "to": 1497
+          },
+          {
+            "id": 1504,
+            "isDoor": false,
+            "name": "north",
+            "to": 1503
+          }
+        ],
+        "id": 1499,
+        "location": {
+          "x": -12,
+          "y": -4,
+          "z": 101
+        },
+        "name": "Dinamo - Balcony"
+      },
+      {
+        "exits": [
+          {
+            "id": 1505,
+            "isDoor": false,
+            "name": "south",
+            "to": 1499
+          },
+          {
+            "id": 4546,
+            "isDoor": false,
+            "name": "east",
+            "to": 3553
+          }
+        ],
+        "id": 1503,
+        "location": {
+          "x": -12,
+          "y": -3,
+          "z": 101
+        },
+        "name": "Dinamo - Upstairs Room"
+      },
+      {
+        "exits": [
+          {
+            "id": 1521,
+            "isDoor": false,
+            "name": "south",
+            "to": 359
+          }
+        ],
+        "id": 1519,
+        "location": {
+          "x": -3,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Sammy's Salvage - Gated Entrance"
+      },
+      {
+        "exits": [],
+        "id": 1529,
+        "location": {
+          "x": -3,
+          "y": 3,
+          "z": 100
+        },
+        "name": "WIP Salvage - Primary Wrecking Yard"
+      },
+      {
+        "exits": [],
+        "id": 1531,
+        "location": {
+          "x": -4,
+          "y": 3,
+          "z": 100
+        },
+        "name": "WIP Salvage - Gateway Hangar"
+      },
+      {
+        "exits": [
+          {
+            "id": 1590,
+            "isDoor": false,
+            "name": "west",
+            "to": 860
+          }
+        ],
+        "id": 1587,
+        "location": {
+          "x": 4,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Pearl Sea Dispensary"
+      },
+      {
+        "exits": [
+          {
+            "id": 2003,
+            "isDoor": false,
+            "name": "west",
+            "to": 336
+          }
+        ],
+        "id": 2001,
+        "location": {
+          "x": 1,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Leatherette - Sales Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 2012,
+            "isDoor": false,
+            "name": "east",
+            "to": 986
+          }
+        ],
+        "id": 2009,
+        "location": {
+          "x": 1,
+          "y": -1,
+          "z": 102
+        },
+        "name": "The Cicero - Madani Tailoring"
+      },
+      {
+        "exits": [
+          {
+            "id": 3552,
+            "isDoor": false,
+            "name": "north",
+            "to": 383
+          },
+          {
+            "id": 3554,
+            "isDoor": false,
+            "name": "up",
+            "to": 3553
+          },
+          {
+            "id": 3566,
+            "isDoor": false,
+            "name": "south",
+            "to": 3565
+          }
+        ],
+        "id": 2043,
+        "location": {
+          "x": -11,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Minsky Hotel"
+      },
+      {
+        "exits": [
+          {
+            "id": 2546,
+            "isDoor": false,
+            "name": "north",
+            "to": 362
+          }
+        ],
+        "id": 2543,
+        "location": {
+          "x": -4,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Industrial Supply - Shop Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 3085,
+            "isDoor": false,
+            "name": "east",
+            "to": 797
+          },
+          {
+            "id": 4549,
+            "isDoor": false,
+            "name": "up",
+            "to": 4548
+          }
+        ],
+        "id": 3083,
+        "location": {
+          "x": -10,
+          "y": -4,
+          "z": 100
+        },
+        "name": "Olympic Surplus - Sales"
+      },
+      {
+        "exits": [
+          {
+            "id": 3155,
+            "isDoor": false,
+            "name": "east",
+            "to": 868
+          }
+        ],
+        "id": 3152,
+        "location": {
+          "x": 2,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Juno Street - Parking Lot"
+      },
+      {
+        "exits": [
+          {
+            "id": 3435,
+            "isDoor": false,
+            "name": "east",
+            "to": 707
+          },
+          {
+            "id": 3436,
+            "isDoor": false,
+            "name": "down",
+            "to": 3434
+          }
+        ],
+        "id": 3432,
+        "location": {
+          "x": -2,
+          "y": -4,
+          "z": 100
+        },
+        "name": "The Blood Bucket - Entrance"
+      },
+      {
+        "exits": [
+          {
+            "id": 3437,
+            "isDoor": false,
+            "name": "up",
+            "to": 3432
+          }
+        ],
+        "id": 3434,
+        "location": {
+          "x": -2,
+          "y": -4,
+          "z": 99
+        },
+        "name": "The Blood Bucket - Pit"
+      },
+      {
+        "exits": [
+          {
+            "id": 3466,
+            "isDoor": false,
+            "name": "north",
+            "to": 882
+          }
+        ],
+        "id": 3463,
+        "location": {
+          "x": 2,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Titan Chemical Supply"
+      },
+      {
+        "exits": [
+          {
+            "id": 3468,
+            "isDoor": false,
+            "name": "west",
+            "to": 847
+          }
+        ],
+        "id": 3467,
+        "location": {
+          "x": 4,
+          "y": 4,
+          "z": 100
+        },
+        "name": "Comercio Caudex"
+      },
+      {
+        "exits": [
+          {
+            "id": 3472,
+            "isDoor": false,
+            "name": "west",
+            "to": 871
+          }
+        ],
+        "id": 3470,
+        "location": {
+          "x": 4,
+          "y": 0,
+          "z": 100
+        },
+        "name": "Shimada Antiques Unlimited"
+      },
+      {
+        "exits": [
+          {
+            "id": 3475,
+            "isDoor": false,
+            "name": "northwest",
+            "to": 877
+          }
+        ],
+        "id": 3473,
+        "location": {
+          "x": 4,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Regent Cab - Dispatch Office"
+      },
+      {
+        "exits": [
+          {
+            "id": 4260,
+            "isDoor": false,
+            "name": "northeast",
+            "to": 797
+          }
+        ],
+        "id": 3516,
+        "location": {
+          "x": -10,
+          "y": -5,
+          "z": 100
+        },
+        "name": "Global Motors Outlet"
+      },
+      {
+        "exits": [
+          {
+            "id": 3550,
+            "isDoor": false,
+            "name": "north",
+            "to": 371
+          }
+        ],
+        "id": 3548,
+        "location": {
+          "x": -7,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Genrich Motors - Garage"
+      },
+      {
+        "exits": [
+          {
+            "id": 3555,
+            "isDoor": false,
+            "name": "down",
+            "to": 2043
+          },
+          {
+            "id": 3557,
+            "isDoor": false,
+            "name": "up",
+            "to": 3556
+          },
+          {
+            "id": 3563,
+            "isDoor": false,
+            "name": "south",
+            "to": 3562
+          },
+          {
+            "id": 4547,
+            "isDoor": false,
+            "name": "west",
+            "to": 1503
+          }
+        ],
+        "id": 3553,
+        "location": {
+          "x": -11,
+          "y": -3,
+          "z": 101
+        },
+        "name": "Minsky Hotel - Second Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 3558,
+            "isDoor": false,
+            "name": "down",
+            "to": 3553
+          },
+          {
+            "id": 3560,
+            "isDoor": false,
+            "name": "south",
+            "to": 3559
+          }
+        ],
+        "id": 3556,
+        "location": {
+          "x": -11,
+          "y": -3,
+          "z": 102
+        },
+        "name": "Minsky Hotel - Third Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 3561,
+            "isDoor": false,
+            "name": "north",
+            "to": 3556
+          }
+        ],
+        "id": 3559,
+        "location": {
+          "x": -11,
+          "y": -4,
+          "z": 102
+        },
+        "name": "Minsky Hotel - Third Floor South Hall"
+      },
+      {
+        "exits": [
+          {
+            "id": 3564,
+            "isDoor": false,
+            "name": "north",
+            "to": 3553
+          }
+        ],
+        "id": 3562,
+        "location": {
+          "x": -11,
+          "y": -4,
+          "z": 101
+        },
+        "name": "Minsky Hotel - Second Floor South Hall"
+      },
+      {
+        "exits": [
+          {
+            "id": 3567,
+            "isDoor": false,
+            "name": "north",
+            "to": 2043
+          }
+        ],
+        "id": 3565,
+        "location": {
+          "x": -11,
+          "y": -4,
+          "z": 100
+        },
+        "name": "Minsky Hotel - Ground Floor South Hall"
+      },
+      {
+        "exits": [
+          {
+            "id": 3601,
+            "isDoor": false,
+            "name": "south",
+            "to": 441
+          },
+          {
+            "id": 3602,
+            "isDoor": false,
+            "name": "up",
+            "to": 3603
+          }
+        ],
+        "id": 3599,
+        "location": {
+          "x": 0,
+          "y": 4,
+          "z": 100
+        },
+        "name": "The Skyhook Inn"
+      },
+      {
+        "exits": [
+          {
+            "id": 3604,
+            "isDoor": false,
+            "name": "down",
+            "to": 3599
+          },
+          {
+            "id": 3606,
+            "isDoor": false,
+            "name": "up",
+            "to": 3605
+          }
+        ],
+        "id": 3603,
+        "location": {
+          "x": 0,
+          "y": 4,
+          "z": 101
+        },
+        "name": "The Skyhook Inn - Second Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 3607,
+            "isDoor": false,
+            "name": "down",
+            "to": 3603
+          },
+          {
+            "id": 3609,
+            "isDoor": false,
+            "name": "up",
+            "to": 3608
+          }
+        ],
+        "id": 3605,
+        "location": {
+          "x": 0,
+          "y": 4,
+          "z": 102
+        },
+        "name": "The Skyhook Inn - Third Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 3610,
+            "isDoor": false,
+            "name": "down",
+            "to": 3605
+          }
+        ],
+        "id": 3608,
+        "location": {
+          "x": 0,
+          "y": 4,
+          "z": 103
+        },
+        "name": "The Skyhook Inn - Fourth Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 5384,
+            "isDoor": false,
+            "name": "west",
+            "to": 337
+          },
+          {
+            "id": 5386,
+            "isDoor": false,
+            "name": "up",
+            "to": 5385
+          }
+        ],
+        "id": 3771,
+        "location": {
+          "x": 1,
+          "y": 2,
+          "z": 100
+        },
+        "name": "Bigg's Burgers"
+      },
+      {
+        "exits": [
+          {
+            "id": 3878,
+            "isDoor": false,
+            "name": "north",
+            "to": 801
+          }
+        ],
+        "id": 3863,
+        "location": {
+          "x": -9,
+          "y": -6,
+          "z": 100
+        },
+        "name": "Radical Ray's - Fabrication Backroom"
+      },
+      {
+        "exits": [
+          {
+            "id": 4026,
+            "isDoor": false,
+            "name": "east",
+            "to": 467
+          },
+          {
+            "id": 4029,
+            "isDoor": false,
+            "name": "west",
+            "to": 4027
+          }
+        ],
+        "id": 4013,
+        "location": {
+          "x": -14,
+          "y": 3,
+          "z": 100
+        },
+        "name": "The Drag Thoroughfare"
+      },
+      {
+        "exits": [
+          {
+            "id": 4031,
+            "isDoor": false,
+            "name": "east",
+            "to": 4013
+          },
+          {
+            "id": 4053,
+            "isDoor": false,
+            "name": "west",
+            "to": 4041
+          }
+        ],
+        "id": 4027,
+        "location": {
+          "x": -15,
+          "y": 3,
+          "z": 100
+        },
+        "name": "Worker's Quarter Hull Precipice"
+      },
+      {
+        "exits": [
+          {
+            "id": 4054,
+            "isDoor": false,
+            "name": "east",
+            "to": 4027
+          },
+          {
+            "id": 4056,
+            "isDoor": false,
+            "name": "west",
+            "to": 4055
+          }
+        ],
+        "id": 4041,
+        "location": {
+          "x": -16,
+          "y": 3,
+          "z": 100
+        },
+        "name": "Torch Bulkhead Tunnel"
+      },
+      {
+        "exits": [
+          {
+            "id": 4057,
+            "isDoor": false,
+            "name": "east",
+            "to": 4041
+          },
+          {
+            "id": 4060,
+            "isDoor": false,
+            "name": "west",
+            "to": 4058
+          }
+        ],
+        "id": 4055,
+        "location": {
+          "x": -17,
+          "y": 3,
+          "z": 100
+        },
+        "name": "Torch Bulkhead Tunnel"
+      },
+      {
+        "exits": [
+          {
+            "id": 4061,
+            "isDoor": false,
+            "name": "east",
+            "to": 4055
+          },
+          {
+            "id": 4063,
+            "isDoor": false,
+            "name": "west",
+            "to": 4062
+          }
+        ],
+        "id": 4058,
+        "location": {
+          "x": -18,
+          "y": 3,
+          "z": 100
+        },
+        "name": "Torch Bulkhead Tunnel"
+      },
+      {
+        "exits": [
+          {
+            "id": 4064,
+            "isDoor": false,
+            "name": "east",
+            "to": 4058
+          },
+          {
+            "id": 4078,
+            "isDoor": false,
+            "name": "west",
+            "to": 4065
+          }
+        ],
+        "id": 4062,
+        "location": {
+          "x": -19,
+          "y": 3,
+          "z": 100
+        },
+        "name": "Torch Bulkhead Tunnel"
+      },
+      {
+        "exits": [
+          {
+            "id": 4081,
+            "isDoor": false,
+            "name": "east",
+            "to": 4062
+          }
+        ],
+        "id": 4065,
+        "location": {
+          "x": -20,
+          "y": 3,
+          "z": 100
+        },
+        "name": "Torch Bulkhead Tunnel"
+      },
+      {
+        "exits": [],
+        "id": 4369,
+        "location": {
+          "x": -10,
+          "y": -3,
+          "z": 102
+        },
+        "name": "Grupo Marte Nuevo - Roof"
+      },
+      {
+        "exits": [
+          {
+            "id": 5079,
+            "isDoor": false,
+            "name": "up",
+            "to": 5078
+          }
+        ],
+        "id": 4430,
+        "location": {
+          "x": -7,
+          "y": 5,
+          "z": 101
+        },
+        "name": "Ruined Voidtown Apartments"
+      },
+      {
+        "exits": [
+          {
+            "id": 4526,
+            "isDoor": false,
+            "name": "down",
+            "to": 550
+          },
+          {
+            "id": 4527,
+            "isDoor": false,
+            "name": "up",
+            "to": 4525
+          }
+        ],
+        "id": 4523,
+        "location": {
+          "x": 0,
+          "y": -3,
+          "z": 101
+        },
+        "name": "Shipfitters and Astronautical Workers - Balcony"
+      },
+      {
+        "exits": [
+          {
+            "id": 4528,
+            "isDoor": false,
+            "name": "down",
+            "to": 4523
+          },
+          {
+            "id": 4530,
+            "isDoor": false,
+            "name": "west",
+            "to": 4529
+          }
+        ],
+        "id": 4525,
+        "location": {
+          "x": 0,
+          "y": -3,
+          "z": 102
+        },
+        "name": "Shipfitters and Astronautical Workers - Repurposed Office"
+      },
+      {
+        "exits": [
+          {
+            "id": 4531,
+            "isDoor": false,
+            "name": "east",
+            "to": 4525
+          },
+          {
+            "id": 4534,
+            "isDoor": false,
+            "name": "west",
+            "to": 4533
+          }
+        ],
+        "id": 4529,
+        "location": {
+          "x": -1,
+          "y": -3,
+          "z": 102
+        },
+        "name": "Bridge Above Aft Terminus"
+      },
+      {
+        "exits": [
+          {
+            "id": 4535,
+            "isDoor": false,
+            "name": "east",
+            "to": 4529
+          }
+        ],
+        "id": 4533,
+        "location": {
+          "x": -2,
+          "y": -3,
+          "z": 102
+        },
+        "name": "Disposal Works - Rooftop"
+      },
+      {
+        "exits": [
+          {
+            "id": 4550,
+            "isDoor": false,
+            "name": "down",
+            "to": 3083
+          }
+        ],
+        "id": 4548,
+        "location": {
+          "x": -10,
+          "y": -4,
+          "z": 101
+        },
+        "name": "Olympic Surplus - Loft"
+      },
+      {
+        "exits": [
+          {
+            "id": 4553,
+            "isDoor": false,
+            "name": "down",
+            "to": 1053
+          }
+        ],
+        "id": 4551,
+        "location": {
+          "x": -8,
+          "y": -3,
+          "z": 101
+        },
+        "name": "Furniture Emporium - Upstairs"
+      },
+      {
+        "exits": [
+          {
+            "id": 4906,
+            "isDoor": false,
+            "name": "west",
+            "to": 711
+          },
+          {
+            "id": 4908,
+            "isDoor": false,
+            "name": "up",
+            "to": 4907
+          }
+        ],
+        "id": 4560,
+        "location": {
+          "x": 0,
+          "y": -5,
+          "z": 100
+        },
+        "name": "Squalid Apartments - Lobby"
+      },
+      {
+        "exits": [
+          {
+            "id": 4909,
+            "isDoor": false,
+            "name": "down",
+            "to": 4560
+          },
+          {
+            "id": 5105,
+            "isDoor": false,
+            "name": "up",
+            "to": 4910
+          }
+        ],
+        "id": 4907,
+        "location": {
+          "x": 0,
+          "y": -5,
+          "z": 101
+        },
+        "name": "Squalid Apartments - Landing"
+      },
+      {
+        "exits": [
+          {
+            "id": 5134,
+            "isDoor": false,
+            "name": "down",
+            "to": 4907
+          }
+        ],
+        "id": 4910,
+        "location": {
+          "x": 0,
+          "y": -5,
+          "z": 102
+        },
+        "name": "Squalid Apartments - Collapsed Floor"
+      },
+      {
+        "exits": [
+          {
+            "id": 5002,
+            "isDoor": false,
+            "name": "south",
+            "to": 933
+          },
+          {
+            "id": 5005,
+            "isDoor": true,
+            "name": "west",
+            "to": 5004
+          }
+        ],
+        "id": 5001,
+        "location": {
+          "x": -4,
+          "y": 6,
+          "z": 100
+        },
+        "name": "Crate Filled Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 5006,
+            "isDoor": true,
+            "name": "east",
+            "to": 5001
+          }
+        ],
+        "id": 5004,
+        "location": {
+          "x": -5,
+          "y": 6,
+          "z": 100
+        },
+        "name": "Vintage Video"
+      },
+      {
+        "exits": [
+          {
+            "id": 5037,
+            "isDoor": false,
+            "name": "south",
+            "to": 467
+          }
+        ],
+        "id": 5034,
+        "location": {
+          "x": -13,
+          "y": 4,
+          "z": 100
+        },
+        "name": "Worker's Quarter - Equinox Station"
+      },
+      {
+        "exits": [
+          {
+            "id": 5060,
+            "isDoor": false,
+            "name": "southeast",
+            "to": 464
+          }
+        ],
+        "id": 5057,
+        "location": {
+          "x": -3,
+          "y": 6,
+          "z": 100
+        },
+        "name": "Astronautical Furnishing Technologies - Shop"
+      },
+      {
+        "exits": [
+          {
+            "id": 5080,
+            "isDoor": false,
+            "name": "down",
+            "to": 4430
+          },
+          {
+            "id": 5082,
+            "isDoor": false,
+            "name": "north",
+            "to": 5081
+          }
+        ],
+        "id": 5078,
+        "location": {
+          "x": -7,
+          "y": 5,
+          "z": 102
+        },
+        "name": "Open-Air Building"
+      },
+      {
+        "exits": [
+          {
+            "id": 5083,
+            "isDoor": false,
+            "name": "south",
+            "to": 5078
+          },
+          {
+            "id": 5085,
+            "isDoor": false,
+            "name": "north",
+            "to": 5084
+          }
+        ],
+        "id": 5081,
+        "location": {
+          "x": -7,
+          "y": 6,
+          "z": 102
+        },
+        "name": "Walkway over Cramped Alley"
+      },
+      {
+        "exits": [
+          {
+            "id": 5086,
+            "isDoor": false,
+            "name": "south",
+            "to": 5081
+          }
+        ],
+        "id": 5084,
+        "location": {
+          "x": -7,
+          "y": 7,
+          "z": 102
+        },
+        "name": "Abandoned Warehouse Overlook"
+      },
+      {
+        "exits": [
+          {
+            "id": 5368,
+            "isDoor": false,
+            "name": "south",
+            "to": 404
+          },
+          {
+            "id": 5369,
+            "isDoor": false,
+            "name": "west",
+            "to": 5367
+          }
+        ],
+        "id": 5364,
+        "location": {
+          "x": -11,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Kardasi Caravanserai - Entryway"
+      },
+      {
+        "exits": [
+          {
+            "id": 5370,
+            "isDoor": false,
+            "name": "east",
+            "to": 5364
+          }
+        ],
+        "id": 5367,
+        "location": {
+          "x": -12,
+          "y": 5,
+          "z": 100
+        },
+        "name": "Kardasi Caravanserai - Courtyard"
+      },
+      {
+        "exits": [
+          {
+            "id": 5379,
+            "isDoor": false,
+            "name": "east",
+            "to": 395
+          }
+        ],
+        "id": 5374,
+        "location": {
+          "x": -13,
+          "y": 1,
+          "z": 100
+        },
+        "name": "Marcellus Barbers"
+      },
+      {
+        "exits": [
+          {
+            "id": 5387,
+            "isDoor": false,
+            "name": "down",
+            "to": 3771
+          }
+        ],
+        "id": 5385,
+        "location": {
+          "x": 1,
+          "y": 2,
+          "z": 101
+        },
+        "name": "Bigg's Backroom"
+      },
+      {
+        "exits": [
+          {
+            "id": 5416,
+            "isDoor": true,
+            "name": "north",
+            "to": 480
+          }
+        ],
+        "id": 5413,
+        "location": {
+          "x": -13,
+          "y": -3,
+          "z": 100
+        },
+        "name": "Worker's Quarter - Msutu Station"
+      },
+      {
+        "exits": [
+          {
+            "id": 5421,
+            "isDoor": false,
+            "name": "south",
+            "to": 380
+          }
+        ],
+        "id": 5420,
+        "location": {
+          "x": -10,
+          "y": -1,
+          "z": 100
+        },
+        "name": "Construction Site"
+      },
+      {
+        "exits": [
+          {
+            "id": 9095,
+            "isDoor": false,
+            "name": "up",
+            "to": 701
+          }
+        ],
+        "id": 9094,
+        "location": {
+          "x": -6,
+          "y": 5,
+          "z": 99
+        },
+        "name": "Sketchy Nook - Cyberware Dungeon"
+      },
+      {
+        "exits": [
+          {
+            "id": 9114,
+            "isDoor": false,
+            "name": "north",
+            "to": 658
+          }
+        ],
+        "id": 9111,
+        "location": {
+          "x": -3,
+          "y": -4,
+          "z": 100
+        },
+        "name": "Disposal Works - Worker Lounge"
+      },
+      {
+        "exits": [
+          {
+            "id": 9384,
+            "isDoor": false,
+            "name": "down",
+            "to": 801
+          }
+        ],
+        "id": 9382,
+        "location": {
+          "x": -9,
+          "y": -5,
+          "z": 101
+        },
+        "name": "Radical Ray's - Microcart Storefront"
+      }
+    ]
+  }

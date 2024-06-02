@@ -5,6 +5,7 @@ import TileComponentType from '../TileComponent';
 import { TileModel } from '../../models/TileModel';
 import { deepClone } from '../../util';
 import ConsoleTile, { ConsoleTileToolbar } from '../tiles/ConsoleTile';
+import MapTile from '../tiles/MapTile';
 
 export interface TileManagerContextProps {
   nodeGraph: MosaicNode<number> | null;
@@ -35,12 +36,21 @@ interface TileManagerProps {
 
 export const TileManagerProvider: React.FC<TileManagerProps> = ({ children }) => {
   const [ nextViewId, setNextViewId ] = useState<number>(1);
-  const [ nodeGraph, setNodeGraph ] = useState<MosaicNode<number> | null>(1);
+  const [ nodeGraph, setNodeGraph ] = useState<MosaicNode<number> | null>({
+    first: 1,
+    second: 2,
+    direction: 'row'
+  });
   const [ viewModels, setViewModels ] = useState<Record<number, TileModel>>({
     1: {
       title: 'Torchship Console', 
       component: ConsoleTile, 
       toolbar: ConsoleTileToolbar, 
+      persistentData: {}
+    },
+    2: {
+      title: 'Torchship Map',
+      component: MapTile,
       persistentData: {}
     }
   });

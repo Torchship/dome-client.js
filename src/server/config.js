@@ -31,8 +31,8 @@ export const config = {
   // where it connects to
   moo: {
     name: "Torchship",
-    host: "mush.pennmush.org",
-    port: 4201,
+    host: "moo.torchship.org",
+    port: 7777,
   },
 
   // specialized autocomplete for each player class
