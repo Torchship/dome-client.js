@@ -1,5 +1,6 @@
 import Exit from "./Exit";
 import Room from "./Room";
+import doorSvgContent from '../../assets/map/door.svg';
 
 export abstract class RenderedElement {
   abstract renderPriority: number;
@@ -168,6 +169,25 @@ export class RenderedExit implements RenderedElement {
     });
     context.closePath();
     context.fill();
+
+    if (this.data[0].isDoor) {
+      const iconSize = 18;
+      const img = new Image();
+      img.src = doorSvgContent;
+
+      // Draw the door icon
+      const centerX = this.points.reduce((acc, point) => acc + point.x, 0) / this.points.length;
+      const centerY = this.points.reduce((acc, point) => acc + point.y, 0) / this.points.length;
+
+      context.fillStyle = 'white';
+      context.fillRect(centerX - (iconSize / 2) - offsetX, centerY - (iconSize / 2) - offsetY, iconSize, iconSize);
+      context.strokeStyle = 'black';
+      context.strokeRect(centerX - (iconSize / 2) - offsetX, centerY - (iconSize / 2) - offsetY, iconSize, iconSize);
+
+      img.onload = () => {
+        context.drawImage(img, centerX - (iconSize / 2) - offsetX, centerY - (iconSize / 2) - offsetY, iconSize, iconSize);
+      };
+    }
   }
 
   minX(): number {
