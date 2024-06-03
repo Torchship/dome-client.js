@@ -7,10 +7,11 @@ interface ButtonProps {
   disabled?: boolean;
   children?: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   color?: 'success' | 'info' | 'error' | 'warning';
 }
 
-const Button: React.FC<ButtonProps> = ({ label, className, children, onClick = undefined, disabled = false, color = 'info' }) => {
+const Button: React.FC<ButtonProps> = ({ label, className, children, style, onClick = undefined, disabled = false, color = 'info' }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,10 +40,13 @@ const Button: React.FC<ButtonProps> = ({ label, className, children, onClick = u
     if (onClick) onClick();
   };
 
-  const buttonColorStyle = {
+  let buttonStyle = {
     '--button-color': `var(--${color}-color)`,
     '--button-hover-color': `var(--${color}-color-dark)`
   } as React.CSSProperties;
+  if (style) {
+    buttonStyle = Object.assign({}, buttonStyle, style);
+  }
 
   return (
     <button 
@@ -50,11 +54,12 @@ const Button: React.FC<ButtonProps> = ({ label, className, children, onClick = u
       className={`material-button ${className}`} 
       onClick={handleClick} 
       disabled={disabled}
-      style={buttonColorStyle}
+      style={buttonStyle}
+      type="button"
       >
-      <span className="ripple-container"></span>
-      {label}
-      {children}
+        {label}
+        {children ? children : null}
+        <span className="ripple-container"></span>
     </button>
   );
 };

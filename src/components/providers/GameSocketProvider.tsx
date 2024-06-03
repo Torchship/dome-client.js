@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useEditorManager, EditorWindowData } from './EditorManagerProvider';
-import { deepClone } from '../../util';
 import TextFragment from '../../parser/TextFragment';
 import AnsiState, { ANSI_NORMAL } from '../../parser/AnsiState';
 import { parse } from '../../parser';
@@ -111,8 +110,7 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
             if (!new_mode.mode) new_mode.mode = match.slice(1)[0];
             else new_mode.params[match.slice(1)[1].trim()] = match.slice(1)[2].trim();
           }
-          mode.current = new_mode;
-          console.log(`OOB Edit Command Received: ${JSON.stringify(new_mode)}`);     
+          mode.current = new_mode; 
           return;
         }
 

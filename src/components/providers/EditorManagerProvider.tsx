@@ -55,7 +55,6 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
 
   const onEditorSave = (editor: EditorWindowData) => {
     editor.saveCommand?.callback(editor);
-    onEditorUnload(editor);
   }
 
   return (
@@ -68,10 +67,10 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
           onBlock={() => onEditorUnload(data)}>
             <div className="editor-container">
               <div className="header">
-                <Button label="Abort" onClick={() => onEditorUnload(data)}/>
+                <Button color="warning" label="Abort" onClick={() => onEditorUnload(data)}/>
                 {
                   data.saveCommand
-                    ? (<Button label={data.saveCommand.label} onClick={() => onEditorSave(data)}/>)
+                    ? (<Button style={{minWidth: `${data.saveCommand.label.length * 1.8}ch`}} color="success" label={data.saveCommand.label} onClick={() => onEditorSave(data)}/>)
                     : null
                 }
               </div>
