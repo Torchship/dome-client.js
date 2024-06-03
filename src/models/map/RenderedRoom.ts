@@ -8,17 +8,17 @@ export class RenderedRoom implements RenderedElement {
   y: number;
   width: number;
   height: number;
+  margin = 12;
 
   constructor(room: Room, gridSize: number) {
     this.data = room;
 
     // Generate display data from room:
-    const MARGIN = 12;
     let [mapX, mapY] = room.location.toCanvas(gridSize);
-    this.x = mapX + MARGIN;
-    this.y = mapY + MARGIN;
-    this.width = gridSize - (MARGIN * 2);
-    this.height = gridSize - (MARGIN * 2);
+    this.x = mapX + this.margin;
+    this.y = mapY + this.margin;
+    this.width = gridSize - (this.margin * 2);
+    this.height = gridSize - (this.margin * 2);
   }
 
   onHover(): string {
