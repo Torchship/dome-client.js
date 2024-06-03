@@ -110,6 +110,11 @@ export const GameSocketProvider: React.FC<GameSocketProviderProps> = ({ children
             if (!new_mode.mode) new_mode.mode = match.slice(1)[0];
             else new_mode.params[match.slice(1)[1].trim()] = match.slice(1)[2].trim();
           }
+          if (new_mode.mode !== 'edit') {
+            console.log(line);
+            console.log(JSON.stringify(new_mode));
+            return;
+          }
           mode.current = new_mode; 
           return;
         }

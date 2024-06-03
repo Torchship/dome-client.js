@@ -54,7 +54,7 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
   };
 
   const onEditorSave = (editor: EditorWindowData) => {
-    editor.saveCommand?.callback(editor);
+    editor.saveCommand?.callback(editor, );
   }
 
   return (
@@ -75,7 +75,7 @@ export const EditorManagerProvider: React.FC<EditorManagerProps> = ({ children }
                 }
               </div>
               <div className="content">
-                <MooEditor content={data.content} />
+                <MooEditor content={data.content} onChange={(newContent) => data.content = newContent} />
               </div>
             </div>            
         </NewWindow>

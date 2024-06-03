@@ -39,7 +39,8 @@ export const TileManagerProvider: React.FC<TileManagerProps> = ({ children }) =>
   const [ nodeGraph, setNodeGraph ] = useState<MosaicNode<number> | null>({
     first: 1,
     second: 2,
-    direction: 'row'
+    direction: 'row',
+    splitPercentage: 80
   });
   const [ viewModels, setViewModels ] = useState<Record<number, TileModel>>({
     1: {

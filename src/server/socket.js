@@ -120,6 +120,10 @@ export const connection = (socket) => {
                 `#$#mcp-negotiate-can ${moo.mcp.key} package: dns-org-mud-moo-simpleedit min-version: 1.0 max-version: 2.0\r\n`,
                 'utf8'
               );
+              moo.write(
+                `#$#mcp-negotiate-can ${moo.mcp.key} package: mcp-torchship min-version: 1.0 max-version: 1.0\r\n`,
+                'utf8'
+              );
               moo.write(`#$#mcp-negotiate-end ${moo.mcp.key}\r\n`, 'utf8');
               // const xForwardedFor = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
               // const clientIp = xForwardedFor.split(',')[0];
