@@ -58,6 +58,58 @@ exports.connection = function (socket) {
   // open a network connection to the moo
   socket.is_active = true;
   socket.game_address = { host: gameHost, port: gamePort };
+  
+  // Buffer configuration - can be overridden via environment variables
+  const bufferConfig = {
+    maxBufferSize: config.socketBuffer?.maxSize || 4096,        // Max buffer size before flushing
+    flushInterval: config.socketBuffer?.flushInterval || 50,    // Flush interval in milliseconds
+  };
+  
+  // Initialize socket buffer for incomplete lines
+  socket.lineBuffer = '';
+  
+  // Function to flush buffered lines to websocket
+  const flushLines = function() {
+    if (socket.lineBuffer.length > 0 && socket.is_active) {
+      // Only send if we have complete lines (ending with newline)
+      if (socket.lineBuffer.endsWith('\n')) {
+        // Remove trailing newline and send
+        const data = socket.lineBuffer.slice(0, -1);
+        if (data.length > 0) {
+          socket.emit("data", data);
+        }
+        socket.lineBuffer = '';
+      }
+    }
+  };
+  
+  // Function to add data to line buffer
+  const addToLineBuffer = function(data) {
+    if (!data || data.length === 0) return;
+    
+    socket.lineBuffer += data;
+    
+    // Check if we have complete lines to send
+    const lastNewlineIndex = socket.lineBuffer.lastIndexOf('\n');
+    if (lastNewlineIndex !== -1) {
+      // We have at least one complete line
+      const completeLines = socket.lineBuffer.substring(0, lastNewlineIndex);
+      const incompleteLine = socket.lineBuffer.substring(lastNewlineIndex + 1);
+      
+      if (completeLines.length > 0 && socket.is_active) {
+        socket.emit("data", completeLines);
+      }
+      socket.lineBuffer = incompleteLine;
+    }
+    
+    // Flush if buffer gets too large (force send even incomplete lines)
+    if (socket.lineBuffer.length >= bufferConfig.maxBufferSize) {
+      if (socket.lineBuffer.length > 0 && socket.is_active) {
+        socket.emit("data", socket.lineBuffer);
+        socket.lineBuffer = '';
+      }
+    }
+  };
 
   const moo = net.connect({ port: gamePort, host: gameHost }, function (err) {
     // tell the other end of the connection that it connected successfully
@@ -145,8 +197,9 @@ exports.connection = function (socket) {
         }
       }
 
+      // Use the line buffering system instead of direct emission
       if (data && socket.is_active) {
-        socket.emit("data", data);
+        addToLineBuffer(data);
       }
     } catch (e) {
       logger.error("exception caught when receiving data from the moo", e);
@@ -155,6 +208,8 @@ exports.connection = function (socket) {
 
   moo.on("end", function () {
     logger.debug("moo connect sent end");
+    // Flush any remaining buffered lines before disconnecting
+    flushLines();
     if (socket.is_active) {
       logger.debug("socket is active, sending disconnect and marking inactive");
       socket.is_active = false;
@@ -180,6 +235,8 @@ exports.connection = function (socket) {
 
 
   socket.on("disconnecting", function (reason) {
+    // Flush any remaining buffered lines before disconnecting
+    flushLines();
     if (socket.is_active) {
       moo.write( '@quit' + "\n", "utf8", function() {
         moo.end();

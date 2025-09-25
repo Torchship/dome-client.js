@@ -41,4 +41,10 @@ module.exports = {
     minor: "2",
     // build is pulled from git hash
   },
+
+  // Socket buffer configuration for better data handling
+  socketBuffer: {
+    maxSize: 4096,        // Maximum buffer size before flushing (bytes)
+    flushInterval: 50,    // Flush interval in milliseconds (unused in line buffer mode)
+  },
 };

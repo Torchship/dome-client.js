@@ -99,6 +99,16 @@ DOME_VERSION_MINOR=2
 DOME_VERSION_BUILD=abc123
 ```
 
+### Socket Buffer Configuration
+```bash
+# Maximum buffer size before flushing (bytes)
+# Only complete lines are sent, but if buffer gets too large, incomplete lines are sent
+DOME_SOCKETBUFFER_MAXSIZE=4096
+
+# Flush interval in milliseconds (currently unused in line buffer mode)
+DOME_SOCKETBUFFER_FLUSHINTERVAL=50
+```
+
 ## Data Type Conversion
 
 The system automatically converts environment variable values to appropriate types:
@@ -148,6 +158,18 @@ ENV DOME_NODE_MODE=production
 ENV DOME_NODE_PORT=5000
 ENV DOME_MOO_HOST=game-server
 ENV DOME_MOO_PORT=8888
+```
+
+### Socket Buffer Optimization
+```bash
+# High-performance buffering (larger buffers, waits for complete lines)
+DOME_SOCKETBUFFER_MAXSIZE=8192
+
+# Low-latency buffering (smaller buffers, forces flush sooner if needed)
+DOME_SOCKETBUFFER_MAXSIZE=1024
+
+# Note: The buffer only sends complete lines terminated by newlines.
+# If the buffer gets too large, incomplete lines are sent to prevent overflow.
 ```
 
 ## Debugging
