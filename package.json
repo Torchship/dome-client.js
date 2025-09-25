@@ -2,19 +2,29 @@
   "name": "dome-client.js",
   "version": "1.0.0",
   "private": false,
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "scripts": {
     "start": "node client-app"
   },
   "dependencies": {
-    "express": "3.0.0rc4",
-    "ejs": "~0.8.3",
+    "async": "~0.1.22",
+    "ejs": "~3.1.6",
+    "ejs-locals": "~1.0.2",
+    "express": "3.0.0",
+    "express-responsive": "~0.1.0",
     "less": "1.3.3",
     "less-middleware": "0.1.9",
-    "async": "~0.1.22",
-    "underscore": "~1.4.2",
-    "ejs-locals": "~0.2.5",
-    "socket.io": "~0.9.11",
-    "version-git": "0.0.2",
-    "express-responsive": "~0.1.0"
+    "socket.io": "~4.5.1",
+    "underscore": "~1.13.4",
+    "version-git": "0.0.2"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "prettier": "2.7.1",
+    "pretty-quick": "^3.1.3"
   }
 }

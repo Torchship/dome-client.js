@@ -1,28 +1,50 @@
 <% req.bodyClass = 'client'; %>
 <% layout('./shells/master') -%>
 <div id="browser-client">
-  <div id="lineBuffer" class="standardText"></div>
-  <textarea id="inputBuffer" rows="4" cols="50"></textarea>
-  <div id="status"></div>
+  <div id="lineBuffer" class="standardText" aria-live="polite"></div>
+  <textarea data-lpignore="true" id="inputBuffer" rows="4" cols="50" spellcheck="true"></textarea>
+  <!-- <div id="status"> -->
+    <!-- <i id="perf-buffer-flag" class="hide glyphicon glyphicon-warning-sign" title="Unlimited Scrollback"></i>
+    <a href="http://status.sindome.org/" target="_blank"><span id="gameHealth" class="hidden-xs"><i class="warning-sign warning-sign-warn"></i><i class="globe globe-warn"></i></span></a><span id="statusMsg"></span>
+    <div id="gameHealthDetail"></div> -->
+  <!-- </div> -->
 </div>
+<div id="accessory-panel" class="sidepanel"></div>
 <div id="disconnect-overlay" class="hide"></div>
 <div id="scroll-overlay" class="hide"></div>
 <div class="container disconnect-buttons hide">
-  <button id="button-save" class="btn btn-large btn-primary">Save Session as HTML Log</button>
-  <button id="button-reconnect" class="btn btn-large btn-primary">Reconnect Now</button>
-  <button id="button-closeall" class="btn btn-small btn-primary">Close All Windows</button>
+  <button id="button-save" class="btn btn-lg btn-primary">Save Session as HTML Log</button>
+  <button id="button-reconnect" class="btn btn-lg btn-primary">Reconnect Now</button>
+  <button id="button-closeall" class="btn btn-sm btn-primary">Close All Windows</button>
   <form id="save-form" action="/save/" method="POST" target="download-frame">
     <input type="hidden" name="buffer" value="">
   </form>
 </div>
 <iframe style="display: none" name="download-frame" id="download-frame"></iframe>
 <div class="mini-controls">
-	<button id="button-auto-scroll" class="btn btn-primary btn-mini" href="#autoscroll" title="pause/unpause automatic scrolling">PAUSE SCROLL</button>
-	<button id="button-save-mini" class="btn btn-primary btn-mini" href="#savelog" title="save session as an HTML log file">LOG</button>
-	<button id="button-clear-buffer" class="btn btn-primary btn-mini" href="clearbuffer" title="clear the output buffer.">CLEAR BUFFER</button>
+  <button id="button-clear-buffer" class="btn btn-primary btn-xs pull-right" href="clearbuffer" title="clear the output buffer."><span class="hidden-xs">CLEAR BUFFER</span>
+  </button>
+  <button id="button-auto-scroll" class="btn btn-primary btn-xs pull-right" href="#autoscroll" title="pause/unpause automatic scrolling"><span class="hidden-xs">PAUSE SCROLL</span>
+  </button>
+  <button id="button-save-mini" class="btn btn-primary btn-xs pull-right" href="#savelog" title="save session as an HTML log file"><span class="hidden-xs">LOG</span>
+  </button>
+  <button id="button-local-echo" class="btn btn-primary btn-xs pull-right" href="#echo" title="toggle local echo of input commands"><span class="hidden-xs">ECHO</span>
+  </button>
+  <!-- <button id="button-local-panel" class="btn btn-primary btn-xs pull-right" href="#sidepanel" title="toggle the side panel" onclick="toggleSidebar()"><span class="hidden-xs">PANEL</span>
+  </button> -->
 </div>
 <script src="/js/client-options.js"></script>
 <script language="JavaScript">
 	clientOptions['deviceType'] = '<%=req.device%>';
+
+    /* Set the width of the sidebar to 250px (show it) */
+  function toggleSidebar() {
+    if (document.getElementById("browser-client").style.gridTemplateColumns != '1fr 0px') {
+      document.getElementById("browser-client").style.gridTemplateColumns = '1fr 0px';  
+    } else {
+      document.getElementById("browser-client").style.gridTemplateColumns = '1fr ' + 250 + 'px';
+    }
+  }
 </script>
+<script src="/js/constants.js"></script>
 <script src="/js/player-client.js"></script>

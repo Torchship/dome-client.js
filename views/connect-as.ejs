@@ -1,6 +1,6 @@
 <% layout('./shells/master') -%>
 <div class="moo-login-page">
-  <h1>Play Now</h1>
+  <h1>Torchship</h1>
   <div class="tabbed-panel">
     <%if (connectAnywhere) { %>
     <div id="address_panel" class="tab-panel">
@@ -33,7 +33,7 @@
           </button>
           <ul class="dropdown-menu">
             <li class="divider"></li>
-            <li data-command="newChar" class="command">Add Character</li>
+            <li data-command="newChar" class="command">Create Character</li>
             <li data-command="purgeAll" class="command">Forget All</li>
           </ul>
         </div>
@@ -63,7 +63,7 @@
   <%
     }
   %>
-  <div class="version"><span><a href="https://github.com/JavaChilly/dome-client.js">dome-client.js</a> v<%=version%>p</span>, <span>&copy; <a href="https://www.sindome.org/">The Sindome Corporation</a> 1997-2018</span></div>
+  <div class="version"><span><a href="https://github.com/Torchship/dome-client.js">Torchship/dome-client.js</a> v<%=version%>p</span>, <span>&copy; <a href="https://www.torchship.org/">Torchship</a> 2022</span></div>
 </spandiv>
 <script src="<%=decache('/js/client-options.js')%>"></script>
 <script src="<%=decache('/js/client-connect.js')%>"></script>
