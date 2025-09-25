@@ -135,46 +135,6 @@ BODY.ide-window {
     }
   }
 
-  .map-viewport {
-    position: absolute;
-    top: 2.5rem;
-    right: 50%;
-    bottom: 0;
-    left: 0;
-    background-color: #181818;
-
-    .area-title {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      height: 2.5rem;
-    }
-
-    .room-title {
-      position: absolute;
-      top: 2.5rem;
-      right: 0;
-      left: 0;
-      height: 2.5rem;
-    }
-
-    .gameCanvas {
-      position: absolute;
-      top: 5rem;
-      right: 0;
-      left: 0;
-      bottom: 0;
-    }
-  }
-
-  .map-editor {
-    top: 2.5rem;
-    right: 0;
-    bottom: 0;
-    left: 50%;
-  }
-
   .verb-editor {
     position: absolute;
     top: 2.5rem;
@@ -383,7 +343,6 @@ BODY.ide-window {
   }
 }
 
-.moo-login-page,
 .client-options-page {
   margin-top: 50px;
   .version {
@@ -470,13 +429,6 @@ BODY.ide-window {
     float: left;
     height: 250px;
     width: 45%;
-    &.connect-as-group {
-      padding-left: 40px;
-      padding-top: 75px;
-      H2 {
-        text-shadow: 1px 1px 0 #000;
-      }
-    }
 
     .btn-xlarge {
       padding: 11px 14px;
@@ -484,59 +436,6 @@ BODY.ide-window {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px;
-    }
-    .moo-login-box {
-      margin-left: 40px;
-      width: 220px;
-      label {
-        text-shadow: 1px 1px 0 #000;
-      }
-      #connect_as {
-        cursor: pointer;
-      }
-      .client-options {
-        color: black;
-        width: 50%;
-      }
-      .relative-group {
-        position: relative;
-        #secure-toggle,
-        .glyph-unlocked,
-        .glyph-locked {
-          position: absolute;
-          right: -40px;
-          top: 1px;
-          left: auto;
-          cursor: pointer;
-        }
-      }
-      DIV#user-picker {
-        margin-bottom: 10px;
-        UL.dropdown-menu {
-          background-color: #171717;
-          border: 1px solid #000;
-          padding: 0;
-          .box-shadow(5px 5px 5px rgba(0,0,0,0.5));
-          .divider {
-            background-color: #000;
-            border-bottom: 1px solid #666;
-            margin: 0;
-            padding: 0;
-          }
-          LI {
-            margin-right: 0;
-            padding: 4px;
-            color: #08c;
-            cursor: pointer;
-            &:hover,
-            &:focus {
-              color: lighten(#066, 10%);
-              /* background-color: RGBA(0,0,0,0.6); */
-              #gradient > .vertical(#000, darken(#111, 5%));;
-            }
-          }
-        }
-      }
     }
   }
   .centered {

@@ -3,25 +3,6 @@ var logger = require("../lib/logger"),
   fs = require("fs");
 
 var exports = module.exports;
-exports.connect = function (req, res) {
-  try {
-    res.render("connect-as", {
-      connectAnywhere: config.node.connectAnywhere,
-      mooHostname: config.moo.host,
-      mooPort: config.moo.port,
-      meta: {
-        title: "Connect - Mud/Moo Client",
-        description:
-          "Connect to our game using its state of the art web-based game Client. No flash, no plugins, just a modern browser. Play with your iPad or check in from the company computer. There's nothing to install.",
-        keywords:
-          "moo-client, dome-client.js, mud client, telnet client, modern gaming client, text-based game, websocket-telnet",
-      },
-    });
-  } catch (e) {
-    logger.debug("exception caught:");
-    logger.debug(e);
-  }
-};
 
 exports.options = function (req, res) {
   res.render("client-options", {

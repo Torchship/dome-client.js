@@ -840,8 +840,6 @@ dome.setupEditorSupport = function() {
       if (editor.uploadCommand) {
           if (editor.uploadCommand.indexOf("@program") != -1) {
             type = "verb";
-          } else if (editor.uploadCommand.indexOf("@map") != -1) {
-            type = "map";
           } else {
             type = "basic";
           }

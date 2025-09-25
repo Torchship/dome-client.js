@@ -16,7 +16,7 @@ You are free to use that public client as much as you want! In fact, it's the de
 
 ### Run a public client that connects to any game OR a private client that connects only to yours
 
-It's really straight forward, just set the connectAnywhere option to true or false in the configuration! You can let your dome-client connect to any game, or you can lock it in to your own.
+The dome-client connects directly to your configured game without requiring a login screen.
 
 ### No Software Required For Your Players
 
@@ -65,16 +65,6 @@ Our Webclient isn't just built for players. We manage our game [Sindome](https:/
 - The MOO section controls where the client will connect. (this isn't designed to connect to a bunch of different games yet)
 
 4. Start the server in debug mode: `./debug.sh`
-
-## Public / Private Dome Client
-
-If you want your dome client to connect to ONLY your game, you should open default.js and edit the 'connectAnywhere' line to be:
-
-```
-'connectAnywhere': false,
-```
-
-If you're fine with users connecting with your dome-client to anywhere, just leave that option as it is.
 
 ## Local Modal Editing
 
