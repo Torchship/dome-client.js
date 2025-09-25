@@ -81,7 +81,7 @@ exports.connection = function (socket) {
   moo.on("data", function (data) {
     try {
       data = data.toString();
-      // Normalize line endings: convert \r\n to \n
+      // Normalize line endings: convert \r\n to \n, but preserve existing \n
       data = data.replace(/\r\n/g, '\n');
       if (!moo.mcp.handshake) {
         lines = data.split("\n");
