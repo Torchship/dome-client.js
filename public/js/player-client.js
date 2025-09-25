@@ -577,8 +577,8 @@ dome.setupOutputParser = function() {
   dome.parseSocketData = function(segment) {
       var ts = new Date();
       if (editor.readingContent) {
-          var terminalMarker = segment.lastIndexOf(`\n.\r`);
-          if (terminalMarker != -1 || (terminalMarker = segment.indexOf(".\r\n")) == 0) {
+          var terminalMarker = segment.lastIndexOf(`\n.\n`);
+          if (terminalMarker != -1 || (terminalMarker = segment.indexOf(".\n")) == 0) {
               editor.buffer += segment.substr(0, terminalMarker);
               var spawned = dome.makeEditor(editor);
               if (spawned) {
@@ -586,7 +586,7 @@ dome.setupOutputParser = function() {
                   dome.updateEditorListView();
               }
               editorInit();
-              segment = segment.substr(terminalMarker + 4);
+              segment = segment.substr(terminalMarker + 3);
           } else {
               editor.buffer += segment;
               segment = "";
@@ -595,7 +595,7 @@ dome.setupOutputParser = function() {
       }
       var meta = -1;
       if ((meta = segment.indexOf("#$#")) == 0 || (meta = segment.indexOf("\n#$#")) > 0) {
-          var end = segment.indexOf("\r\n", meta);
+          var end = segment.indexOf("\n", meta);
           var metaCommand = segment.substr(meta, end - meta);
           var a = metaCommand.split(" upload: ");
           var uploadCommand = a[a.length - 1];
@@ -604,7 +604,7 @@ dome.setupOutputParser = function() {
           metaCommand = a[0].substr(meta == 0 ? 4 : 5);
           if (metaCommand == "edit") {
               editorInit();
-              var terminalMarker = segment.indexOf("\n.\r", end);
+              var terminalMarker = segment.indexOf("\n.\n", end);
               if (terminalMarker != -1) {
                   dome.spawned[editorName] = dome.makeEditor({
                       editorName: editorName,
@@ -847,7 +847,7 @@ dome.setupEditorSupport = function() {
       if (editor["type"]) {
           type = editor["type"];
       }
-      editor.buffer = editor.buffer.replace(/^\n/, "").replace(/[\r\n]+$/, "");
+      editor.buffer = editor.buffer.replace(/^\n/, "").replace(/\n+$/, "");
       var editorURL = "/editor/" + type + "/?et=" + dome.preferences.edittheme + "&ts=" + new Date().getTime();
       if (editWindow != null && _.has(editWindow, "updateEditor")) {
           editWindow.updateEditor(editor.buffer);

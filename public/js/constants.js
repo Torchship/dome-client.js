@@ -1,1 +1,1 @@
-const NEW_LINE = /\r\n/g;
+const NEW_LINE = /\n/g;

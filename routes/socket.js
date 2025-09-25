@@ -81,8 +81,10 @@ exports.connection = function (socket) {
   moo.on("data", function (data) {
     try {
       data = data.toString();
+      // Normalize line endings: convert \r\n to \n
+      data = data.replace(/\r\n/g, '\n');
       if (!moo.mcp.handshake) {
-        lines = data.split("\r\n");
+        lines = data.split("\n");
         data = "";
         for (var i = 0; i < lines.length; i++) {
           const mcpRegex =
@@ -91,7 +93,7 @@ exports.connection = function (socket) {
           if (!mcpMatch) {
             // only pass non-MCP details on to client.
             if (lines[i]) {
-              data += lines[i] + "\r\n";
+              data += lines[i] + "\n";
             }
             continue;
           }
@@ -103,7 +105,7 @@ exports.connection = function (socket) {
           if (mcpMatch.groups.oob == "version") {
             moo.mcp.version = mcpArgs[mcpArgs.length];
             moo.write(
-              `#$#mcp authentication-key: ${moo.mcp.key} version: 1.0 to: 2.1\r\n`,
+              `#$#mcp authentication-key: ${moo.mcp.key} version: 1.0 to: 2.1\n`,
               "utf8"
             );
             continue;
@@ -124,18 +126,18 @@ exports.connection = function (socket) {
               // we've completed our handshake.
               moo.mcp.handshake = true;
               moo.write(
-                `#$#mcp-negotiate-can ${moo.mcp.key} package: mcp-forward min-version: 1.0 max-version: 1.0\r\n`,
+                `#$#mcp-negotiate-can ${moo.mcp.key} package: mcp-forward min-version: 1.0 max-version: 1.0\n`,
                 "utf8"
               );
               moo.write(
-                `#$#mcp-negotiate-can ${moo.mcp.key} package: dns-org-mud-moo-simpleedit min-version: 1.0 max-version: 2.0\r\n`,
+                `#$#mcp-negotiate-can ${moo.mcp.key} package: dns-org-mud-moo-simpleedit min-version: 1.0 max-version: 2.0\n`,
                 "utf8"
               );
-              moo.write(`#$#mcp-negotiate-end ${moo.mcp.key}\r\n`, "utf8");
+              moo.write(`#$#mcp-negotiate-end ${moo.mcp.key}\n`, "utf8");
               const xForwardedFor = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
               const clientIp = xForwardedFor.split(',')[0];  // Take the left-most IP address
               moo.write(
-                `#$#mcp-forward-host ${moo.mcp.key} address: ${clientIp}\r\n`,
+                `#$#mcp-forward-host ${moo.mcp.key} address: ${clientIp}\n`,
                 "utf8"
               );
               break;
@@ -179,7 +181,7 @@ exports.connection = function (socket) {
 
   socket.on("disconnecting", function (reason) {
     if (socket.is_active) {
-      moo.write( '@quit' + "\r\n", "utf8", function() {
+      moo.write( '@quit' + "\n", "utf8", function() {
         moo.end();
       });
     }
@@ -196,7 +198,7 @@ exports.connection = function (socket) {
     } else {
       // write the command to the moo and finish with a line break
       try {
-        moo.write(command + "\r\n", "utf8", function () {
+        moo.write(command + "\n", "utf8", function () {
           // we emit a status event back to the browser to confirm we've done our job
           socket.emit("status", "sent " + command.length + " characters");
           if (command == "@quit") {

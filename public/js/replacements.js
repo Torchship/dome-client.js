@@ -265,7 +265,7 @@ var xterm256_colors = [
 
 var subs = [
   // ansi color substitutions
-  { type: "ansi", pattern: /\r\n/g, replacement: "\n" },
+  { type: "ansi", pattern: /\n/g, replacement: "\n" },
   { type: "ansi", pattern: /\</g, replacement: "&lt;" },
   { type: "ansi", pattern: /\>/g, replacement: "&gt;" },
   {
