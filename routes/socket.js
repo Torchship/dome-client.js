@@ -92,7 +92,7 @@ exports.connection = function (socket) {
           const mcpMatch = lines[i].match(mcpRegex);
           if (!mcpMatch) {
             // only pass non-MCP details on to client.
-            if (lines[i]) {
+            if (lines[i] !== undefined) {
               data += lines[i] + "\n";
             }
             continue;
